@@ -1,6 +1,8 @@
 # encoding: UTF-8
 
 require 'optparse'
+require 'opts/opt_base'
+require 'opts/opt_integer'
 
 class CustomOptionParser < OptionParser
 
@@ -90,59 +92,4 @@ class CustomOptionParser < OptionParser
       raise "Could not find the option name for #{option}"
     end
   end
-end
-
-class OptBase
-
-  attr_accessor :required
-  attr_reader   :option
-
-  # @param [ Array ] option See OptionParser#on
-  # @param [ Hash ] attrs
-  # @option attrs [ Boolean ] :require
-  def initialize(option, attrs = {})
-    @option = option
-    required = attrs[:required] || false
-  end
-
-  # @return [ Boolean ]
-  def required?
-    required
-  end
-
-  # @param [ String ] value
-  def validate(value)
-    if value.nil? || value.to_s.empty?
-      raise 'Empty option value supplied'
-    end
-    value
-  end
-end
-
-class OptInteger < OptBase
-  def validate(value)
-    if value.to_i.to_s != value
-      raise "#{value} is not an integer"
-    end
-    value.to_i
-  end
-end
-
-begin
-
-  option_parser = CustomOptionParser.new
-
-  option_parser.add_opt(
-    OptBase.new(['-u', '--url URL', 'the target URL']),
-  )
-  option_parser.add_opt(
-    OptInteger.new(['-t', '--threads MAX_THREADS'])
-  )
-
-  p option_parser.results
-
-rescue => e
-  puts e.message
-  puts
-  puts option_parser
 end
