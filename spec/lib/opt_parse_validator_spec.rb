@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe CustomOptionParser do
+describe OptParseValidator do
 
-  let(:parser) { CustomOptionParser.new }
+  let(:parser) { OptParseValidator.new }
 
   describe '#new' do
 
