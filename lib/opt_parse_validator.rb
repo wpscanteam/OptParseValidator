@@ -4,64 +4,45 @@ require 'optparse'
 require 'opts/opt_base'
 require 'opts/opt_integer'
 
-class CustomOptionParser < OptionParser
+class OptParseValidator < OptionParser
 
-  attr_reader :symbols_used
+  attr_reader :symbols_used, :required_opts
 
   def initialize(banner = nil, width = 32, indent = ' ' * 4)
-    @results = {}
-    @symbols_used = []
+    @results       = {}
+    @symbols_used  = []
+    @required_opts = []
+
     super(banner, width, indent)
   end
 
-
-  # param Array(Array) or Array options
+  # @param [ Array<OptBase>, OptBase ] options
+  #
+  # @return [ void ]
   def add(options)
     if options.is_a?(Array)
-      if options[0].is_a?(Array)
-        options.each do |option|
-          add_option(option)
-        end
-      else
-        add_option(options)
-      end
+      options.each { |option| add_option(option) }
+    elsif options.is_a?(OptBase)
+      add_option(options)
     else
-      raise "Options must be at least an Array, or an Array(Array). #{options.class} supplied"
+      raise "Options must be an Array<OptBase> or an OptBase, #{options.class} supplied"
     end
   end
 
-  # param Array option
-  def add_option(option)
-    if option.is_a?(Array)
-      option_symbol = CustomOptionParser::option_to_symbol(option)
-
-      if !@symbols_used.include?(option_symbol)
-        @symbols_used << option_symbol
-
-        self.on(*option) do |arg|
-          @results[option_symbol] = arg
-        end
-      else
-        raise "The option #{option_symbol} is already used !"
-      end
-    else
-      raise "The option must be an array, #{option.class} supplied : '#{option}'"
-    end
-  end
-
-  def add_opt(opt)
+  # @param [ OptBase ] opt
+  #
+  # @return [ void ]
+  def add_option(opt)
     if opt.is_a?(OptBase)
-      option     = opt.option
-      opt_symbol = CustomOptionParser::option_to_symbol(option)
+      if !@symbols_used.include?(opt.symbol)
+        @symbols_used  << opt.symbol
+        @required_opts << opt if opt.required?
 
-      if !@symbols_used.include?(opt_symbol)
-        @symbols_used << opt_symbol
-
-        self.on(*option) do |arg|
-          @results[opt_symbol] = opt.validate(arg)
+        self.on(*opt.option) do |arg|
+          @results[opt.symbol] = opt.validate(arg)
         end
       else
-        raise "The option #{option_symbol} is already used !"
+        raise "The option #{opt.symbol} is already used !"
       end
     end
   end
@@ -70,26 +51,12 @@ class CustomOptionParser < OptionParser
   def results(argv = default_argv)
     self.parse!(argv) if @results.empty?
 
+    required_opts.each do |opt|
+      unless @results.has_key?(opt.symbol)
+        raise "The option #{opt.symbol} is required"
+      end
+    end
     @results
   end
 
-  protected
-  # param Array option
-  def self.option_to_symbol(option)
-    option_name = nil
-
-    option.each do |option_attr|
-      if option_attr =~ /^--/
-        option_name = option_attr
-        break
-      end
-    end
-
-    if option_name
-      option_name = option_name.gsub(/^--/, '').gsub(/-/, '_').gsub(/ .*$/, '')
-      :"#{option_name}"
-    else
-      raise "Could not find the option name for #{option}"
-    end
-  end
 end

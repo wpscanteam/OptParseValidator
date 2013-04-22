@@ -3,9 +3,7 @@
 class OptInteger < OptBase
 
   def validate(value)
-    if value.to_i.to_s != value
-      raise "#{value} is not an integer"
-    end
+    raise "#{value} is not an integer" if value.to_i.to_s != value
     value.to_i
   end
 
