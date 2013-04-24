@@ -44,10 +44,12 @@ class OptParseValidator < OptionParser
       else
         raise "The option #{opt.symbol} is already used !"
       end
+    else
+      raise "The option is not an OptBase, #{opt.class} supplied"
     end
   end
 
-  # return Hash
+  # @return [ Hash ]
   def results(argv = default_argv)
     self.parse!(argv) if @results.empty?
 

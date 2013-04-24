@@ -4,83 +4,127 @@ require 'spec_helper'
 
 describe OptParseValidator do
 
-  let(:parser) { OptParseValidator.new }
+  subject(:parser) { OptParseValidator.new }
+  let(:verbose_opt) { OptBase.new(['-v', '--verbose']) }
+  let(:url_opt)     { OptBase.new(['-u', '--url URL'], required: true) }
 
   describe '#new' do
 
   end
 
   describe '#add_option' do
-    context 'exception throwing if' do
-      after :each do
+    after do
+      if @exception
         expect { parser.add_option(@option) }.to raise_error(@exception)
-      end
-
-      it 'argument passed is not an Array' do
-        @option = 'a simple String'
-        @exception = "The option must be an array, String supplied : 'a simple String'"
-      end
-
-      it 'option name is already used' do
-        @option = ['-v', '--verbose', 'Verbose mode']
+      else
         parser.add_option(@option)
+        parser.symbols_used.should == @expected_symbols
+
+        if @expected_required_opts
+          parser.required_opts.should == @expected_required_opts
+        end
+      end
+    end
+
+    context 'when not an OptBase' do
+      it 'raises an error' do
+        @option    = 'just a string'
+        @exception = 'The option is not an OptBase, String supplied'
+      end
+    end
+
+    context 'when the option symbol is already used' do
+      it 'raises an error' do
+        @option    = verbose_opt
         @exception = 'The option verbose is already used !'
+        parser.add_option(@option)
       end
     end
 
-    it 'should have had 2 symbols (:verbose, :url) to @symbols_used' do
-      parser.add_option(['-v', '--verbose'])
-      parser.add_option(['--url TARGET_URL'])
+    context 'when a valid option' do
+      let(:option) { OptBase.new(['-u', '--url URL']) }
 
-      parser.symbols_used.sort.should === [:url, :verbose]
-    end
-
-    context 'parsing' do
-      before :each do
-        parser.add_option(['-u', '--url TARGET_URL', 'Set the target url'])
+      it 'sets the option' do
+        @option = option
+        @expected_symbols = [:url]
       end
 
-      it 'should raise an error if an unknown option is supplied' do
-        expect { parser.parse!(['--verbose']) }.to raise_error(OptionParser::InvalidOption)
-      end
-
-      it 'should raise an error if an option require an argument which is not supplied' do
-        expect { parser.parse!(['--url']) }.to raise_error(OptionParser::MissingArgument)
-      end
-
-      it 'should retrieve the correct argument' do
-        parser.parse!(['-u', 'iam_the_target'])
-        parser.results.should === { url: 'iam_the_target' }
+      context 'when the option is required' do
+        it 'adds it to the @required_opts' do
+          @option                 = url_opt
+          @expected_symbols       = [:url]
+          @expected_required_opts = [@option]
+        end
       end
     end
   end
 
   describe '#add' do
-    it 'should raise an error if the argument is not an Array or Array(Array)' do
-      expect { parser.add('Hello') }.to raise_error('Options must be at least an Array, or an Array(Array). String supplied')
-    end
+    context 'when not an Array<OptBase> or an OptBase' do
+      after do
+        unless @exception
+          @exception = 'Options must be an Array<OptBase> or an OptBase, ' +
+                       "#{@options.class} supplied"
+        end
+        expect { parser.add(@options) }.to raise_error(@exception)
+      end
 
-    before :each do
-      parser.add(['-u', '--url TARGET_URL'])
-    end
+      it 'raises an error when a string' do
+        @options = 'a string'
+      end
 
-    context 'single option' do
-      it 'should add the :url option, and retrieve the correct argument' do
-        parser.symbols_used.should === [:url]
-        parser.results(['-u', 'target.com']).should === { url: 'target.com' }
+      it 'raises an error when an Array<String>' do
+        @options   = ['string', 'another one']
+        @exception = 'The option is not an OptBase, String supplied'
       end
     end
 
-    context 'multiple options' do
-      it 'should add 2 options, and retrieve the correct arguments' do
-        parser.add([
-          ['-v', '--verbose'],
-          ['--test [TEST_NUMBER]']
-        ])
+    context 'when valid' do
+      after do
+        parser.add(@options)
+        parser.symbols_used.should == @expected_symbols
 
-        parser.symbols_used.sort.should === [:test, :url, :verbose]
-        parser.results(['-u', 'wp.com', '-v', '--test']).should === { test: nil, url: 'wp.com', verbose: true }
+        if @expected_required_opts
+          parser.required_opts.should == @expected_required_opts
+        end
       end
+
+      it 'adds the options' do
+        @options                = [verbose_opt, url_opt]
+        @expected_symbols       = [:verbose, :url]
+        @expected_required_opts = [url_opt]
+      end
+
+      it 'adds the option' do
+        @options          = verbose_opt
+        @expected_symbols = [:verbose]
+      end
+    end
+  end
+
+  describe '#results' do
+    after do
+      parser.add(options)
+
+      if @expected
+        parser.results(@argv).should == @expected
+      else
+        expect { parser.results(@argv) }.to raise_error(@exception)
+      end
+    end
+
+    let(:options) { [verbose_opt, url_opt] }
+
+    context 'when an option is required but not supplied' do
+      it 'raises an error' do
+        @exception = 'The option url is required'
+        @argv      = ['-v']
+      end
+    end
+
+    it 'returns the results' do
+      @argv = ['--url', 'hello.com', '-v']
+      @expected = { url: 'hello.com', verbose: true }
     end
   end
 
