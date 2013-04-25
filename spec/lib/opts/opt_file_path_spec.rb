@@ -11,13 +11,16 @@ describe OptFilePath do
     context 'when the file does not exist' do
       it 'raises an error' do
         File.stub(:exists?).with(file).and_return(false)
-        expect { opt.validate(file) }.to raise_error("The file #{file} does not exist")
+
+        expect { opt.validate(file) }.
+          to raise_error("The file #{file} does not exist")
       end
     end
 
     context 'when it exists' do
       it 'returns the file path' do
         File.stub(:exists?).with(file).and_return(true)
+
         opt.validate(file).should === file
       end
     end

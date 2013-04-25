@@ -8,7 +8,8 @@ describe OptBoolean do
   describe '#validate' do
     context 'when does not match TRUE_PATTERN and FALSE_PATTERN' do
       it 'raises an error' do
-        expect { opt.validate('a') }.to raise_error('Invalid boolean value, expected true|t|yes|y|1|false|f|no|n|0')
+        expect { opt.validate('a') }.
+          to raise_error('Invalid boolean value, expected true|t|yes|y|1|false|f|no|n|0')
       end
     end
 

@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe OptBase do
   subject(:opt) { OptBase.new(option, attrs) }
-  let(:option) { ['-v', '--verbose'] }
-  let(:attrs)  { {} }
+  let(:option)  { ['-v', '--verbose'] }
+  let(:attrs)   { {} }
 
   describe '::find_symbol' do
     after :each do
@@ -31,7 +31,7 @@ describe OptBase do
 
       context 'without short option' do
         it 'returns :long' do
-          @option   = ['--long', "The method should find the option name ('long')"]
+          @option   = ['--long']
           @expected = :long
         end
 
@@ -43,18 +43,18 @@ describe OptBase do
 
       context 'without long option' do
         it 'raises an arror' do
-          @option    = ['-v', 'The long option is missing there']
-          @exception = 'Could not find the option symbol for ["-v", "The long option is missing there"]'
+          @option    = ['-v', 'long option missing']
+          @exception = 'Could not find option symbol for ["-v", "long option missing"]'
         end
 
         it 'raises an error' do
-          @option    = ['The long option is missing there']
-          @exception = 'Could not find the option symbol for ["The long option is missing there"]'
+          @option    = ['long option missing']
+          @exception = 'Could not find option symbol for ["long option missing"]'
         end
       end
 
       context 'with multiple long option names (like alias)' do
-        it 'returns :check_long and not :cl' do
+        it 'returns the first long option found' do
           @option   = ['--check-long', '--cl']
           @expected = :check_long
         end
@@ -100,7 +100,8 @@ describe OptBase do
     context 'when an empty or nil value' do
       it 'raises an error' do
         [nil, ''].each do |value|
-          expect { opt.validate(value) }.to raise_error('Empty option value supplied')
+          expect { opt.validate(value) }.
+            to raise_error('Empty option value supplied')
         end
       end
     end

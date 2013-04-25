@@ -43,7 +43,7 @@ class OptBase
       end
     end
 
-    raise "Could not find the option symbol for #{option}"
+    raise "Could not find option symbol for #{option}"
   end
 
 end
