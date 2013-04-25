@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 describe OptFilePath do
+
   subject(:opt) { OptFilePath.new(['-f', '--file FILE']) }
-  let(:file) { 'a-simple-file-path' }
+  let(:file)    { 'a-simple-file-path' }
 
   describe '#validate' do
     context 'when the file does not exist' do

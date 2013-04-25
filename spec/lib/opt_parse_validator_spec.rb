@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptParseValidator do
 
-  subject(:parser) { OptParseValidator.new }
+  subject(:parser)  { OptParseValidator.new }
   let(:verbose_opt) { OptBase.new(['-v', '--verbose']) }
   let(:url_opt)     { OptBase.new(['-u', '--url URL'], required: true) }
 
@@ -14,7 +14,7 @@ describe OptParseValidator do
         expect { parser.add_option(@option) }.to raise_error(@exception)
       else
         parser.add_option(@option)
-        parser.symbols_used.should == @expected_symbols
+        parser.symbols_used.should === @expected_symbols
 
         if @expected_required_opts
           parser.required_opts.should == @expected_required_opts
@@ -68,7 +68,7 @@ describe OptParseValidator do
     context 'when valid' do
       after do
         parser.add(*@options)
-        parser.symbols_used.should == @expected_symbols
+        parser.symbols_used.should === @expected_symbols
 
         if @expected_required_opts
           parser.required_opts.should == @expected_required_opts

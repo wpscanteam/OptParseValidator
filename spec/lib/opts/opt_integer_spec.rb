@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 describe OptInteger do
+
   subject(:opt) { OptInteger.new(['-i', '--int INT']) }
 
   describe '#validate' do
