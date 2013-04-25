@@ -8,10 +8,6 @@ describe OptParseValidator do
   let(:verbose_opt) { OptBase.new(['-v', '--verbose']) }
   let(:url_opt)     { OptBase.new(['-u', '--url URL'], required: true) }
 
-  describe '#new' do
-
-  end
-
   describe '#add_option' do
     after do
       if @exception
@@ -61,17 +57,7 @@ describe OptParseValidator do
 
   describe '#add' do
     context 'when not an Array<OptBase> or an OptBase' do
-      after do
-        unless @exception
-          @exception = 'Options must be an Array<OptBase> or an OptBase, ' +
-                       "#{@options.class} supplied"
-        end
-        expect { parser.add(@options) }.to raise_error(@exception)
-      end
-
-      it 'raises an error when a string' do
-        @options = 'a string'
-      end
+      after { expect { parser.add(*@options) }.to raise_error(@exception) }
 
       it 'raises an error when an Array<String>' do
         @options   = ['string', 'another one']
@@ -81,7 +67,7 @@ describe OptParseValidator do
 
     context 'when valid' do
       after do
-        parser.add(@options)
+        parser.add(*@options)
         parser.symbols_used.should == @expected_symbols
 
         if @expected_required_opts
@@ -104,7 +90,7 @@ describe OptParseValidator do
 
   describe '#results' do
     after do
-      parser.add(options)
+      parser.add(*options)
 
       if @expected
         parser.results(@argv).should == @expected

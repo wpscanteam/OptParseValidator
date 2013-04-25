@@ -1,8 +1,10 @@
 # encoding: UTF-8
 
 require 'optparse'
-require 'opts/opt_base'
-require 'opts/opt_integer'
+
+%w{base string integer}.each do |suffix|
+  require 'opts/opt_' + suffix
+end
 
 class OptParseValidator < OptionParser
 
@@ -16,17 +18,11 @@ class OptParseValidator < OptionParser
     super(banner, width, indent)
   end
 
-  # @param [ Array<OptBase>, OptBase ] options
+  # @param [ OptBase ] options
   #
   # @return [ void ]
-  def add(options)
-    if options.is_a?(Array)
-      options.each { |option| add_option(option) }
-    elsif options.is_a?(OptBase)
-      add_option(options)
-    else
-      raise "Options must be an Array<OptBase> or an OptBase, #{options.class} supplied"
-    end
+  def add(*options)
+    options.each { |option| add_option(option) }
   end
 
   # @param [ OptBase ] opt
