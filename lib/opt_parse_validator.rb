@@ -2,7 +2,7 @@
 
 require 'optparse'
 
-%w{base string integer file_path directory_path}.each do |suffix|
+%w{base string integer file_path directory_path boolean}.each do |suffix|
   require 'opts/opt_' + suffix
 end
 
