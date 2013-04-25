@@ -33,7 +33,11 @@ class OptBase
   def self.find_symbol(option)
     option.each do |option_attr|
       if option_attr =~ /^--/
-        symbol = option_attr.gsub(/^--/, '').gsub(/-/, '_').gsub(/ .*$/, '')
+        # TODO : find a cleaner way to do this
+        symbol = option_attr.gsub(/\[[^\]]+\]/, '').
+                             gsub(/^--/, '').
+                             gsub(/-/, '_').
+                             gsub(/ .*$/, '')
 
         return symbol.to_sym
       end

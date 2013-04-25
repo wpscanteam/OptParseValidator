@@ -23,7 +23,7 @@ describe OptBase do
           @expected = :test
         end
 
-        it 'should :its_a_long_option' do
+        it 'returns :its_a_long_option' do
           @option   = ['-l', '--its-a-long-option', "Testing '-' replacement"]
           @expected = :its_a_long_option
         end
@@ -58,6 +58,13 @@ describe OptBase do
           @option   = ['--check-long', '--cl']
           @expected = :check_long
         end
+      end
+    end
+
+    context 'when negative prefix name' do
+      it 'returns the positive option symbol' do
+        @option   = ['-v', '--[no-]verbose']
+        @expected = :verbose
       end
     end
 
