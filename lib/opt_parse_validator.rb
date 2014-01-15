@@ -51,12 +51,21 @@ class OptParseValidator < OptionParser
   def results(argv = default_argv)
     self.parse!(argv) if @results.empty?
 
+    post_processing
+    
+    @results
+  end
+
+  # Ensure that all required options are supplied
+  # Should be overriden to modify the behavior
+  #
+  # @return [ Void ]
+  def post_processing
     required_opts.each do |opt|
       unless @results.has_key?(opt.symbol)
         raise "The option #{opt.symbol} is required"
       end
     end
-    @results
   end
 
 end
