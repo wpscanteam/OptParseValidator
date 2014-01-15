@@ -14,7 +14,7 @@ describe OptInteger do
     end
 
     it 'returns the integer' do
-      opt.validate('12').should === 12
+      opt.validate('12').should eq(12)
     end
   end
 

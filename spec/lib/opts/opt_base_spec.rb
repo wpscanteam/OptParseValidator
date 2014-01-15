@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptBase do
   subject(:opt) { OptBase.new(option, attrs) }
-  let(:option)  { ['-v', '--verbose'] }
+  let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
   describe '::find_symbol' do
@@ -12,14 +12,14 @@ describe OptBase do
       if @exception
         expect { OptBase.find_symbol(@option) }.to raise_error(@exception)
       else
-        OptBase.find_symbol(@option).should === @expected
+        OptBase.find_symbol(@option).should eq(@expected)
       end
     end
 
     context 'without REQUIRED or OPTIONAL arguments' do
       context 'with short option' do
         it 'returns :test' do
-          @option   = ['-t', '--test', 'Testing']
+          @option   = %w(-t --test Testing)
           @expected = :test
         end
 
@@ -42,7 +42,7 @@ describe OptBase do
       end
 
       context 'without long option' do
-        it 'raises an arror' do
+        it 'raises an error' do
           @option    = ['-v', 'long option missing']
           @exception = 'Could not find option symbol for ["-v", "long option missing"]'
         end
@@ -55,7 +55,7 @@ describe OptBase do
 
       context 'with multiple long option names (like alias)' do
         it 'returns the first long option found' do
-          @option   = ['--check-long', '--cl']
+          @option   = %w(--check-long --cl)
           @expected = :check_long
         end
       end
@@ -83,9 +83,9 @@ describe OptBase do
 
   describe '#new, #required?' do
     context 'when no :required' do
-      its(:option)    { should === option }
+      its(:option)    { should eq(option) }
       its(:required?) { should be_false }
-      its(:symbol)    { should === :verbose }
+      its(:symbol)    { should eq(:verbose) }
     end
 
     context 'when :required' do
@@ -100,15 +100,15 @@ describe OptBase do
     context 'when an empty or nil value' do
       it 'raises an error' do
         [nil, ''].each do |value|
-          expect { opt.validate(value) }.
-            to raise_error('Empty option value supplied')
+          expect { opt.validate(value) }
+            .to raise_error('Empty option value supplied')
         end
       end
     end
 
     context 'when a valid value' do
       it 'returns it' do
-        opt.validate('testing').should == 'testing'
+        opt.validate('testing').should eq('testing')
       end
     end
   end

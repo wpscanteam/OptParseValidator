@@ -1,10 +1,13 @@
 # encoding: UTF-8
 
-class OptInteger < OptBase
+# Implementation of the Integer Option
 
+class OptInteger < OptBase
+  # @param [ String ] value
+  #
+  # @return [ Integer ]
   def validate(value)
-    raise "#{value} is not an integer" if value.to_i.to_s != value
+    fail "#{value} is not an integer" if value.to_i.to_s != value
     value.to_i
   end
-
 end

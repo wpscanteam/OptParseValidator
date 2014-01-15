@@ -12,8 +12,8 @@ describe OptDirectoryPath do
       it 'raises an error' do
         Dir.stub(:exists?).with(dir).and_return(false)
 
-        expect { opt.validate(dir) }.
-          to raise_error("The directory #{dir} does not exist")
+        expect { opt.validate(dir) }
+          .to raise_error("The directory #{dir} does not exist")
       end
     end
 
@@ -21,7 +21,7 @@ describe OptDirectoryPath do
       it 'returns the directory path' do
         Dir.stub(:exists?).with(dir).and_return(true)
 
-        opt.validate(dir).should === dir
+        opt.validate(dir).should eq(dir)
       end
     end
   end

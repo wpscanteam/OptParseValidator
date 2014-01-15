@@ -8,8 +8,9 @@ require 'optparse'
   require 'opts/opt_' + suffix
 end
 
-class OptParseValidator < OptionParser
+# Validator
 
+class OptParseValidator < OptionParser
   attr_reader :symbols_used, :required_opts
 
   def initialize(banner = nil, width = 32, indent = ' ' * 4)
@@ -36,14 +37,14 @@ class OptParseValidator < OptionParser
         @symbols_used  << opt.symbol
         @required_opts << opt if opt.required?
 
-        self.on(*opt.option) do |arg|
+        on(*opt.option) do |arg|
           @results[opt.symbol] = opt.validate(arg)
         end
       else
-        raise "The option #{opt.symbol} is already used !"
+        fail "The option #{opt.symbol} is already used !"
       end
     else
-      raise "The option is not an OptBase, #{opt.class} supplied"
+      fail "The option is not an OptBase, #{opt.class} supplied"
     end
   end
 
@@ -52,7 +53,7 @@ class OptParseValidator < OptionParser
     self.parse!(argv) if @results.empty?
 
     post_processing
-    
+
     @results
   end
 
@@ -62,10 +63,9 @@ class OptParseValidator < OptionParser
   # @return [ Void ]
   def post_processing
     required_opts.each do |opt|
-      unless @results.has_key?(opt.symbol)
-        raise "The option #{opt.symbol} is required"
+      unless @results.key?(opt.symbol)
+        fail "The option #{opt.symbol} is required"
       end
     end
   end
-
 end

@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
-class OptBase
+# Base Option
+# This Option should not be called, use its children.
 
+class OptBase
   attr_accessor :required
   attr_reader   :option, :symbol
 
@@ -21,7 +23,7 @@ class OptBase
 
   # @param [ String ] value
   def validate(value)
-    raise 'Empty option value supplied' if value.nil? || value.to_s.empty?
+    fail 'Empty option value supplied' if value.nil? || value.to_s.empty?
     value
   end
 
@@ -34,16 +36,15 @@ class OptBase
     option.each do |option_attr|
       if option_attr =~ /^--/
         # TODO : find a cleaner way to do this
-        symbol = option_attr.gsub(/\[[^\]]+\]/, '').
-                             gsub(/^--/, '').
-                             gsub(/-/, '_').
-                             gsub(/ .*$/, '')
+        symbol = option_attr.gsub(/\[[^\]]+\]/, '')
+                            .gsub(/^--/, '')
+                            .gsub(/-/, '_')
+                            .gsub(/ .*$/, '')
 
         return symbol.to_sym
       end
     end
 
-    raise "Could not find option symbol for #{option}"
+    fail "Could not find option symbol for #{option}"
   end
-
 end
