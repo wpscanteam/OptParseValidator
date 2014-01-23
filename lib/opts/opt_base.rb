@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 # Base Option
-# This Option should not be called, use its children.
+# This Option should not be called, children should be used.
 
 class OptBase
   attr_accessor :required
