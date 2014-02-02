@@ -3,4 +3,4 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
 require 'opt_parse_validator'
-require 'simplecov' if RUBY_VERSION >= '1.9'
+require 'simplecov'
