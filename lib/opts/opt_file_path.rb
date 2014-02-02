@@ -2,7 +2,6 @@
 
 # Implementation of the FilePath Option
 # The file must exist
-
 class OptFilePath < OptBase
   # @param [ String ] value
   #

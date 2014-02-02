@@ -2,7 +2,6 @@
 
 # Base Option
 # This Option should not be called, children should be used.
-
 class OptBase
   attr_accessor :required
   attr_reader   :option, :symbol

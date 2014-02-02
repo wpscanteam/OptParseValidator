@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 # Implementation of the Integer Option
-
 class OptInteger < OptBase
   # @param [ String ] value
   #

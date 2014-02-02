@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "override_me": "I should be overriden"
+}

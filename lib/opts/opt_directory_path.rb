@@ -2,7 +2,6 @@
 
 # Implemetantion of the DirectoryPath Option
 # The directory must exist
-
 class OptDirectoryPath < OptBase
   # @param [ String ] value
   #

@@ -1,20 +1,18 @@
-# encoding: UTF-8
-
 require 'optparse'
+require 'opt_parse_validator/options_file'
 
 %w{base string integer boolean file_path directory_path }.each do |suffix|
   require 'opts/opt_' + suffix
 end
 
 # Validator
-
 class OptParseValidator < OptionParser
-  attr_reader :symbols_used, :required_opts
+  attr_reader :symbols_used, :opts
 
   def initialize(banner = nil, width = 32, indent = ' ' * 4)
-    @results       = {}
-    @symbols_used  = []
-    @required_opts = []
+    @results      = {}
+    @symbols_used = []
+    @opts         = []
 
     super(banner, width, indent)
   end
@@ -32,8 +30,8 @@ class OptParseValidator < OptionParser
   def add_option(opt)
     if opt.is_a?(OptBase)
       if !@symbols_used.include?(opt.symbol)
-        @symbols_used  << opt.symbol
-        @required_opts << opt if opt.required?
+        @opts         << opt
+        @symbols_used << opt.symbol
 
         on(*opt.option) do |arg|
           @results[opt.symbol] = opt.validate(arg)
@@ -48,8 +46,10 @@ class OptParseValidator < OptionParser
 
   # @return [ Hash ]
   def results(argv = default_argv)
-    self.parse!(argv) if @results.empty?
+    @results ||= {}
 
+    load_files
+    self.parse!(argv)
     post_processing
 
     @results
@@ -60,8 +60,8 @@ class OptParseValidator < OptionParser
   #
   # @return [ Void ]
   def post_processing
-    required_opts.each do |opt|
-      unless @results.key?(opt.symbol)
+    @opts.each do |opt|
+      if opt.required? && !@results.key?(opt.symbol)
         fail "The option #{opt.symbol} is required"
       end
     end

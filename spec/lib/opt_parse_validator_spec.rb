@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 
 describe OptParseValidator do
@@ -15,10 +13,6 @@ describe OptParseValidator do
       else
         parser.add_option(@option)
         parser.symbols_used.should eq(@expected_symbols)
-
-        if @expected_required_opts
-          parser.required_opts.should eq(@expected_required_opts)
-        end
       end
     end
 
@@ -44,14 +38,6 @@ describe OptParseValidator do
         @option           = option
         @expected_symbols = [:url]
       end
-
-      context 'when the option is required' do
-        it 'adds it to the @required_opts' do
-          @option                 = url_opt
-          @expected_symbols       = [:url]
-          @expected_required_opts = [@option]
-        end
-      end
     end
   end
 
@@ -69,16 +55,11 @@ describe OptParseValidator do
       after do
         parser.add(*@options)
         parser.symbols_used.should eq(@expected_symbols)
-
-        if @expected_required_opts
-          parser.required_opts.should eq(@expected_required_opts)
-        end
       end
 
       it 'adds the options' do
-        @options                = [verbose_opt, url_opt]
-        @expected_symbols       = [:verbose, :url]
-        @expected_required_opts = [url_opt]
+        @options          = [verbose_opt, url_opt]
+        @expected_symbols = [:verbose, :url]
       end
 
       it 'adds the option' do
@@ -109,7 +90,7 @@ describe OptParseValidator do
     end
 
     it 'returns the results' do
-      @argv = ['--url', 'hello.com', '-v']
+      @argv     = ['--url', 'hello.com', '-v']
       @expected = { url: 'hello.com', verbose: true }
     end
   end
