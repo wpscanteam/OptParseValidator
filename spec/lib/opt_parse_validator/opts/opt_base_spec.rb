@@ -2,17 +2,17 @@
 
 require 'spec_helper'
 
-describe OptBase do
-  subject(:opt) { OptBase.new(option, attrs) }
+describe OptParseValidator::OptBase do
+  subject(:opt) { OptParseValidator::OptBase.new(option, attrs) }
   let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
   describe '::find_symbol' do
     after :each do
       if @exception
-        expect { OptBase.find_symbol(@option) }.to raise_error(@exception)
+        expect { OptParseValidator::OptBase.find_symbol(@option) }.to raise_error(@exception)
       else
-        OptBase.find_symbol(@option).should eq(@expected)
+        OptParseValidator::OptBase.find_symbol(@option).should eq(@expected)
       end
     end
 

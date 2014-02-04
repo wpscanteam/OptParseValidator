@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe OptInteger do
+describe OptParseValidator::OptInteger do
 
-  subject(:opt) { OptInteger.new(['-i', '--int INT']) }
+  subject(:opt) { OptParseValidator::OptInteger.new(['-i', '--int INT']) }
 
   describe '#validate' do
     context 'when not an integer' do

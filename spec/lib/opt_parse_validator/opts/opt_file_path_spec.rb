@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe OptFilePath do
+describe OptParseValidator::OptFilePath do
 
-  subject(:opt) { OptFilePath.new(['-f', '--file FILE']) }
+  subject(:opt) { OptParseValidator::OptFilePath.new(['-f', '--file FILE']) }
   let(:file)    { 'a-simple-file-path' }
 
   describe '#validate' do

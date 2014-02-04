@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.platform      = Gem::Platform::RUBY
   spec.authors       = ['WPScanTeam - Erwan le Rousseau']
   spec.email         = ["erwan.lr@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Testing Gem}
+  spec.description   = %q{Testing Gem ...}
   spec.homepage      = "https://github.com/wpscanteam/OptParseValidator"
   spec.license       = "MIT"
 

@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe OptBoolean do
-  subject(:opt) { OptBoolean.new(['-b', '--bool BOOL']) }
+describe OptParseValidator::OptBoolean do
+  subject(:opt) { OptParseValidator::OptBoolean.new(['-b', '--bool BOOL']) }
 
   describe '#validate' do
     context 'when does not match TRUE_PATTERN and FALSE_PATTERN' do

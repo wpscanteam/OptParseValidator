@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe OptDirectoryPath do
+describe OptParseValidator::OptDirectoryPath do
 
-  subject(:opt) { OptDirectoryPath.new(['-d', '--dir DIR']) }
+  subject(:opt) { OptParseValidator::OptDirectoryPath.new(['-d', '--dir DIR']) }
   let(:dir)     { 'a-simple-directory-path' }
 
   describe '#validate' do

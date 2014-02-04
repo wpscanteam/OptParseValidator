@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe OptParseValidator do
+describe OptParseValidator::OptParser do
 
-  subject(:parser)    { OptParseValidator.new }
+  subject(:parser)    { OptParseValidator::OptParser.new }
   let(:fixtures)      { File.join(FIXTURES, 'options_file') }
   let(:default_file)  { File.join(fixtures, 'default.json') }
   let(:override_file) { File.join(fixtures, 'override.yml') }
@@ -41,7 +41,7 @@ describe OptParseValidator do
     end
 
     context 'otherwise' do
-      let(:opts) { [OptBoolean.new(%w{-v --verbose}), OptString.new(['--override-me VALUE'])] }
+      let(:opts) { [OptParseValidator::OptBoolean.new(%w{-v --verbose}), OptParseValidator::OptString.new(['--override-me VALUE'])] }
 
       let(:expected) { { verbose: true, override_me: 'Yeaa!' } }
 

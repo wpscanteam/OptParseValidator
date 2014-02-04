@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe OptParseValidator do
+describe OptParseValidator::OptParser do
 
-  subject(:parser)  { OptParseValidator.new }
-  let(:verbose_opt) { OptBase.new(%w(-v --verbose)) }
-  let(:url_opt)     { OptBase.new(['-u', '--url URL'], required: true) }
+  subject(:parser)  { OptParseValidator::OptParser.new }
+  let(:verbose_opt) { OptParseValidator::OptBase.new(%w(-v --verbose)) }
+  let(:url_opt)     { OptParseValidator::OptBase.new(['-u', '--url URL'], required: true) }
 
   describe '#add_option' do
     after do
@@ -32,7 +32,7 @@ describe OptParseValidator do
     end
 
     context 'when a valid option' do
-      let(:option) { OptBase.new(['-u', '--url URL']) }
+      let(:option) { OptParseValidator::OptBase.new(['-u', '--url URL']) }
 
       it 'sets the option' do
         @option           = option
