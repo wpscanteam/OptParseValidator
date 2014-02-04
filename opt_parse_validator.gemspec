@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'opt_parse_validator'
-  s.version = '1.0'
+  s.version = '0.0.1'
   s.platform = Gem::Platform::RUBY
   s.authors = ['WPScanTeam - Erwan le Rousseau']
   s.email = ['erwan.lr@gmail.com']
