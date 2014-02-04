@@ -1,9 +1,7 @@
 require 'optparse'
+#require 'opt_parse_validator/version'
 require 'opt_parse_validator/options_file'
-
-%w{base string integer boolean file_path directory_path }.each do |suffix|
-  require 'opts/opt_' + suffix
-end
+require 'opts'
 
 # Validator
 class OptParseValidator < OptionParser
