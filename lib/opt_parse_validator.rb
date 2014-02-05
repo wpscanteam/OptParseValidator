@@ -4,6 +4,7 @@ require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'
 require 'opt_parse_validator/options_file'
 
+# Gem namespace
 module OptParseValidator
 # Validator
   class OptParser < OptionParser
