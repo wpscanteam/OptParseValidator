@@ -1,3 +1,6 @@
+
+# encoding: utf-8
+
 module OptParseValidator
   # Implementation of the Integer Option
   class OptInteger < OptBase

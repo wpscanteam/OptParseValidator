@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 module OptParseValidator
   # Implemetantion of the DirectoryPath Option

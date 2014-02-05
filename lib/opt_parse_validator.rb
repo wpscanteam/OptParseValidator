@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'optparse'
 
 require 'opt_parse_validator/opts'

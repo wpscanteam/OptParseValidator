@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 module OptParseValidator
   # Implementation of the Boolean Option
