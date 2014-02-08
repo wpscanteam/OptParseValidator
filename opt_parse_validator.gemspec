@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.test_files            = s.files.grep(%r{^(test|s|features)/})
   s.require_paths         = ['lib']
 
+  s.add_dependency 'addressable', '~> 2.3.5'
+
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.14'
   s.add_development_dependency 'bundler', '~> 1.5'
