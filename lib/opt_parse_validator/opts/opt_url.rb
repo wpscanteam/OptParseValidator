@@ -14,8 +14,8 @@ module OptParseValidator
     def validate(value)
       uri = Addressable::URI.parse(value)
 
-      if !allowed_protocols.include?(uri.scheme)
-        raise Addressable::URI::InvalidURIError
+      unless allowed_protocols.include?(uri.scheme)
+        fail Addressable::URI::InvalidURIError
       end
 
       uri.to_s
