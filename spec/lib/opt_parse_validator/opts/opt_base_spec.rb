@@ -63,7 +63,7 @@ describe OptParseValidator::OptBase do
 
     context 'when negative prefix name' do
       it 'returns the positive option symbol' do
-        @option   = ['-v', '--[no-]verbose']
+        @option   = %w(-v --[no-]verbose)
         @expected = :verbose
       end
     end

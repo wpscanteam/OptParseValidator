@@ -92,7 +92,7 @@ describe OptParseValidator::OptParser do
     end
 
     it 'returns the results' do
-      @argv     = ['--url', 'hello.com', '-v']
+      @argv     = %w(--url hello.com -v)
       @expected = { url: 'hello.com', verbose: true }
     end
   end
