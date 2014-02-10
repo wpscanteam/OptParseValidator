@@ -93,7 +93,6 @@ describe OptParseValidator::OptBase do
 
       its(:required?) { should be_true }
     end
-
   end
 
   describe '#validate' do
