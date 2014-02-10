@@ -52,7 +52,7 @@ describe OptParseValidator::OptParser do
         parser.add_potential_options_file(override_file)
         parser.add(*opts)
 
-        parser.results.should eq(expected)
+        parser.results([]).should eq(expected)
       end
     end
 
