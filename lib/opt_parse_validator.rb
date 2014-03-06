@@ -51,7 +51,7 @@ module OptParseValidator
     def results(argv = default_argv)
       @results ||= {}
 
-      load_files
+      load_options_files
       self.parse!(argv)
       post_processing
 
