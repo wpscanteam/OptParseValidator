@@ -21,8 +21,8 @@ module OptParseValidator
       @opts.each do |opt|
         # Annoying thing: the hash returned from parse_file is a string-full {"key"=>"value"}
         # and not a ruby hash {key: value} :/ As a result, symbol.to_s has to be used
-        if files_data.key?(opt.symbol.to_s)
-          @results[opt.symbol] = opt.validate(files_data[opt.symbol.to_s])
+        if files_data.key?(opt.to_sym.to_s)
+          @results[opt.to_sym] = opt.validate(files_data[opt.to_sym.to_s])
         end
       end
     end

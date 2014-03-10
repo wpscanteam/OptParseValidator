@@ -7,12 +7,12 @@ describe OptParseValidator::OptBase do
   let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
-  describe '::find_symbol' do
+  describe '#to_sym' do
     after :each do
       if @exception
-        expect { OptParseValidator::OptBase.find_symbol(@option) }.to raise_error(@exception)
+        expect { OptParseValidator::OptBase.new(@option).to_sym }.to raise_error(@exception)
       else
-        OptParseValidator::OptBase.find_symbol(@option).should eq(@expected)
+        OptParseValidator::OptBase.new(@option).to_sym.should eq(@expected)
       end
     end
 
@@ -85,7 +85,7 @@ describe OptParseValidator::OptBase do
     context 'when no :required' do
       its(:option)    { should eq(option) }
       its(:required?) { should be_false }
-      its(:symbol)    { should eq(:verbose) }
+      its(:to_sym)    { should eq(:verbose) }
     end
 
     context 'when :required' do

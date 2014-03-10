@@ -1,7 +1,8 @@
 # encoding: utf-8
 
+# Standard Libs
 require 'optparse'
-
+# Custom Libs
 require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'
 require 'opt_parse_validator/options_file'
@@ -32,15 +33,15 @@ module OptParseValidator
     # @return [ void ]
     def add_option(opt)
       if opt.is_a?(OptBase)
-        if !@symbols_used.include?(opt.symbol)
+        if !@symbols_used.include?(opt.to_sym)
           @opts         << opt
-          @symbols_used << opt.symbol
+          @symbols_used << opt.to_sym
 
           on(*opt.option) do |arg|
-            @results[opt.symbol] = opt.validate(arg)
+            @results[opt.to_sym] = opt.validate(arg)
           end
         else
-          fail "The option #{opt.symbol} is already used !"
+          fail "The option #{opt.to_sym} is already used !"
         end
       else
         fail "The option is not an OptBase, #{opt.class} supplied"
@@ -64,8 +65,8 @@ module OptParseValidator
     # @return [ Void ]
     def post_processing
       @opts.each do |opt|
-        if opt.required? && !@results.key?(opt.symbol)
-          fail "The option #{opt.symbol} is required"
+        if opt.required? && !@results.key?(opt.to_sym)
+          fail "The option #{opt.to_sym} is required"
         end
       end
     end
