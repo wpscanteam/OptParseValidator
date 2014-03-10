@@ -5,28 +5,10 @@ require 'addressable/uri'
 module OptParseValidator
   # Implementation of the URI Option
   class OptURI < OptBase
-    attr_reader :allowed_protocols
-
-    # @see OptBase#new
-    def initialize(option, attrs = {})
-      self.allowed_protocols = attrs[:protocols] || []
-      super(option, attrs)
+    def allowed_protocols
+      @allowed_protocols ||= [*attrs[:protocols]] || []
     end
 
-    # @param [ Array ] protocols
-    #
-    # @return [ Void ]
-    def allowed_protocols=(protocols)
-      if protocols.is_a?(Array)
-        @allowed_protocols = protocols
-      else
-        fail "Protocols must be an Array, #{protocols.class} given"
-      end
-    end
-
-    # Idea: return the uri instead of the string (url) ?
-    # But that would force devs to use Addressable
-    #
     # @param [ String ] value
     #
     # @return [ String ]

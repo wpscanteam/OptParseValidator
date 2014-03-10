@@ -12,16 +12,19 @@ describe OptParseValidator::OptURI do
       its(:allowed_protocols) { should be_empty }
     end
 
-    context 'when allowed_option is not an array' do
-      it 'raises an error' do
-        expect { opt.allowed_protocols = 'invalid' }.to raise_error('Protocols must be an Array, String given')
+    context 'when only one protocol supplied' do
+      let(:attrs) { { protocols: 'http' } }
+
+      it 'sets it' do
+        opt.allowed_protocols << 'ftp'
+        opt.allowed_protocols.should eq(%w{http ftp})
       end
     end
 
-    context 'when allowed_protocols is valid' do
+    context 'when multiple protocols are given' do
       let(:attrs) { { protocols: %w{ftp https} } }
 
-      it 'sets it' do
+      it 'sets them' do
         opt.allowed_protocols.should eq(attrs[:protocols])
       end
     end
