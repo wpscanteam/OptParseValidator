@@ -24,7 +24,7 @@ describe OptParseValidator::OptParser do
     end
 
     context 'otherwise' do
-      let(:opts) { [OptParseValidator::OptBoolean.new(%w{-v --verbose}), OptParseValidator::OptString.new(['--override-me VALUE'])] }
+      let(:opts) { [OptParseValidator::OptBoolean.new(%w(-v --verbose)), OptParseValidator::OptString.new(['--override-me VALUE'])] }
 
       let(:expected) { { verbose: true, override_me: 'Yeaa!' } }
 

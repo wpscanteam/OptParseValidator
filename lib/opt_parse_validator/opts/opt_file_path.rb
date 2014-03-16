@@ -8,7 +8,7 @@ module OptParseValidator
     #
     # @return [ String ] The path to the file
     def validate(value)
-      fail "The file #{value} does not exist" unless File.exists?(value)
+      fail "The file #{value} does not exist" unless File.exist?(value)
       value
     end
   end

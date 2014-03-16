@@ -8,7 +8,7 @@ module OptParseValidator
     #
     # @return [ String ] The path to the directory
     def validate(value)
-      fail "The directory #{value} does not exist" unless Dir.exists?(value)
+      fail "The directory #{value} does not exist" unless Dir.exist?(value)
       value
     end
   end

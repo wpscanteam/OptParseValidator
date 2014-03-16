@@ -10,7 +10,7 @@ describe OptParseValidator::OptFilePath do
   describe '#validate' do
     context 'when the file does not exist' do
       it 'raises an error' do
-        File.stub(:exists?).with(file).and_return(false)
+        File.stub(:exist?).with(file).and_return(false)
 
         expect { opt.validate(file) }
           .to raise_error("The file #{file} does not exist")
@@ -19,7 +19,7 @@ describe OptParseValidator::OptFilePath do
 
     context 'when it exists' do
       it 'returns the file path' do
-        File.stub(:exists?).with(file).and_return(true)
+        File.stub(:exist?).with(file).and_return(true)
 
         opt.validate(file).should eq(file)
       end

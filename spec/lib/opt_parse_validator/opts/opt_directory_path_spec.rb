@@ -10,7 +10,7 @@ describe OptParseValidator::OptDirectoryPath do
   describe '#validate' do
     context 'when the directory does not exist' do
       it 'raises an error' do
-        Dir.stub(:exists?).with(dir).and_return(false)
+        Dir.stub(:exist?).with(dir).and_return(false)
 
         expect { opt.validate(dir) }
           .to raise_error("The directory #{dir} does not exist")
@@ -19,7 +19,7 @@ describe OptParseValidator::OptDirectoryPath do
 
     context 'when it exists' do
       it 'returns the directory path' do
-        Dir.stub(:exists?).with(dir).and_return(true)
+        Dir.stub(:exist?).with(dir).and_return(true)
 
         opt.validate(dir).should eq(dir)
       end
