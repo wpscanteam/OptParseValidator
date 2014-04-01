@@ -7,7 +7,7 @@ describe OptParseValidator::OptFilePath do
   subject(:opt)  { described_class.new(['-f', '--file FILE_PATH'], attrs) }
   let(:attrs)    { {} }
   let(:rwx_file) { File.join(FIXTURES, 'rwx.txt') }
-  let(:nr_file)  { File.join(FIXTURES, 'no_rights.txt') }
+  let(:r_file)  { File.join(FIXTURES, 'r.txt') }
 
   its(:attrs)    { should eq file: true }
 
@@ -36,24 +36,26 @@ describe OptParseValidator::OptFilePath do
       end
 
       it 'raises an error if not ' do
-        expect { opt.validate(nr_file) }.to raise_error "'#{nr_file}' is not executable"
+        expect { opt.validate(r_file) }.to raise_error "'#{r_file}' is not executable"
       end
     end
 
     context 'when :readable' do
-      let(:attrs) { { readable: true } }
+      let(:attrs) { { readable: true, exists: false } }
 
       it 'returns the path if the file is +r' do
         expect(opt.validate(rwx_file)).to eq rwx_file
       end
 
       it 'raises an error otherwise' do
-        expect { opt.validate(nr_file) }.to raise_error "'#{nr_file}' is not readable"
+        file = File.join(FIXTURES, 'yolo.txt')
+
+        expect { opt.validate(file) }.to raise_error "'#{file}' is not readable"
       end
     end
 
     context 'when :writable' do
-      let(:attrs) { { writable: true } }
+      let(:attrs) { { writable: true, exists: false } }
 
       context 'when the path exists' do
         it 'returns the path if the path is +x' do
@@ -61,13 +63,11 @@ describe OptParseValidator::OptFilePath do
         end
 
         it 'raises an error otherwise' do
-          expect { opt.validate(nr_file) }.to raise_error "'#{nr_file}' is not writable"
+          expect { opt.validate(r_file) }.to raise_error "'#{r_file}' is not writable"
         end
       end
 
       context 'when it does not exist' do
-        let(:attrs) { { writable: true, exists: false } }
-
         context 'when the parent directory is +w' do
           let(:file) { File.join(FIXTURES, 'options_file', 'not_there.txt') }
 
