@@ -6,7 +6,7 @@ module OptParseValidator
   # Implementation of the URI Option
   class OptURI < OptBase
     def allowed_protocols
-      @allowed_protocols ||= [*attrs[:protocols]] || []
+      @allowed_protocols ||= [*attrs[:protocols]]
     end
 
     # @param [ String ] value
