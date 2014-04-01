@@ -55,9 +55,9 @@ describe OptParseValidator::OptFilePath do
     end
 
     context 'when :writable' do
-      let(:attrs) { { writable: true, exists: false } }
-
       context 'when the path exists' do
+        let(:attrs) { { writable: true } }
+
         it 'returns the path if the path is +x' do
           expect(opt.validate(rwx_file)).to eq rwx_file
         end
@@ -68,6 +68,8 @@ describe OptParseValidator::OptFilePath do
       end
 
       context 'when it does not exist' do
+        let(:attrs) { { writable: true, exists: false } }
+
         context 'when the parent directory is +w' do
           let(:file) { File.join(FIXTURES, 'options_file', 'not_there.txt') }
 
