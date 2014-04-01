@@ -1,7 +1,10 @@
 # encoding: utf-8
 
+# Gems
+require 'addressable/uri'
 # Standard Libs
 require 'optparse'
+require 'pathname'
 # Custom Libs
 require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'

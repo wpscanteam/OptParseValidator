@@ -2,14 +2,25 @@
 
 module OptParseValidator
   # Implementation of the FilePath Option
-  # The file must exist
-  class OptFilePath < OptBase
-    # @param [ String ] value
-    #
-    # @return [ String ] The path to the file
-    def validate(value)
-      fail "The file #{value} does not exist" unless File.exist?(value)
-      value
+  class OptFilePath < OptPath
+    # @param [ Array ] option See OptBase#new
+    # @param [ Hash ] attrs See OptPath#new
+    # :extensions [ Array | String ] The allowed extension(s)
+    def initialize(option, attrs = {})
+      super(option, attrs)
+
+      @attrs.merge!(file: true)
+    end
+
+    def allowed_attrs
+      # :extensions is put at the first place
+      [:extensions] + super
+    end
+
+    def check_extensions(path)
+      unless [*attrs[:extensions]].include?(path.extname.delete('.'))
+        fail "The extension of '#{path}' is not allowed"
+      end
     end
   end
 end

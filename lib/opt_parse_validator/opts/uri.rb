@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'addressable/uri'
-
 module OptParseValidator
   # Implementation of the URI Option
   class OptURI < OptBase

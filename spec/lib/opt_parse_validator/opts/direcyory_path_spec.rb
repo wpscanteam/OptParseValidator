@@ -4,24 +4,22 @@ require 'spec_helper'
 
 describe OptParseValidator::OptDirectoryPath do
 
-  subject(:opt) { described_class.new(['-d', '--dir DIR']) }
-  let(:dir)     { 'a-simple-directory-path' }
+  subject(:opt) { described_class.new(['-d', '--dir DIR'], attrs) }
+  let(:attrs)   { {} }
+  let(:dir)     { File.join(FIXTURES, 'options_file') }
+
+  its(:attrs) { should eq directory: true }
 
   describe '#validate' do
-    context 'when the directory does not exist' do
-      it 'raises an error' do
-        Dir.stub(:exist?).with(dir).and_return(false)
-
-        expect { opt.validate(dir) }
-          .to raise_error("The directory #{dir} does not exist")
+    context 'when it is a directory' do
+      it 'returns the path' do
+        expect(opt.validate(dir)).to eq dir
       end
     end
 
-    context 'when it exists' do
-      it 'returns the directory path' do
-        Dir.stub(:exist?).with(dir).and_return(true)
-
-        expect(opt.validate(dir)).to eq dir
+    context 'when it\s not ' do
+      it 'raises an error' do
+        expect { opt.validate('yolo.txt') }.to raise_error "'yolo.txt' is not a directory"
       end
     end
   end
