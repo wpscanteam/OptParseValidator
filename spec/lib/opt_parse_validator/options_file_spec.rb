@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptParser do
 
-  subject(:parser)    { OptParseValidator::OptParser.new }
+  subject(:parser)    { described_class.new }
   let(:fixtures)      { File.join(FIXTURES, 'options_file') }
   let(:default_file)  { File.join(fixtures, 'default.json') }
   let(:override_file) { File.join(fixtures, 'override.yml') }
@@ -32,7 +32,7 @@ describe OptParseValidator::OptParser do
         parser.options_files << default_file << override_file
         parser.add(*opts)
 
-        parser.results([]).should eq(expected)
+        expect(parser.results([])).to eq expected
       end
     end
 

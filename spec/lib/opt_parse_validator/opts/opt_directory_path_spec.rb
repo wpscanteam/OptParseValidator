@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptDirectoryPath do
 
-  subject(:opt) { OptParseValidator::OptDirectoryPath.new(['-d', '--dir DIR']) }
+  subject(:opt) { described_class.new(['-d', '--dir DIR']) }
   let(:dir)     { 'a-simple-directory-path' }
 
   describe '#validate' do
@@ -21,7 +21,7 @@ describe OptParseValidator::OptDirectoryPath do
       it 'returns the directory path' do
         Dir.stub(:exist?).with(dir).and_return(true)
 
-        opt.validate(dir).should eq(dir)
+        expect(opt.validate(dir)).to eq dir
       end
     end
   end

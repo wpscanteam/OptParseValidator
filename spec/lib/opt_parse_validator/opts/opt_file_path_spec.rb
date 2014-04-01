@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptFilePath do
 
-  subject(:opt) { OptParseValidator::OptFilePath.new(['-f', '--file FILE']) }
+  subject(:opt) { described_class.new(['-f', '--file FILE']) }
   let(:file)    { 'a-simple-file-path' }
 
   describe '#validate' do
@@ -21,7 +21,7 @@ describe OptParseValidator::OptFilePath do
       it 'returns the file path' do
         File.stub(:exist?).with(file).and_return(true)
 
-        opt.validate(file).should eq(file)
+        expect(opt.validate(file)).to eq file
       end
     end
   end

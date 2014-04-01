@@ -16,4 +16,11 @@ SimpleCov.start do
   add_filter '/spec/'
 end
 
+# See http://betterspecs.org/
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
+
 require 'opt_parse_validator'

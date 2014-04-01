@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptURI do
 
-  subject(:opt) { OptParseValidator::OptURI.new(['-u', '--uri URI'], attrs) }
+  subject(:opt) { described_class.new(['-u', '--uri URI'], attrs) }
   let(:attrs)   { {} }
 
   describe '#new, #allowed_protocols' do
@@ -17,7 +17,7 @@ describe OptParseValidator::OptURI do
 
       it 'sets it' do
         opt.allowed_protocols << 'ftp'
-        opt.allowed_protocols.should eq(%w(http ftp))
+        expect(opt.allowed_protocols).to eq %w(http ftp)
       end
     end
 
@@ -25,7 +25,7 @@ describe OptParseValidator::OptURI do
       let(:attrs) { { protocols: %w(ftp https) } }
 
       it 'sets them' do
-        opt.allowed_protocols.should eq(attrs[:protocols])
+        expect(opt.allowed_protocols).to eq attrs[:protocols]
       end
     end
   end
@@ -35,7 +35,8 @@ describe OptParseValidator::OptURI do
       it 'accepts all protocols' do
         %w(http ftp file).each do |p|
           expected = "#{p}://testing"
-          opt.validate(expected).should eq(expected)
+
+          expect(opt.validate(expected)).to eq expected
         end
       end
     end
@@ -44,13 +45,14 @@ describe OptParseValidator::OptURI do
       let(:attrs) { { protocols: %w(https) } }
 
       it 'raises an error if the protocol is not allowed' do
-        expect { opt.validate('ftp://ishouldnotbethere') }.to raise_error(Addressable::URI::InvalidURIError)
+        expect { opt.validate('ftp://ishouldnotbethere') }
+          .to raise_error(Addressable::URI::InvalidURIError)
       end
 
       it 'returns the uri string if valid' do
         expected = 'https://example.com/'
 
-        opt.validate(expected).should eq(expected)
+        expect(opt.validate(expected)).to eq expected
       end
     end
   end

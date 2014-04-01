@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptInteger do
 
-  subject(:opt) { OptParseValidator::OptInteger.new(['-i', '--int INT']) }
+  subject(:opt) { described_class.new(['-i', '--int INT']) }
 
   describe '#validate' do
     context 'when not an integer' do
@@ -14,7 +14,7 @@ describe OptParseValidator::OptInteger do
     end
 
     it 'returns the integer' do
-      opt.validate('12').should eq(12)
+      expect(opt.validate('12')).to eq 12
     end
   end
 

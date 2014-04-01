@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptBoolean do
-  subject(:opt) { OptParseValidator::OptBoolean.new(['-b', '--bool BOOL']) }
+
+  subject(:opt) { described_class.new(['-b', '--bool BOOL']) }
 
   describe '#validate' do
     context 'when does not match TRUE_PATTERN and FALSE_PATTERN' do
@@ -14,7 +15,7 @@ describe OptParseValidator::OptBoolean do
     end
 
     context 'when matches TRUE_PATTERN' do
-      after { opt.validate(@argument).should be true }
+      after { expect(opt.validate(@argument)).to be true }
 
       %w(true t yes y 1).each do |arg|
         it 'returns true' do
@@ -24,7 +25,7 @@ describe OptParseValidator::OptBoolean do
     end
 
     context 'when matches FALSE_PATTERN' do
-      after { opt.validate(@argument).should be false }
+      after { expect(opt.validate(@argument)).to be false }
 
       %w(false f no n 0).each do |arg|
         it 'returns false' do

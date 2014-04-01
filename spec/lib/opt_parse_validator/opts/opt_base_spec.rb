@@ -3,16 +3,16 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptBase do
-  subject(:opt) { OptParseValidator::OptBase.new(option, attrs) }
+  subject(:opt) { described_class.new(option, attrs) }
   let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
   describe '#to_sym' do
     after :each do
       if @exception
-        expect { OptParseValidator::OptBase.new(@option).to_sym }.to raise_error(@exception)
+        expect { described_class.new(@option).to_sym }.to raise_error(@exception)
       else
-        OptParseValidator::OptBase.new(@option).to_sym.should eq(@expected)
+        expect(described_class.new(@option).to_sym).to eq(@expected)
       end
     end
 
@@ -107,7 +107,7 @@ describe OptParseValidator::OptBase do
 
     context 'when a valid value' do
       it 'returns it' do
-        opt.validate('testing').should eq('testing')
+        expect(opt.validate('testing')).to eq 'testing'
       end
     end
   end
