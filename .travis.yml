@@ -9,6 +9,8 @@ rvm:
 matrix:
   allow_failures:
     - rvm: ruby-head
+before_script:
+  - chmod 0400 spec/fixtures/r.txt
 script:
   - bundle exec rspec
   - bundle exec rubocop
