@@ -15,11 +15,14 @@ describe OptParseValidator::OptFilePath do
     context 'when :extensions' do
       let(:attrs) { { extensions: 'txt' } }
 
+      its('allowed_attrs.first') { should eq :extensions }
+
       context 'when it matches' do
         it 'returns the path' do
           expect(opt.validate(rwx_file)).to eq rwx_file
         end
       end
+
       context 'when it does no match' do
         it 'raises an error' do
           expect { opt.validate('yolo.aa') }
