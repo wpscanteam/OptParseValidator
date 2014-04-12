@@ -74,9 +74,9 @@ describe OptParseValidator::OptParser do
   end
 
   describe '#results' do
-    after do
-      parser.add(*options)
+    before { parser.add(*options) }
 
+    after do
       if @expected
         expect(parser.results(@argv)).to eq @expected
       else
@@ -90,6 +90,24 @@ describe OptParseValidator::OptParser do
       it 'raises an error' do
         @exception = 'The option url is required'
         @argv      = ['-v']
+      end
+    end
+
+    # See https://github.com/wpscanteam/CMSScanner/issues/2
+    context 'when no short option' do
+      let(:options)  { [verbose_opt, http_opt] }
+      let(:http_opt) { OptParseValidator::OptBase.new(['--http-auth log:pass']) }
+
+      it 'calls the help' do
+        parser.should_receive(:help)
+
+        @argv      = %w(-h)
+        @exception = SystemExit
+      end
+
+      it 'returns the results' do
+        @argv     = %w(--http-auth user:passwd)
+        @expected = { http_auth: 'user:passwd' }
       end
     end
 

@@ -6,6 +6,7 @@ require 'addressable/uri'
 require 'optparse'
 require 'pathname'
 # Custom Libs
+require 'opt_parse_validator/hacks'
 require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'
 require 'opt_parse_validator/options_file'
