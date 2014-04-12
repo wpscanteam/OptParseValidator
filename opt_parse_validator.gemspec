@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name                  = 'opt_parse_validator'
   s.version               = OptParseValidator::VERSION
   s.platform              = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 1.9.3'
   s.authors               = ['WPScanTeam - Erwan le Rousseau']
   s.email                 = ['erwan.lr@gmail.com']
   s.summary               = %q{Testing Gem}
@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'addressable', '~> 2.3.5'
 
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec', '~> 2.14'
-  s.add_development_dependency 'bundler', '~> 1.5'
+  s.add_development_dependency 'rspec',     '~> 2.14'
+  s.add_development_dependency 'bundler',   '~> 1.5'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'simplecov', '~> 0.7.1'
 end
