@@ -95,7 +95,7 @@ describe OptParseValidator::OptParser do
 
     context 'when the default attribute is used' do
       let(:options)     { [verbose_opt, default_opt] }
-      let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: 'something') }
+      let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: false) }
 
       context 'when the option is supplied' do
         it 'overrides the default value' do
@@ -107,7 +107,7 @@ describe OptParseValidator::OptParser do
       context 'when the option is not supplied' do
         it 'sets the default value' do
           @argv     = %w(-v)
-          @expected = { verbose: true, default: 'something' }
+          @expected = { verbose: true, default: false }
         end
       end
     end
