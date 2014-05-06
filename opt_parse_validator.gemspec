@@ -11,14 +11,14 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
   s.authors               = ['WPScanTeam - Erwan le Rousseau']
   s.email                 = ['erwan.lr@gmail.com']
-  s.summary               = %q{Testing Gem}
-  s.description           = %q{Testing Gem ...}
+  s.summary               = %q(Testing Gem)
+  s.description           = %q(Te4sting Gem ...)
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
   s.license               = 'MIT'
 
   s.files                 = `git ls-files -z`.split("\x0")
-  s.executables           = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  s.test_files            = s.files.grep(%r{^(test|spec|features)/})
+  s.executables           = s.files.grep(/^bin\//) { |f| File.basename(f) }
+  s.test_files            = s.files.grep(/^(test|spec|features)\//)
   s.require_paths         = ['lib']
 
   s.add_dependency 'addressable', '~> 2.3.5'
