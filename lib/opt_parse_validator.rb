@@ -40,6 +40,8 @@ module OptParseValidator
         if !@symbols_used.include?(opt.to_sym)
           @opts         << opt
           @symbols_used << opt.to_sym
+          # Set the default option value if it exists
+          @results[opt.to_sym] = opt.attrs[:default] if opt.attrs.key?(:default)
 
           on(*opt.option) do |arg|
             @results[opt.to_sym] = opt.validate(arg)

@@ -89,7 +89,26 @@ describe OptParseValidator::OptParser do
     context 'when an option is required but not supplied' do
       it 'raises an error' do
         @exception = 'The option url is required'
-        @argv      = ['-v']
+        @argv      = %w(-v)
+      end
+    end
+
+    context 'when the default attribute is used' do
+      let(:options)     { [verbose_opt, default_opt] }
+      let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: 'something') }
+
+      context 'when the option is supplied' do
+        it 'overrides the default value' do
+          @argv     = %w(--default overriden)
+          @expected = { default: 'overriden' }
+        end
+      end
+
+      context 'when the option is not supplied' do
+        it 'sets the default value' do
+          @argv     = %w(-v)
+          @expected = { verbose: true, default: 'something' }
+        end
       end
     end
 

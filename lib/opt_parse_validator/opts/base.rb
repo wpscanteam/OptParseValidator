@@ -10,6 +10,7 @@ module OptParseValidator
     # @param [ Array ] option See OptionParser#on
     # @param [ Hash ] attrs
     # @option attrs [ Boolean ] :required
+    # @option attrs [ Mixed ] :default The default value to use if the option is not supplied
     def initialize(option, attrs = {})
       @option = option
       @attrs  = attrs
