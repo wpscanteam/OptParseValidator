@@ -21,9 +21,9 @@ module OptParseValidator
       @opts.each do |opt|
         # Annoying thing: the hash returned from parse_file is a string-full {"key"=>"value"}
         # and not a ruby hash {key: value} :/ As a result, symbol.to_s has to be used
-        if files_data.key?(opt.to_sym.to_s)
-          @results[opt.to_sym] = opt.validate(files_data[opt.to_sym.to_s])
-        end
+        next unless files_data.key?(opt.to_sym.to_s)
+
+        @results[opt.to_sym] = opt.validate(files_data[opt.to_sym.to_s])
       end
     end
 
@@ -33,15 +33,15 @@ module OptParseValidator
     #
     # @return [ Hash ]
     def parse_file(file_path)
-      if File.exist?(file_path)
-        file_ext       = File.extname(file_path).delete('.')
-        method_to_call = "parse_#{file_ext}"
+      return unless File.exist?(file_path)
 
-        if respond_to?(method_to_call, true) # The true allows to check protected & private methods
-          method(method_to_call).call(file_path)
-        else
-          fail "The format #{file_ext} is not supported"
-        end
+      file_ext       = File.extname(file_path).delete('.')
+      method_to_call = "parse_#{file_ext}"
+
+      if respond_to?(method_to_call, true) # The true allows to check protected & private methods
+        method(method_to_call).call(file_path)
+      else
+        fail "The format #{file_ext} is not supported"
       end
     end
 

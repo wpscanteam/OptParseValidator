@@ -42,7 +42,7 @@ module OptParseValidator
       fail "'#{path}' is not a directory" unless path.directory? || attrs[:exists] == false
     end
 
-     # @param [ Pathname ] path
+    # @param [ Pathname ] path
     def check_executable(path)
       fail "'#{path}' is not executable" unless path.executable?
     end

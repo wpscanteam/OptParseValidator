@@ -31,16 +31,15 @@ module OptParseValidator
     def to_sym
       unless @symbol
         option.each do |option_attr|
-          if option_attr =~ /^--/
-            # TODO : find a cleaner way to do this
-            symbol = option_attr.gsub(/\[[^\]]+\]/, '')
-                                .gsub(/^--/, '')
-                                .gsub(/-/, '_')
-                                .gsub(/ .*$/, '')
+          next unless option_attr =~ /^--/
+          # TODO : find a cleaner way to do this
+          symbol = option_attr.gsub(/\[[^\]]+\]/, '')
+                              .gsub(/^--/, '')
+                              .gsub(/-/, '_')
+                              .gsub(/ .*$/, '')
 
-            @symbol = symbol.to_sym
-            break
-          end
+          @symbol = symbol.to_sym
+          break
         end
         fail "Could not find option symbol for #{option}" unless @symbol
       end

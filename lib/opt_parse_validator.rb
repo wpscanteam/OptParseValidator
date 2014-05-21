@@ -13,7 +13,7 @@ require 'opt_parse_validator/options_file'
 
 # Gem namespace
 module OptParseValidator
-# Validator
+  # Validator
   class OptParser < OptionParser
     attr_reader :symbols_used, :opts
 
@@ -69,9 +69,9 @@ module OptParseValidator
     # @return [ Void ]
     def post_processing
       @opts.each do |opt|
-        if opt.required? && !@results.key?(opt.to_sym)
-          fail "The option #{opt.to_sym} is required"
-        end
+        next unless opt.required? && !@results.key?(opt.to_sym)
+
+        fail "The option #{opt.to_sym} is required"
       end
     end
   end
