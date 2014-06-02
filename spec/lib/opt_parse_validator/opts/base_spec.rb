@@ -84,14 +84,14 @@ describe OptParseValidator::OptBase do
   describe '#new, #required?' do
     context 'when no :required' do
       its(:option)    { should eq(option) }
-      its(:required?) { should be_false }
+      its(:required?) { should be_falsey }
       its(:to_sym)    { should eq(:verbose) }
     end
 
     context 'when :required' do
       let(:attrs) { { required: true } }
 
-      its(:required?) { should be_true }
+      its(:required?) { should be true }
     end
   end
 

@@ -118,7 +118,7 @@ describe OptParseValidator::OptParser do
       let(:http_opt) { OptParseValidator::OptBase.new(['--http-auth log:pass']) }
 
       it 'calls the help' do
-        parser.should_receive(:help)
+        expect(parser).to receive(:help)
 
         @argv      = %w(-h)
         @exception = SystemExit
