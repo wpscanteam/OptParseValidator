@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
   s.authors               = ['WPScanTeam - Erwan le Rousseau']
   s.email                 = ['erwan.lr@gmail.com']
-  s.summary               = %q(Testing Gem)
-  s.description           = %q(Te4sting Gem ...)
+  s.summary               = 'Testing Gem'
+  s.description           = 'Testing Gem ...'
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
   s.license               = 'MIT'
 
@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec',     '~> 3.0'
   s.add_development_dependency 'rspec-its'
-  s.add_development_dependency 'bundler',   '~> 1.5'
-  s.add_development_dependency 'rubocop',   '~> 0.22'
-  s.add_development_dependency 'simplecov', '~> 0.7.1'
+  s.add_development_dependency 'bundler',   '~> 1.6'
+  s.add_development_dependency 'rubocop',   '~> 0.24'
+  s.add_development_dependency 'simplecov', '~> 0.9.0'
 end
