@@ -6,7 +6,7 @@ describe OptParseValidator::OptParser do
 
   subject(:parser)  { described_class.new }
   let(:verbose_opt) { OptParseValidator::OptBase.new(%w(-v --verbose)) }
-  let(:url_opt)     { OptParseValidator::OptBase.new(['-u', '--url URL'], required: true) }
+  let(:url_opt)     { OptParseValidator::OptURL.new(['-u', '--url URL'], required: true) }
 
   describe '#add_option' do
     after do
@@ -93,6 +93,13 @@ describe OptParseValidator::OptParser do
       end
     end
 
+    context 'when the #validate raises an error' do
+      it 'adds the option.to_long as a prefix' do
+        @exception = Addressable::URI::InvalidURIError
+        @argv      = %w(--url www.google.com)
+      end
+    end
+
     context 'when the default attribute is used' do
       let(:options)     { [verbose_opt, default_opt] }
       let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: false) }
@@ -131,8 +138,8 @@ describe OptParseValidator::OptParser do
     end
 
     it 'returns the results' do
-      @argv     = %w(--url hello.com -v)
-      @expected = { url: 'hello.com', verbose: true }
+      @argv     = %w(--url http://hello.com -v)
+      @expected = { url: 'http://hello.com', verbose: true }
     end
   end
 end

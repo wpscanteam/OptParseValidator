@@ -7,6 +7,24 @@ describe OptParseValidator::OptBase do
   let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
+  describe '#to_long' do
+    after { expect(described_class.new(@option).to_long).to eq @expected }
+
+    context 'when not found' do
+      it 'returns nil' do
+        @option = %w(-v)
+        @expected = nil
+      end
+    end
+
+    context 'when found' do
+      it 'returns the long name' do
+        @option = ['-v', '--[no-]verbose VALUE [OPT]', 'Verbose Mode']
+        @expected = '--verbose'
+      end
+    end
+  end
+
   describe '#to_sym' do
     after :each do
       if @exception

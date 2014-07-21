@@ -30,20 +30,24 @@ module OptParseValidator
     # @return [ Symbol ]
     def to_sym
       unless @symbol
-        option.each do |option_attr|
-          next unless option_attr =~ /^--/
-          # TODO : find a cleaner way to do this
-          symbol = option_attr.gsub(/\[[^\]]+\]/, '')
-                              .gsub(/^--/, '')
-                              .gsub(/-/, '_')
-                              .gsub(/ .*$/, '')
+        long_option = to_long
 
-          @symbol = symbol.to_sym
-          break
-        end
-        fail "Could not find option symbol for #{option}" unless @symbol
+        fail "Could not find option symbol for #{option}" unless long_option
+
+        @symbol = long_option.gsub(/^--/, '').gsub(/-/, '_').to_sym
       end
       @symbol
+    end
+
+    # @return [ String ] The raw long option (e.g: --proxy)
+    def to_long
+      option.each do |option_attr|
+        if option_attr =~ /^--/
+          return option_attr.gsub(/ .*$/, '')
+                            .gsub(/\[[^\]]+\]/, '')
+        end
+      end
+      nil
     end
   end
 end
