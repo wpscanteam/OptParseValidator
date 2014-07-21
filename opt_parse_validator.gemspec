@@ -21,12 +21,12 @@ Gem::Specification.new do |s|
   s.test_files            = s.files.grep(/^(test|spec|features)\//)
   s.require_paths         = ['lib']
 
-  s.add_dependency 'addressable', '~> 2.3.5'
+  s.add_dependency 'addressable', '~> 2.3'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec',     '~> 3.0'
   s.add_development_dependency 'rspec-its'
   s.add_development_dependency 'bundler',   '~> 1.6'
   s.add_development_dependency 'rubocop',   '~> 0.24'
-  s.add_development_dependency 'simplecov', '~> 0.9.0'
+  s.add_development_dependency 'simplecov', '~> 0.9'
 end
