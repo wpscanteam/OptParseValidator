@@ -9,6 +9,9 @@ OptParseValidator
 
 ### Available Validators & associated attributes:
 - Boolean
+- Choice
+  - :choices (mandatory)
+  - :case_sensitive
 - Credentials
 - Directory Path
   - :exists
