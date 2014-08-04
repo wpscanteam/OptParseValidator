@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module OptParseValidator
   # Base Option
   # This Option should not be called, children should be used.

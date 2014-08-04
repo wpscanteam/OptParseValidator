@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module OptParseValidator
   # Implementation of the URL Option
   class OptURL < OptURI

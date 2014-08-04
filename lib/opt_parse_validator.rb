@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # Gems
 require 'addressable/uri'
 # Standard Libs

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module OptParseValidator
   # Implementation of the Path Option
   class OptPath < OptBase

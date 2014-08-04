@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'spec_helper'
 
 describe OptParseValidator::OptProxy do
@@ -8,7 +6,7 @@ describe OptParseValidator::OptProxy do
   let(:attrs)   { { protocols: %w(http https socks socks5 socks4) } }
 
   describe '#validate' do
-    # Handle by OptURI
+    # Handled by OptURI
   end
 
 end

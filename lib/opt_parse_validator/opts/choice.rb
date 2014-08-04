@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module OptParseValidator
   # Implementation of the Choice Option
   class OptChoice < OptBase
