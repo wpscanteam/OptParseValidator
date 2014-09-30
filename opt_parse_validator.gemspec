@@ -24,9 +24,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'addressable', '~> 2.3'
 
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec',     '~> 3.0'
+  s.add_development_dependency 'rspec',     '~> 3.1'
   s.add_development_dependency 'rspec-its'
   s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.24'
+  s.add_development_dependency 'rubocop',   '~> 0.26'
   s.add_development_dependency 'simplecov', '~> 0.9'
 end
