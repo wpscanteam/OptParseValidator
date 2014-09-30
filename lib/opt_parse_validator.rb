@@ -44,7 +44,7 @@ module OptParseValidator
 
       on(*opt.option) do |arg|
         begin
-          @results[opt.to_sym] = opt.validate(arg)
+          @results[opt.to_sym] = opt.validated_to_sym(opt.validate(arg))
         rescue => e
           # Adds the long option name to the message
           # e.g --proxy Invalid Scheme format.

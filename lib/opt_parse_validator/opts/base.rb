@@ -9,6 +9,9 @@ module OptParseValidator
     # @param [ Hash ] attrs
     # @option attrs [ Boolean ] :required
     # @option attrs [ Mixed ] :default The default value to use if the option is not supplied
+    # @option attrs [ Boolean ] :to_sym If true, returns the symbol of the validated value
+    #
+    # @note The :default and :to_sym 'logics' are done in OptParseValidator::OptParser#add_option
     def initialize(option, attrs = {})
       @option = option
       @attrs  = attrs
@@ -23,6 +26,17 @@ module OptParseValidator
     def validate(value)
       fail 'Empty option value supplied' if value.nil? || value.to_s.empty?
       value
+    end
+
+    # Convert the validated value to a symbol if required and possible
+    #
+    # @param [ Mixed ] value
+    #
+    # @return [ Mixed ]
+    def validated_to_sym(value)
+      return value unless attrs[:to_sym] && value.respond_to?(:to_sym)
+
+      value.to_sym
     end
 
     # @return [ Symbol ]

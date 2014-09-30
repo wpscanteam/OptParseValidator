@@ -111,6 +111,35 @@ describe OptParseValidator::OptBase do
     end
   end
 
+  describe '#validated_to_sym' do
+    after { expect(opt.validated_to_sym(@value)).to eq @expected }
+
+    context 'when no :to_sym attribute' do
+      it 'returns the value' do
+        @value    = 'test'
+        @expected = @value
+      end
+    end
+
+    context 'when :to_sym attribute' do
+      let(:attrs) { { to_sym: true } }
+
+      context 'when not a to_sym method' do
+        it 'returns the value' do
+          @value    = 1.0
+          @expected = @value
+        end
+      end
+
+      context 'when a to_sym method' do
+        it 'returns the symbol' do
+          @value    = 'test'
+          @expected = :test
+        end
+      end
+    end
+  end
+
   describe '#validate' do
     context 'when an empty or nil value' do
       it 'raises an error' do

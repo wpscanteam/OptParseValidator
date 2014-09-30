@@ -135,6 +135,15 @@ describe OptParseValidator::OptParser do
       end
     end
 
+    context 'when the to_sym attrbite is used' do
+      let(:options) { [OptParseValidator::OptString.new(['--test V'], to_sym: true)] }
+
+      it 'returns the symbol' do
+        @argv     = %w(--test test)
+        @expected = { test: :test }
+      end
+    end
+
     it 'returns the results' do
       @argv     = %w(--url http://hello.com -v)
       @expected = { url: 'http://hello.com', verbose: true }
