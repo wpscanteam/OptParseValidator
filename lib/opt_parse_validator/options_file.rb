@@ -36,10 +36,12 @@ module OptParseValidator
       file_ext       = File.extname(file_path).delete('.')
       method_to_call = "parse_#{file_ext}"
 
-      if respond_to?(method_to_call, true) # The true allows to check protected & private methods
+      fail "The format #{file_ext} is not supported" unless respond_to?(method_to_call, true) # The true allows to check protected & private methods
+
+      begin
         method(method_to_call).call(file_path)
-      else
-        fail "The format #{file_ext} is not supported"
+      rescue
+        raise "Parse Error, #{file_path} seems to be malformed"
       end
     end
 
