@@ -10,8 +10,9 @@ module OptParseValidator
     # @option attrs [ Boolean ] :required
     # @option attrs [ Mixed ] :default The default value to use if the option is not supplied
     # @option attrs [ Boolean ] :to_sym If true, returns the symbol of the validated value
+    # @option attrs [ Array<Symbol> ] :normalize See #normalize
     #
-    # @note The :default and :to_sym 'logics' are done in OptParseValidator::OptParser#add_option
+    # @note The :default and :normalize 'logics' are done in OptParseValidator::OptParser#add_option
     def initialize(option, attrs = {})
       @option = option
       @attrs  = attrs
@@ -28,15 +29,23 @@ module OptParseValidator
       value
     end
 
-    # Convert the validated value to a symbol if required and possible
+    # Apply each methods from attrs[:normalize] to the value if possible
+    # User input should not be used in this attrs[:normalize]
+    #
+    # e.g: normalize: :to_sym will return the symbol of the value
+    #      normalize: [:to_sym, :upcase] Will return the upercased symbol
     #
     # @param [ Mixed ] value
     #
     # @return [ Mixed ]
-    def validated_to_sym(value)
-      return value unless attrs[:to_sym] && value.respond_to?(:to_sym)
+    def normalize(value)
+      [*attrs[:normalize]].each do |method|
+        next unless method.is_a?(Symbol)
 
-      value.to_sym
+        value = value.send(method) if value.respond_to?(method)
+      end
+
+      value
     end
 
     # @return [ Symbol ]

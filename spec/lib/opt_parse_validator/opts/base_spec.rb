@@ -111,20 +111,20 @@ describe OptParseValidator::OptBase do
     end
   end
 
-  describe '#validated_to_sym' do
-    after { expect(opt.validated_to_sym(@value)).to eq @expected }
+  describe '#normalize' do
+    after { expect(opt.normalize(@value)).to eq @expected }
 
-    context 'when no :to_sym attribute' do
+    context 'when no :normalize attribute' do
       it 'returns the value' do
         @value    = 'test'
         @expected = @value
       end
     end
 
-    context 'when :to_sym attribute' do
-      let(:attrs) { { to_sym: true } }
+    context 'when a single normalization' do
+      let(:attrs) { { normalize: :to_sym } }
 
-      context 'when not a to_sym method' do
+      context 'when the value does not have a to_sym method' do
         it 'returns the value' do
           @value    = 1.0
           @expected = @value
@@ -136,6 +136,15 @@ describe OptParseValidator::OptBase do
           @value    = 'test'
           @expected = :test
         end
+      end
+    end
+
+    context 'when multiple normalization' do
+      let(:attrs) { { normalize: [:to_sym, 2.0, :upcase] } }
+
+      it 'apply each of them (if possible)' do
+        @value    = 'test'
+        @expected = :TEST
       end
     end
   end

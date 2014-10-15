@@ -135,8 +135,8 @@ describe OptParseValidator::OptParser do
       end
     end
 
-    context 'when the to_sym attrbite is used' do
-      let(:options) { [OptParseValidator::OptString.new(['--test V'], to_sym: true)] }
+    context 'when the normalize attrbite is used' do
+      let(:options) { [OptParseValidator::OptString.new(['--test V'], normalize: :to_sym)] }
 
       it 'returns the symbol' do
         @argv     = %w(--test test)
