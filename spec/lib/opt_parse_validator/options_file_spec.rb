@@ -32,9 +32,12 @@ describe OptParseValidator::OptParser do
     end
 
     context 'otherwise' do
-      let(:opts) { [OptParseValidator::OptBoolean.new(%w(-v --verbose)), OptParseValidator::OptString.new(['--override-me VALUE'])] }
+      let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w(-v --verbose)) }
+      let(:override_opt) { OptParseValidator::OptString.new(['--override-me VALUE'], normalize: :to_sym) }
 
-      let(:expected) { { verbose: true, override_me: 'Yeaa!' } }
+      let(:opts) { [verbose_opt, override_opt] }
+
+      let(:expected) { { verbose: true, override_me: :Yeaa } }
 
       it 'sets everything correctly and get the right results' do
         parser.options_files << default_file << override_file

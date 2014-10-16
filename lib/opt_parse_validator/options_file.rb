@@ -21,7 +21,7 @@ module OptParseValidator
         # and not a ruby hash {key: value} :/ As a result, symbol.to_s has to be used
         next unless files_data.key?(opt.to_sym.to_s)
 
-        @results[opt.to_sym] = opt.validate(files_data[opt.to_sym.to_s])
+        @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym.to_s]))
       end
     end
 
