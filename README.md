@@ -34,7 +34,10 @@ OptParseValidator
   - :writable
 - Proxy
   - :protocols
+  - :default_protocol
 - String
 - URI
   - :protocols
+  - :default_protocol
 - URL
+  - :default_protocol

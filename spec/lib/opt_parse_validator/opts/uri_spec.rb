@@ -8,6 +8,7 @@ describe OptParseValidator::OptURI do
   describe '#new, #allowed_protocols' do
     context 'when no attrs supplied' do
       its(:allowed_protocols) { should be_empty }
+      its(:default_protocol) { should be nil }
     end
 
     context 'when only one protocol supplied' do
@@ -29,7 +30,7 @@ describe OptParseValidator::OptURI do
   end
 
   describe '#validate' do
-    context 'when the allowed_protocols is empty' do
+    context 'when allowed_protocols is empty' do
       it 'accepts all protocols' do
         %w(http ftp file).each do |p|
           expected = "#{p}://testing"
@@ -51,6 +52,22 @@ describe OptParseValidator::OptURI do
         expected = 'https://example.com/'
 
         expect(opt.validate(expected)).to eq expected
+      end
+    end
+
+    context 'when default_protocol' do
+      let(:attrs) { { default_protocol: 'ftp' } }
+
+      context 'when the argument already contains a protocol' do
+        it 'does not add the default protocol' do
+          expect(opt.validate('http://ex.lo')).to eq 'http://ex.lo'
+        end
+      end
+
+      context 'when no protocol given in the argument' do
+        it 'adds it' do
+          expect(opt.validate('ex.lo')).to eq 'ftp://ex.lo'
+        end
       end
     end
   end
