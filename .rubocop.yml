@@ -2,3 +2,5 @@ LineLength:
   Enabled: false
 MethodLength:
   Max: 20
+Metrics/AbcSize:
+  Enabled: false
