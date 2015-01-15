@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptInteger do
-
   subject(:opt) { described_class.new(['-i', '--int INT']) }
 
   describe '#validate' do
@@ -15,5 +14,4 @@ describe OptParseValidator::OptInteger do
       expect(opt.validate('12')).to eq 12
     end
   end
-
 end

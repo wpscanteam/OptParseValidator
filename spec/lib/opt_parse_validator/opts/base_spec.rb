@@ -165,5 +165,4 @@ describe OptParseValidator::OptBase do
       end
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptDirectoryPath do
-
   subject(:opt) { described_class.new(['-d', '--dir DIR'], attrs) }
   let(:attrs)   { {} }
   let(:dir)     { File.join(FIXTURES, 'options_file') }
@@ -21,5 +20,4 @@ describe OptParseValidator::OptDirectoryPath do
       end
     end
   end
-
 end

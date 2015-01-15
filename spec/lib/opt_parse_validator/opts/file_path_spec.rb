@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptFilePath do
-
   subject(:opt)  { described_class.new(['-f', '--file FILE_PATH'], attrs) }
   let(:attrs)    { {} }
   let(:rwx_file) { File.join(FIXTURES, 'rwx.txt') }
@@ -89,5 +88,4 @@ describe OptParseValidator::OptFilePath do
       end
     end
   end
-
 end

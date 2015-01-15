@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptParser do
-
   subject(:parser)  { described_class.new }
   let(:verbose_opt) { OptParseValidator::OptBase.new(%w(-v --verbose)) }
   let(:url_opt)     { OptParseValidator::OptURL.new(['-u', '--url URL'], required: true) }

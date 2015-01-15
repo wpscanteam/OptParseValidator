@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptParser do
-
   subject(:parser)     { described_class.new }
   let(:fixtures)       { File.join(FIXTURES, 'options_file') }
   let(:default_file)   { File.join(fixtures, 'default.json') }
   let(:override_file)  { File.join(fixtures, 'override.yml') }
 
   describe '#load_options_files' do
-
     context 'when error' do
       before { parser.options_files << config_file }
 

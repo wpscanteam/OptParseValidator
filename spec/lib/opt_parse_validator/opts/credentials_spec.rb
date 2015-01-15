@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptCredentials do
-
   subject(:opt) { described_class.new(['-l', '--login USERNAME:PASSWORD']) }
 
   describe '#validate' do
@@ -19,5 +18,4 @@ describe OptParseValidator::OptCredentials do
       end
     end
   end
-
 end

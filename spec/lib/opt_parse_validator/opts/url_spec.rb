@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptURL do
-
   subject(:opt) { described_class.new(['-u', '--url URL']) }
 
   describe '#validate' do
@@ -24,5 +23,4 @@ describe OptParseValidator::OptURL do
       expect(opt.validate(url)).to eq url
     end
   end
-
 end
