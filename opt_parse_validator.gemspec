@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.summary               = 'Testing Gem'
   s.description           = 'Testing Gem ...'
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
-  s.license               = 'GPL-3.0'
+  s.license               = 'MIT'
 
   s.files                 = `git ls-files -z`.split("\x0")
   s.executables           = s.files.grep(/^bin\//) { |f| File.basename(f) }
