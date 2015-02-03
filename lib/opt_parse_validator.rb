@@ -3,6 +3,7 @@ require 'addressable/uri'
 # Standard Libs
 require 'optparse'
 require 'pathname'
+require 'public_suffix'
 # Custom Libs
 require 'opt_parse_validator/hacks'
 require 'opt_parse_validator/opts'
