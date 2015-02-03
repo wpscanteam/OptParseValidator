@@ -13,12 +13,3 @@ class OptionParser
     end
   end
 end
-
-module PublicSuffix
-  # For sanity :x
-  class Domain
-    def ==(other)
-      name == other.name
-    end
-  end
-end
