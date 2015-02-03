@@ -3,9 +3,13 @@ module OptParseValidator
   class OptScope < OptArray
     # @param [ String ] value
     #
-    # @return [ Array<PublicSuffix::Domain> ]
+    # @return [ Array<PublicSuffix::Domain, String> ]
     def validate(value)
-      super(value).map { |s| PublicSuffix.parse(s) }
+      values = super(value)
+
+      values.each_with_index do |v, i|
+        values[i] = PublicSuffix.parse(v) if PublicSuffix.valid?(v)
+      end
     end
   end
 end

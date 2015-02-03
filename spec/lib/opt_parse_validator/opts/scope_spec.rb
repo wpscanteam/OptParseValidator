@@ -10,19 +10,11 @@ describe OptParseValidator::OptScope do
       end
     end
 
-    context 'when an invalid scope is given' do
-      it 'raises an error' do
-        expect { opt.validate('*.x.com,x.invalid') }.to raise_error PublicSuffix::DomainInvalid
-      end
-    end
-
     it 'returns the expected array' do
       scope = ['*.x.com', '**.b.com', 'w.g.com'].map { |s| PublicSuffix.parse(s) }
+      scope << 'wp.lab' << '192.168.1.12'
 
-      opt.validate('*.x.com,**.b.com,w.g.com').each_with_index do |value, index|
-        expect(value).to be_a PublicSuffix::Domain
-        expect(value.name).to eql scope[index].name
-      end
+      expect(opt.validate('*.x.com,**.b.com,w.g.com,wp.lab,192.168.1.12')).to eq scope
     end
   end
 end

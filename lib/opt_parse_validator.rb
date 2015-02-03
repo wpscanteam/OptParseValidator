@@ -1,9 +1,9 @@
 # Gems
 require 'addressable/uri'
+require 'public_suffix'
 # Standard Libs
 require 'optparse'
 require 'pathname'
-require 'public_suffix'
 # Custom Libs
 require 'opt_parse_validator/hacks'
 require 'opt_parse_validator/opts'
