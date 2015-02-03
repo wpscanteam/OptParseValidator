@@ -8,6 +8,8 @@ OptParseValidator
 
 
 ### Available Validators & associated attributes:
+- Array
+  - :separator (default: ',')
 - Boolean
 - Choice
   - :choices (mandatory)
