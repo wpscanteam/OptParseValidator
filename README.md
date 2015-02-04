@@ -37,8 +37,6 @@ OptParseValidator
 - Proxy
   - :protocols
   - :default_protocol
-- Scope
-  - separator (default: ',')
 - String
 - URI
   - :protocols
