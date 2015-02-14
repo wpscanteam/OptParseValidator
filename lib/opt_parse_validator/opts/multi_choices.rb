@@ -41,7 +41,7 @@ module OptParseValidator
         return [opt, Regexp.last_match[1]]
       end
 
-      fail "Unknown choice #{item}"
+      fail "Unknown choice: #{item}"
     end
 
     # No normalization

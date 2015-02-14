@@ -38,6 +38,42 @@ describe OptParseValidator::OptMultiChoices do
   end
 
   describe '#validate' do
+    context 'when an unknown choice is given' do
+      it 'raises an error' do
+        expect { opt.validate('vp,n') }.to raise_error 'Unknown choice: n'
+      end
+    end
 
+    context 'when nil or empty value' do
+      context 'when no value_if_empty attribute' do
+        it 'raises an error' do
+          [nil, ''].each do |value|
+            expect { opt.validate(value) }.to raise_error 'Empty option value supplied'
+          end
+        end
+      end
+
+      context 'when value_if_empty attribute' do
+        let(:attrs) { super().merge(value_if_empty: 'vp,u') }
+
+        it 'returns the expected hash' do
+          [nil, ''].each do |value|
+            expect(opt.validate(value)).to eql(vulenrable_plugins: true, users: (1..10))
+          end
+        end
+      end
+    end
+
+    context 'when value' do
+      it 'returns the expected hash' do
+        expect(opt.validate('u2-5')).to eql(users: (2..5))
+      end
+    end
+  end
+
+  describe '#normalize' do
+    it 'returns the same value (no normalization)' do
+      expect(opt.normalize('a')).to eql 'a'
+    end
   end
 end
