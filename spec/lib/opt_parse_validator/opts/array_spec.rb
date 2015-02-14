@@ -5,9 +5,23 @@ describe OptParseValidator::OptArray do
   let(:attrs)   { {} }
 
   describe '#validate' do
-    context 'when an empty value is given' do
-      it 'raises an error' do
-        expect { opt.validate('') }.to raise_error('Empty option value supplied')
+    context 'when an empty or nil value is given' do
+      context 'when no value_if_empty attribute' do
+        it 'raises an error' do
+          [nil, ''].each do |value|
+            expect { opt.validate(value) }.to raise_error('Empty option value supplied')
+          end
+        end
+      end
+
+      context 'when value_if_empty attribute' do
+        let(:attrs) { super().merge(value_if_empty: 'a,b') }
+
+        it 'returns the expected array' do
+          [nil, ''].each do |value|
+            expect(opt.validate(value)).to eql %w(a b)
+          end
+        end
       end
     end
 

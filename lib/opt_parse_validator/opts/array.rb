@@ -5,8 +5,7 @@ module OptParseValidator
     #
     # @return [ Array ]
     def validate(value)
-      super(value)
-      value.split(separator)
+      super(value).split(separator)
     end
 
     # @return [ String ] The separator used to split the string into an array
@@ -15,7 +14,7 @@ module OptParseValidator
     end
 
     # See OptBase#normalize
-    # @param [ Array ] value
+    # @param [ Array ] values
     def normalize(values)
       values.each_with_index do |value, index|
         values[index] = super(value)
