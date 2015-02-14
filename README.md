@@ -26,6 +26,8 @@ OptParseValidator
   - :readable
   - :writable
 - Integer
+- IntegerRange
+  - separator
 - Positive Integer
 - Path
   - :file
