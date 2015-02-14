@@ -16,8 +16,7 @@ module OptParseValidator
     # If :case_sensitive if false (or nil), the downcased value of the choice
     # will be returned
     def validate(value)
-      value   = value.to_s
-      choices = attrs[:choices]
+      value = value.to_s
 
       unless attrs[:case_sensitive]
         value.downcase!

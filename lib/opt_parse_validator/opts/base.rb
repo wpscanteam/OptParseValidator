@@ -9,7 +9,7 @@ module OptParseValidator
     # @param [ Hash ] attrs
     # @option attrs [ Boolean ] :required
     # @option attrs [ Mixed ] :default The default value to use if the option is not supplied
-    # @option attrs [ Boolean ] :to_sym If true, returns the symbol of the validated value
+    # @option attrs [ Mixed ] :value_if_empty The value to use if no arguments have been supplied
     # @option attrs [ Array<Symbol> ] :normalize See #normalize
     #
     # @note The :default and :normalize 'logics' are done in OptParseValidator::OptParser#add_option
@@ -20,7 +20,22 @@ module OptParseValidator
 
     # @return [ Boolean ]
     def required?
-      @required || attrs[:required]
+      @required ||= attrs[:required]
+    end
+
+    # @return [ Mixed ]
+    def default
+      attrs[:default]
+    end
+
+    # @return [ Array<Mixed> ]
+    def choices
+      attrs[:choices]
+    end
+
+    # @return [ Mixed ]
+    def value_if_empty
+      attrs[:value_if_empty]
     end
 
     # @param [ String ] value
