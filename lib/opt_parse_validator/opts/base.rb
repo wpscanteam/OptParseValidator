@@ -40,7 +40,10 @@ module OptParseValidator
 
     # @param [ String ] value
     def validate(value)
-      fail 'Empty option value supplied' if value.nil? || value.to_s.empty?
+      if value.nil? || value.to_s.empty?
+        fail 'Empty option value supplied' if value_if_empty.nil?
+        return value_if_empty
+      end
       value
     end
 

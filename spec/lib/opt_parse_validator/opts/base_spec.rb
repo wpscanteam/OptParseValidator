@@ -6,7 +6,7 @@ describe OptParseValidator::OptBase do
   let(:attrs)   { {} }
 
   describe '#to_long' do
-    after { expect(described_class.new(@option).to_long).to eq @expected }
+    after { expect(described_class.new(@option).to_long).to eql @expected }
 
     context 'when not found' do
       it 'returns nil' do
@@ -28,7 +28,7 @@ describe OptParseValidator::OptBase do
       if @exception
         expect { described_class.new(@option).to_sym }.to raise_error(@exception)
       else
-        expect(described_class.new(@option).to_sym).to eq(@expected)
+        expect(described_class.new(@option).to_sym).to eql(@expected)
       end
     end
 
@@ -112,7 +112,7 @@ describe OptParseValidator::OptBase do
   end
 
   describe '#normalize' do
-    after { expect(opt.normalize(@value)).to eq @expected }
+    after { expect(opt.normalize(@value)).to eql @expected }
 
     context 'when no :normalize attribute' do
       it 'returns the value' do
@@ -150,18 +150,38 @@ describe OptParseValidator::OptBase do
   end
 
   describe '#validate' do
-    context 'when an empty or nil value' do
-      it 'raises an error' do
-        [nil, ''].each do |value|
-          expect { opt.validate(value) }
-            .to raise_error('Empty option value supplied')
+    context 'when no value_if_empty attribute' do
+      context 'when an empty or nil value' do
+        it 'raises an error' do
+          [nil, ''].each do |value|
+            expect { opt.validate(value) }
+              .to raise_error('Empty option value supplied')
+          end
+        end
+      end
+
+      context 'when a valid value' do
+        it 'returns it' do
+          expect(opt.validate('testing')).to eql 'testing'
         end
       end
     end
 
-    context 'when a valid value' do
-      it 'returns it' do
-        expect(opt.validate('testing')).to eq 'testing'
+    context 'when value_if_empty attribute' do
+      let(:attrs) { super().merge(value_if_empty: 'it works') }
+
+      context 'when nil or empty value' do
+        it 'returns the value from the value_if_empty attribute' do
+          [nil, ''].each do |value|
+            expect(opt.validate(value)).to eql attrs[:value_if_empty]
+          end
+        end
+      end
+
+      context 'when a valid value' do
+        it 'returns it' do
+          expect(opt.validate('tt')).to eql 'tt'
+        end
       end
     end
   end
