@@ -27,7 +27,10 @@ OptParseValidator
   - :writable
 - Integer
 - IntegerRange
-  - separator
+  - separator (default: '-')
+- MultiChoices
+  - choices (mandatory)
+  - separator (default: ',')
 - Positive Integer
 - Path
   - :file
