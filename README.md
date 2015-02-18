@@ -31,6 +31,7 @@ OptParseValidator
 - MultiChoices
   - choices (mandatory)
   - separator (default: ',')
+  - incompatible
 - Positive Integer
 - Path
   - :file

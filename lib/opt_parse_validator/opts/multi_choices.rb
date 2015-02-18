@@ -4,6 +4,7 @@ module OptParseValidator
     # @param [ Array ] option See OptBase#new
     # @param [ Hash ] attrs
     # @option attrs [ Hash ] :choices
+    # @option attrs [ Array<Array> ] :incompatible
     # @options attrs [ String ] :separator See OptArray#new
     def initialize(option, attrs = {})
       fail 'The :choices attribute is mandatory' unless attrs.key?(:choices)
@@ -30,7 +31,7 @@ module OptParseValidator
         results[opt.to_sym] = opt.normalize(opt.validate(opt_value))
       end
 
-      results
+      verify_compatibility(results)
     end
 
     # @return [ Array ]
@@ -42,6 +43,26 @@ module OptParseValidator
       end
 
       fail "Unknown choice: #{item}"
+    end
+
+    # @param [ Hash ] values
+    #
+    # @return [ Hash ]
+    def verify_compatibility(values)
+      [*attrs[:incompatible]].each do |a|
+        last_match = ''
+
+        a.each do |sym|
+          next unless values.key?(sym)
+
+          if last_match.empty?
+            last_match = sym
+          else
+            fail "Incompatible choices detected: #{last_match}, #{sym}"
+          end
+        end
+      end
+      values
     end
 
     # No normalization

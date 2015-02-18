@@ -5,8 +5,15 @@ describe OptParseValidator::OptMultiChoices do
   let(:attrs) do
     {
       choices: {
-        vp: OptParseValidator::OptBoolean.new(['--vulenrable-plugins']),
-        u:  OptParseValidator::OptIntegerRange.new(['--users'], value_if_empty: '1-10')
+        vp: OptParseValidator::OptBoolean.new(['--vulnerable-plugins']),
+        ap: OptParseValidator::OptBoolean.new(['--all-plugins']),
+        p:  OptParseValidator::OptBoolean.new(['--plugins']),
+        vt: OptParseValidator::OptBoolean.new(['--vulnerable-themes']),
+        at: OptParseValidator::OptBoolean.new(['--all-themes']),
+        t:  OptParseValidator::OptBoolean.new(['--themes']),
+        tt: OptParseValidator::OptBoolean.new(['--timthumbs']),
+        u:  OptParseValidator::OptIntegerRange.new(['--users'], value_if_empty: '1-10'),
+        m:  OptParseValidator::OptIntegerRange.new(['--media'], value_if_empty: '1-100')
       }
     }
   end
@@ -58,15 +65,34 @@ describe OptParseValidator::OptMultiChoices do
 
         it 'returns the expected hash' do
           [nil, ''].each do |value|
-            expect(opt.validate(value)).to eql(vulenrable_plugins: true, users: (1..10))
+            expect(opt.validate(value)).to eql(vulnerable_plugins: true, users: (1..10))
           end
         end
       end
     end
 
     context 'when value' do
+      let(:attrs) do
+        super().merge(incompatible: [
+          [:vulnerable_plugins, :all_plugins, :plugins],
+          [:vulnerable_themes, :all_themes, :themes]
+        ])
+      end
+
       it 'returns the expected hash' do
         expect(opt.validate('u2-5')).to eql(users: (2..5))
+      end
+
+      context 'when incompatible choices given' do
+        it 'raises an error' do
+          {
+            'ap,p,t' => 'all_plugins, plugins',
+            'ap,t,vp' => 'vulnerable_plugins, all_plugins',
+            'ap,at,t' => 'all_themes, themes'
+          }.each do |value, msg|
+            expect { opt.validate(value) }.to raise_error "Incompatible choices detected: #{msg}"
+          end
+        end
       end
     end
   end
