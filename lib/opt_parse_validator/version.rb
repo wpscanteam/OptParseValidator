@@ -1,4 +1,4 @@
 # Gem Version
 module OptParseValidator
-  VERSION = '0.0.8'
+  VERSION = '0.0.9'
 end
