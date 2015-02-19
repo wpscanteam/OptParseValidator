@@ -97,6 +97,40 @@ describe OptParseValidator::OptParser do
       end
     end
 
+    context 'when :requied_unless' do
+      let(:url_opt)    { OptParseValidator::OptURL.new(['--url URL'], required_unless: :update) }
+      let(:update_opt) { OptParseValidator::OptBoolean.new(['--update'], required_unless: [:url]) }
+      let(:options)    { [url_opt, update_opt, verbose_opt] }
+
+      context 'when none supplied' do
+        it 'raises an error' do
+          @exception = 'One of the following options is required: url, update'
+          @argv      = %w(-v)
+        end
+      end
+
+      context 'when --url' do
+        it 'returns the expected value' do
+          @expected = { url: 'http://www.g.com' }
+          @argv     = %w(--url http://www.g.com)
+        end
+      end
+
+      context 'when --update' do
+        it 'returns the expected value' do
+          @expected = { update: true }
+          @argv     = %w(--update)
+        end
+      end
+
+      context 'when --url and --update' do
+        it 'returns the expected values' do
+          @expected = { url: 'http://www.g.com', update: true, verbose: true }
+          @argv     = %w(--url http://www.g.com --update -v)
+        end
+      end
+    end
+
     context 'when the default attribute is used' do
       let(:options)     { [verbose_opt, default_opt] }
       let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: false) }
