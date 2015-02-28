@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
   s.license               = 'MIT'
 
-  s.files                 = `git ls-files`.split("\x0").reject do |file|
+  s.files                 = `git ls-files -z`.split("\x0").reject do |file|
     file =~ /^(?:
       spec\/.*
       |Gemfile
