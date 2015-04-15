@@ -44,7 +44,7 @@ OptParseValidator
   - :protocols
   - :default_protocol
 - Regexp:
-  :options (See http://ruby-doc.org/core-2.2.1/Regexp.html#method-c-new)
+  - :options (See http://ruby-doc.org/core-2.2.1/Regexp.html#method-c-new)
 - String
 - URI
   - :protocols
