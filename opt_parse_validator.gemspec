@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.license               = 'MIT'
 
   s.files                 = `git ls-files -z`.split("\x0").reject do |file|
-    file =~ /^(?:
+    file =~ %r{^(?:
       spec\/.*
       |Gemfile
       |Rakefile
@@ -25,10 +25,10 @@ Gem::Specification.new do |s|
       |\.gitignore
       |\.rubocop.yml
       |\.travis.yml
-      )$/x
+    )$}x
   end
   s.test_files            = []
-  s.executables           = s.files.grep(/^bin\//) { |f| File.basename(f) }
+  s.executables           = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths         = ['lib']
 
   s.add_dependency 'addressable', '~> 2.3'
@@ -37,6 +37,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec',     '~> 3.2'
   s.add_development_dependency 'rspec-its', '~> 1.1'
   s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.29'
+  s.add_development_dependency 'rubocop',   '~> 0.30'
   s.add_development_dependency 'simplecov', '~> 0.9'
 end

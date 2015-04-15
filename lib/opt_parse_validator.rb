@@ -37,7 +37,7 @@ module OptParseValidator
       fail "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
       fail "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
 
-      @opts         << opt
+      @opts << opt
       @symbols_used << opt.to_sym
       # Set the default option value if it exists
       @results[opt.to_sym] = opt.default unless opt.default.nil?

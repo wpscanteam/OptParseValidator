@@ -63,6 +63,8 @@ describe OptParseValidator::OptFilePath do
         end
 
         it 'raises an error otherwise' do
+          expect_any_instance_of(Pathname).to receive(:writable?).and_return(false)
+
           expect { opt.validate(r_file) }.to raise_error "'#{r_file}' is not writable"
         end
       end
