@@ -77,7 +77,7 @@ describe OptParseValidator::OptParser do
       if @expected
         expect(parser.results(@argv)).to eq @expected
       else
-        expect { parser.results(@argv) }.to raise_error(@exception)
+        expect { parser.results(@argv) }.to raise_error(*@exception)
       end
     end
 
@@ -85,7 +85,7 @@ describe OptParseValidator::OptParser do
 
     context 'when an option is required but not supplied' do
       it 'raises an error' do
-        @exception = 'The option url is required'
+        @exception = OptParseValidator::NoRequiredOption, 'The option url is required'
         @argv      = %w(-v)
       end
     end
@@ -104,7 +104,7 @@ describe OptParseValidator::OptParser do
 
       context 'when none supplied' do
         it 'raises an error' do
-          @exception = 'One of the following options is required: url, update'
+          @exception = OptParseValidator::NoRequiredOption, 'One of the following options is required: url, update'
           @argv      = %w(-v)
         end
       end

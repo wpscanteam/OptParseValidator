@@ -4,6 +4,7 @@ require 'addressable/uri'
 require 'optparse'
 require 'pathname'
 # Custom Libs
+require 'opt_parse_validator/errors'
 require 'opt_parse_validator/hacks'
 require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'
@@ -69,7 +70,7 @@ module OptParseValidator
     def post_processing
       @opts.each do |opt|
         if opt.required?
-          fail "The option #{opt} is required" unless @results.key?(opt.to_sym)
+          fail NoRequiredOption, "The option #{opt} is required" unless @results.key?(opt.to_sym)
         end
 
         next if opt.required_unless.empty?
@@ -77,7 +78,7 @@ module OptParseValidator
 
         fail_msg = "One of the following options is required: #{opt}, #{opt.required_unless.join(', ')}"
 
-        fail fail_msg unless opt.required_unless.any? do |sym|
+        fail NoRequiredOption, fail_msg unless opt.required_unless.any? do |sym|
           @results.key?(sym)
         end
       end
