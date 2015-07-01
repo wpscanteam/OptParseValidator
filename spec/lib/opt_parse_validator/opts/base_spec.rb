@@ -5,6 +5,18 @@ describe OptParseValidator::OptBase do
   let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
+  describe '#help_messages' do
+    context 'when no messages' do
+      its(:help_messages) { should eql([]) }
+    end
+
+    context 'when messages' do
+      let(:option) { super() << 'Verbose Mode' << 'Another message' }
+
+      its(:help_messages) { should eql option[2..3] }
+    end
+  end
+
   describe '#to_long' do
     after { expect(described_class.new(@option).to_long).to eql @expected }
 

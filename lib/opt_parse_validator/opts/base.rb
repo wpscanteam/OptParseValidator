@@ -19,6 +19,15 @@ module OptParseValidator
       @attrs  = attrs
     end
 
+    # @return [ Array<String> ]
+    def help_messages
+      first_message_index = option.index { |e| e[0] != '-' }
+
+      return [] unless first_message_index
+
+      option[first_message_index..-1]
+    end
+
     # @return [ Boolean ]
     def required?
       @required ||= attrs[:required]
