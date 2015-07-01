@@ -28,6 +28,24 @@ describe OptParseValidator::OptURI do
     end
   end
 
+  describe '#append_help_messages' do
+    context 'when no default_protocol and allowed_protocols attribute' do
+      its(:help_messages) { should eql([]) }
+    end
+
+    context 'when default_protocol attribute' do
+      let(:attrs) { super().merge(default_protocol: 'http') }
+
+      its(:help_messages) { should eql ['Default Protocol if none provided: http'] }
+    end
+
+    context 'when allowed_protocols attribute' do
+      let(:attrs) { super().merge(protocols: %w(http https)) }
+
+      its(:help_messages) { should eql ['Allowed Protocols: http, https'] }
+    end
+  end
+
   describe '#validate' do
     context 'when allowed_protocols is empty' do
       it 'accepts all protocols' do

@@ -4,6 +4,23 @@ describe OptParseValidator::OptIntegerRange do
   subject(:opt) { described_class.new(['--range RANGE'], attrs) }
   let(:attrs)   { {} }
 
+  describe '#append_help_messages' do
+    context 'when no value_if_empty attribute' do
+      its(:help_messages) { should eql ["Range separator to use: '-'"] }
+    end
+
+    context 'when value_if_empty attribute' do
+      let(:attrs) { super().merge(value_if_empty: '1-10') }
+
+      its(:help_messages) do
+        should eql [
+          "Range separator to use: '-'",
+          'If no range is supplied, 1-10 will be used'
+        ]
+      end
+    end
+  end
+
   describe '#validate' do
     context 'when incorrect number of ranges given' do
       it 'raises an error' do

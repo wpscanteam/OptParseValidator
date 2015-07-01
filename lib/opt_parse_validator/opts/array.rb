@@ -1,6 +1,11 @@
 module OptParseValidator
   # Implementation of the Array Option
   class OptArray < OptBase
+    # @return [ Void ]
+    def append_help_messages
+      option << "Separator to use between the values: '#{separator}'"
+    end
+
     # @param [ String ] value
     #
     # @return [ Array ]

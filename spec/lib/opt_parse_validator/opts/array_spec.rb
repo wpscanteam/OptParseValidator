@@ -4,6 +4,18 @@ describe OptParseValidator::OptArray do
   subject(:opt) { described_class.new(['-a', '--array VALUES'], attrs) }
   let(:attrs)   { {} }
 
+  describe '#append_help_messages' do
+    context 'when default separator' do
+      its(:help_messages) { should eql ["Separator to use between the values: ','"] }
+    end
+
+    context 'when custom separator' do
+      let(:attrs) { super().merge(separator: '-') }
+
+      its(:help_messages) { should eql ["Separator to use between the values: '-'"] }
+    end
+  end
+
   describe '#validate' do
     context 'when an empty or nil value is given' do
       context 'when no value_if_empty attribute' do

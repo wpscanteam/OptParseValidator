@@ -17,15 +17,13 @@ module OptParseValidator
     def initialize(option, attrs = {})
       @option = option
       @attrs  = attrs
+
+      append_help_messages if respond_to?(:append_help_messages)
     end
 
-    # @return [ Array<String> ]
-    def help_messages
-      first_message_index = option.index { |e| e[0] != '-' }
-
-      return [] unless first_message_index
-
-      option[first_message_index..-1]
+    # @return [ Void ]
+    def append_help_messages
+      option << "Default: #{default}" if default
     end
 
     # @return [ Boolean ]
@@ -106,6 +104,15 @@ module OptParseValidator
     # @return [ String ]
     def to_s
       to_sym.to_s
+    end
+
+    # @return [ Array<String> ]
+    def help_messages
+      first_message_index = option.index { |e| e[0] != '-' }
+
+      return [] unless first_message_index
+
+      option[first_message_index..-1]
     end
   end
 end

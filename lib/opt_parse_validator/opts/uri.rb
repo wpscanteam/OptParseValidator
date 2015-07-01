@@ -1,6 +1,13 @@
 module OptParseValidator
   # Implementation of the URI Option
   class OptURI < OptBase
+    # return [ Void ]
+    def append_help_messages
+      option << "Allowed Protocols: #{allowed_protocols.join(', ')}" unless allowed_protocols.empty?
+      option << "Default Protocol if none provided: #{default_protocol}" if default_protocol
+    end
+
+    # @return [ Array<String> ]
     def allowed_protocols
       @allowed_protocols ||= [*attrs[:protocols]]
     end

@@ -10,11 +10,12 @@ describe OptParseValidator::OptMultiChoices do
         p:  OptParseValidator::OptBoolean.new(['--plugins']),
         vt: OptParseValidator::OptBoolean.new(['--vulnerable-themes']),
         at: OptParseValidator::OptBoolean.new(['--all-themes']),
-        t:  OptParseValidator::OptBoolean.new(['--themes']),
+        t:  OptParseValidator::OptBoolean.new(['--themes', 'Themes Spec']),
         tt: OptParseValidator::OptBoolean.new(['--timthumbs']),
-        u:  OptParseValidator::OptIntegerRange.new(['--users'], value_if_empty: '1-10'),
+        u:  OptParseValidator::OptIntegerRange.new(['--users', 'User ids Range, e.g: u1-20, u'], value_if_empty: '1-10'),
         m:  OptParseValidator::OptIntegerRange.new(['--media'], value_if_empty: '1-100')
-      }
+      },
+      incompatible: [[:ap, :vp, :p], [:vt, :at, :t]]
     }
   end
 
@@ -41,6 +42,33 @@ describe OptParseValidator::OptMultiChoices do
           expect { opt }.to_not raise_error
         end
       end
+    end
+  end
+
+  describe '#append_help_messages' do
+    let(:attrs) { super().merge(value_if_empty: 'vp,vt,tt,u,m') }
+
+    its(:help_messages) do
+      should eql [
+        'Available Choices:',
+        ' vp  Vulnerable plugins',
+        ' ap  All plugins',
+        ' p   Plugins',
+        ' vt  Vulnerable themes',
+        ' at  All themes',
+        ' t   Themes Spec',
+        ' tt  Timthumbs',
+        ' u   User ids Range, e.g: u1-20, u',
+        "     Range separator to use: '-'",
+        '     If no range is supplied, 1-10 will be used',
+        " m   Range separator to use: '-'",
+        '     If no range is supplied, 1-100 will be used',
+        "Multiple choices can be supplied, use the ',' char as a separator",
+        "If no choice is supplied, 'vp,vt,tt,u,m' will be used",
+        'Incompatible choices (only one of each group/s can be used):',
+        ' - ap, vp, p',
+        ' - vt, at, t'
+      ]
     end
   end
 
@@ -72,13 +100,6 @@ describe OptParseValidator::OptMultiChoices do
     end
 
     context 'when value' do
-      let(:attrs) do
-        super().merge(incompatible: [
-          [:ap, :vp, :p],
-          [:vt, :at, :t]
-        ])
-      end
-
       it 'returns the expected hash' do
         expect(opt.validate('u2-5')).to eql(users: (2..5))
       end

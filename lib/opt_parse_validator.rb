@@ -1,5 +1,6 @@
 # Gems
 require 'addressable/uri'
+require 'active_support/inflector'
 # Standard Libs
 require 'optparse'
 require 'pathname'

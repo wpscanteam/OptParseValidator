@@ -13,6 +13,43 @@ module OptParseValidator
       super(option, attrs)
     end
 
+    def append_help_messages
+      option << 'Available Choices:'
+
+      append_choices_help_messages
+
+      option << "Multiple choices can be supplied, use the '#{separator}' char as a separator"
+      option << "If no choice is supplied, '#{value_if_empty}' will be used" if value_if_empty
+
+      append_incomptable_help_messages
+    end
+
+    def append_choices_help_messages
+      max_spaces = choices.keys.max.size
+
+      choices.each do |key, opt|
+        opt_help_messages = opt.help_messages.empty? ? [opt.to_s.humanize] : opt.help_messages
+
+        first_line_prefix  = " #{key} #{' ' * (max_spaces - key.to_s.length)}"
+        other_lines_prefix = ' ' * first_line_prefix.size
+
+        opt_help_messages.each_with_index do |message, index|
+          prefix = index == 0 ? first_line_prefix : other_lines_prefix
+          option << "#{prefix} #{message}"
+        end
+      end
+    end
+
+    def append_incomptable_help_messages
+      return if incompatible.empty?
+
+      option << 'Incompatible choices (only one of each group/s can be used):'
+
+      incompatible.each do |a|
+        option << " - #{a.map(&:to_s).join(', ')}"
+      end
+    end
+
     # @param [ String ] value
     #
     # @return [ Hash ]

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptChoice do
   subject(:opt) { described_class.new(option, attrs) }
-  let(:option)  { %w(-f --format FORMAT) }
+  let(:option)  { ['-f',  '--format FORMAT'] }
   let(:attrs)   { { choices: %w(json cli) } }
 
   describe '#new' do
@@ -31,6 +31,18 @@ describe OptParseValidator::OptChoice do
         expect { opt }.to_not raise_error
         expect(opt.attrs[:choices]).to eq attrs[:choices]
       end
+    end
+  end
+
+  describe '#append_help_messages' do
+    context 'when no default attribute' do
+      its(:help_messages) { should eql ["Available choices: #{attrs[:choices].join(', ')}"] }
+    end
+
+    context 'when a default attribute' do
+      let(:attrs) { super().merge(default: 'cli') }
+
+      its(:help_messages) { should eql ['Available choices: json, cli (default)']  }
     end
   end
 

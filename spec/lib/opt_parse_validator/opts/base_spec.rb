@@ -5,15 +5,31 @@ describe OptParseValidator::OptBase do
   let(:option)  { %w(-v --verbose) }
   let(:attrs)   { {} }
 
-  describe '#help_messages' do
-    context 'when no messages' do
-      its(:help_messages) { should eql([]) }
+  describe '#help_messages, #append_help_messages' do
+    context 'when no messages from the option argument' do
+      context 'when no default attribute' do
+        its(:help_messages) { should eql([]) }
+      end
+
+      context 'when default attribute' do
+        let(:attrs) { { default: 'test' } }
+
+        its(:help_messages) { should eql ['Default: test'] }
+      end
     end
 
     context 'when messages' do
       let(:option) { super() << 'Verbose Mode' << 'Another message' }
 
-      its(:help_messages) { should eql option[2..3] }
+      context 'when on default attribute' do
+        its(:help_messages) { should eql option[2..3] }
+      end
+
+      context 'when default attribute' do
+        let(:attrs) { { default: 'test' } }
+
+        its(:help_messages) { should eql option[2..3] << 'Default: test' }
+      end
     end
   end
 

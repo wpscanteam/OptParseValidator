@@ -12,6 +12,17 @@ module OptParseValidator
       super(option, attrs)
     end
 
+    # @return [ Void ]
+    def append_help_messages
+      msg = 'Available choices:'
+
+      choices.each do |choice|
+        msg += choice.to_s == default ? " #{choice} (default)," : " #{choice},"
+      end
+
+      option << msg[0..-2]
+    end
+
     # @return [ String ]
     # If :case_sensitive if false (or nil), the downcased value of the choice
     # will be returned

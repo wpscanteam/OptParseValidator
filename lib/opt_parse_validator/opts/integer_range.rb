@@ -1,6 +1,12 @@
 module OptParseValidator
   # Implementation of the Integer Range Option
   class OptIntegerRange < OptBase
+    # @return [ Void ]
+    def append_help_messages
+      option << "Range separator to use: '#{separator}'"
+      option << "If no range is supplied, #{value_if_empty} will be used" if value_if_empty
+    end
+
     # @param [ String ] value
     #
     # @return [ Range ]
