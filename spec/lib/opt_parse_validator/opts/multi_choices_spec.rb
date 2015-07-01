@@ -74,8 +74,8 @@ describe OptParseValidator::OptMultiChoices do
     context 'when value' do
       let(:attrs) do
         super().merge(incompatible: [
-          [:vulnerable_plugins, :all_plugins, :plugins],
-          [:vulnerable_themes, :all_themes, :themes]
+          [:ap, :vp, :p],
+          [:vt, :at, :t]
         ])
       end
 
@@ -86,9 +86,9 @@ describe OptParseValidator::OptMultiChoices do
       context 'when incompatible choices given' do
         it 'raises an error' do
           {
-            'ap,p,t' => 'all_plugins, plugins',
-            'ap,t,vp' => 'vulnerable_plugins, all_plugins',
-            'ap,at,t' => 'all_themes, themes'
+            'ap,p,t' => 'ap, p',
+            'ap,t,vp' => 'ap, vp',
+            'ap,at,t' => 'at, t'
           }.each do |value, msg|
             expect { opt.validate(value) }.to raise_error "Incompatible choices detected: #{msg}"
           end

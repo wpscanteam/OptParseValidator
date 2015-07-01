@@ -45,21 +45,26 @@ module OptParseValidator
       fail "Unknown choice: #{item}"
     end
 
+    # @return [ Array<Array<Symbol>> ]
+    def incompatible
+      [*attrs[:incompatible]]
+    end
+
     # @param [ Hash ] values
     #
     # @return [ Hash ]
     def verify_compatibility(values)
-      [*attrs[:incompatible]].each do |a|
+      incompatible.each do |a|
         last_match = ''
 
-        a.each do |sym|
+        a.each do |key|
+          sym = choices[key].to_sym
+
           next unless values.key?(sym)
 
-          if last_match.empty?
-            last_match = sym
-          else
-            fail "Incompatible choices detected: #{last_match}, #{sym}"
-          end
+          fail "Incompatible choices detected: #{last_match}, #{key}" unless last_match.empty?
+
+          last_match = key
         end
       end
       values
