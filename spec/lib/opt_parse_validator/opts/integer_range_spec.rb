@@ -52,7 +52,7 @@ describe OptParseValidator::OptIntegerRange do
       context 'when no value_if_empty attribute' do
         it 'raises an error' do
           [nil, ''].each do |value|
-            expect { opt.validate(value) }.to raise_error 'Empty option value supplied'
+            expect { opt.validate(value) }.to raise_error OptionParser::InvalidArgument # , 'Empty option value supplied'
           end
         end
       end

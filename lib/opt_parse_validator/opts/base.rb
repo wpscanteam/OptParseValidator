@@ -53,7 +53,7 @@ module OptParseValidator
     # @param [ String ] value
     def validate(value)
       if value.nil? || value.to_s.empty?
-        fail 'Empty option value supplied' if value_if_empty.nil?
+        fail OptionParser::InvalidArgument, 'Empty option value supplied' if value_if_empty.nil?
         return value_if_empty
       end
       value
@@ -83,7 +83,7 @@ module OptParseValidator
       unless @symbol
         long_option = to_long
 
-        fail "Could not find option symbol for #{option}" unless long_option
+        fail OptionParser::ParseError, "Could not find option symbol for #{option}" unless long_option
 
         @symbol = long_option.gsub(/^--/, '').gsub(/-/, '_').to_sym
       end

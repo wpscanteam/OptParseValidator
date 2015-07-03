@@ -7,7 +7,7 @@ describe OptParseValidator::OptRegexp do
   describe '#validate' do
     context 'when an empty value' do
       it 'raises an error' do
-        expect { opt.validate('') }.to raise_error('Empty option value supplied')
+        expect { opt.validate('') }.to raise_error OptionParser::InvalidArgument # , 'Empty option value supplied')
       end
     end
 

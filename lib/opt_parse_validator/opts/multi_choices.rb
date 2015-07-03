@@ -79,7 +79,7 @@ module OptParseValidator
         return [opt, Regexp.last_match[1]]
       end
 
-      fail "Unknown choice: #{item}"
+      fail OptionParser::InvalidArgument, "Unknown choice: #{item}"
     end
 
     # @return [ Array<Array<Symbol>> ]
@@ -99,7 +99,7 @@ module OptParseValidator
 
           next unless values.key?(sym)
 
-          fail "Incompatible choices detected: #{last_match}, #{key}" unless last_match.empty?
+          fail OptionParser::InvalidArgument, "Incompatible choices detected: #{last_match}, #{key}" unless last_match.empty?
 
           last_match = key
         end

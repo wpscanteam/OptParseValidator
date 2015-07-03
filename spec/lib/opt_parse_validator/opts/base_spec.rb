@@ -54,7 +54,7 @@ describe OptParseValidator::OptBase do
   describe '#to_sym' do
     after :each do
       if @exception
-        expect { described_class.new(@option).to_sym }.to raise_error(@exception)
+        expect { described_class.new(@option).to_sym }.to raise_error OptionParser::ParseError # , @exception
       else
         expect(described_class.new(@option).to_sym).to eql(@expected)
       end
@@ -183,7 +183,7 @@ describe OptParseValidator::OptBase do
         it 'raises an error' do
           [nil, ''].each do |value|
             expect { opt.validate(value) }
-              .to raise_error('Empty option value supplied')
+              .to raise_error OptionParser::InvalidArgument # , 'Empty option value supplied')
           end
         end
       end
