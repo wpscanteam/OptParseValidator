@@ -1,4 +1,7 @@
 module OptParseValidator
-  class NoRequiredOption < StandardError
+  class Error < RuntimeError
+  end
+
+  class NoRequiredOption < Error
   end
 end

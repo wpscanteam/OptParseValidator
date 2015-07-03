@@ -8,7 +8,7 @@ describe OptParseValidator::OptParser do
   describe '#add_option' do
     after do
       if @exception
-        expect { parser.add_option(@option) }.to raise_error(@exception)
+        expect { parser.add_option(@option) }.to raise_error(*@exception)
       else
         parser.add_option(@option)
 
@@ -19,14 +19,14 @@ describe OptParseValidator::OptParser do
     context 'when not an OptBase' do
       it 'raises an error' do
         @option    = 'just a string'
-        @exception = 'The option is not an OptBase, String supplied'
+        @exception = OptParseValidator::Error, 'The option is not an OptBase, String supplied'
       end
     end
 
     context 'when the option symbol is already used' do
       it 'raises an error' do
         @option    = verbose_opt
-        @exception = 'The option verbose is already used !'
+        @exception = OptParseValidator::Error, 'The option verbose is already used !'
         parser.add_option(@option)
       end
     end
@@ -43,11 +43,11 @@ describe OptParseValidator::OptParser do
 
   describe '#add' do
     context 'when not an Array<OptBase> or an OptBase' do
-      after { expect { parser.add(*@options) }.to raise_error(@exception) }
+      after { expect { parser.add(*@options) }.to raise_error(*@exception) }
 
       it 'raises an error when an Array<String>' do
         @options   = ['string', 'another one']
-        @exception = 'The option is not an OptBase, String supplied'
+        @exception = OptParseValidator::Error, 'The option is not an OptBase, String supplied'
       end
     end
 
@@ -92,7 +92,7 @@ describe OptParseValidator::OptParser do
 
     context 'when the #validate raises an error' do
       it 'adds the option.to_long as a prefix' do
-        @exception = Addressable::URI::InvalidURIError
+        @exception = OptParseValidator::Error, '--url Addressable::URI::InvalidURIError'
         @argv      = %w(--url www.google.com)
       end
     end

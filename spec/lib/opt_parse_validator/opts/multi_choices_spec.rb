@@ -24,7 +24,7 @@ describe OptParseValidator::OptMultiChoices do
       let(:attrs) { {} }
 
       it 'raises an error' do
-        expect { opt }.to raise_error 'The :choices attribute is mandatory'
+        expect { opt }.to raise_error(OptParseValidator::Error, 'The :choices attribute is mandatory')
       end
     end
 
@@ -33,7 +33,7 @@ describe OptParseValidator::OptMultiChoices do
         let(:attrs) { { choices: 'invalid' } }
 
         it 'raises an error' do
-          expect { opt }.to raise_error 'The :choices attribute must be a hash'
+          expect { opt }.to raise_error(OptParseValidator::Error, 'The :choices attribute must be a hash')
         end
       end
 
@@ -75,7 +75,7 @@ describe OptParseValidator::OptMultiChoices do
   describe '#validate' do
     context 'when an unknown choice is given' do
       it 'raises an error' do
-        expect { opt.validate('vp,n') }.to raise_error OptionParser::InvalidArgument # , 'Unknown choice: n'
+        expect { opt.validate('vp,n') }.to raise_error(OptParseValidator::Error, 'Unknown choice: n')
       end
     end
 
@@ -83,7 +83,7 @@ describe OptParseValidator::OptMultiChoices do
       context 'when no value_if_empty attribute' do
         it 'raises an error' do
           [nil, ''].each do |value|
-            expect { opt.validate(value) }.to raise_error OptionParser::InvalidArgument # , 'Empty option value supplied'
+            expect { opt.validate(value) }.to raise_error(OptParseValidator::Error, 'Empty option value supplied')
           end
         end
       end
@@ -111,7 +111,7 @@ describe OptParseValidator::OptMultiChoices do
             'ap,t,vp' => 'ap, vp',
             'ap,at,t' => 'at, t'
           }.each do |value, msg|
-            expect { opt.validate(value) }.to raise_error OptionParser::InvalidArgument # , "Incompatible choices detected: #{msg}"
+            expect { opt.validate(value) }.to raise_error(OptParseValidator::Error, "Incompatible choices detected: #{msg}")
           end
         end
       end

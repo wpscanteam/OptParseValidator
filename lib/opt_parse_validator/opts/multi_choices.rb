@@ -7,8 +7,8 @@ module OptParseValidator
     # @option attrs [ Array<Array> ] :incompatible
     # @options attrs [ String ] :separator See OptArray#new
     def initialize(option, attrs = {})
-      fail 'The :choices attribute is mandatory' unless attrs.key?(:choices)
-      fail 'The :choices attribute must be a hash' unless attrs[:choices].is_a?(Hash)
+      fail Error, 'The :choices attribute is mandatory' unless attrs.key?(:choices)
+      fail Error, 'The :choices attribute must be a hash' unless attrs[:choices].is_a?(Hash)
 
       super(option, attrs)
     end
@@ -79,7 +79,7 @@ module OptParseValidator
         return [opt, Regexp.last_match[1]]
       end
 
-      fail OptionParser::InvalidArgument, "Unknown choice: #{item}"
+      fail Error, "Unknown choice: #{item}"
     end
 
     # @return [ Array<Array<Symbol>> ]
@@ -99,7 +99,7 @@ module OptParseValidator
 
           next unless values.key?(sym)
 
-          fail OptionParser::InvalidArgument, "Incompatible choices detected: #{last_match}, #{key}" unless last_match.empty?
+          fail Error, "Incompatible choices detected: #{last_match}, #{key}" unless last_match.empty?
 
           last_match = key
         end

@@ -54,7 +54,7 @@ describe OptParseValidator::OptBase do
   describe '#to_sym' do
     after :each do
       if @exception
-        expect { described_class.new(@option).to_sym }.to raise_error OptionParser::ParseError # , @exception
+        expect { described_class.new(@option).to_sym }.to raise_error(*@exception)
       else
         expect(described_class.new(@option).to_sym).to eql(@expected)
       end
@@ -88,12 +88,12 @@ describe OptParseValidator::OptBase do
       context 'without long option' do
         it 'raises an error' do
           @option    = ['-v', 'long option missing']
-          @exception = 'Could not find option symbol for ["-v", "long option missing"]'
+          @exception = OptParseValidator::Error, 'Could not find option symbol for ["-v", "long option missing"]'
         end
 
         it 'raises an error' do
           @option    = ['long option missing']
-          @exception = 'Could not find option symbol for ["long option missing"]'
+          @exception = OptParseValidator::Error, 'Could not find option symbol for ["long option missing"]'
         end
       end
 
@@ -183,7 +183,7 @@ describe OptParseValidator::OptBase do
         it 'raises an error' do
           [nil, ''].each do |value|
             expect { opt.validate(value) }
-              .to raise_error OptionParser::InvalidArgument # , 'Empty option value supplied')
+              .to raise_error(OptParseValidator::Error, 'Empty option value supplied')
           end
         end
       end

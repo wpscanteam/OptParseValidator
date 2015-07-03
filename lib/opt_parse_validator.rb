@@ -36,8 +36,8 @@ module OptParseValidator
     #
     # @return [ void ]
     def add_option(opt)
-      fail "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
-      fail "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
+      fail Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
+      fail Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
 
       @opts << opt
       @symbols_used << opt.to_sym
@@ -49,8 +49,9 @@ module OptParseValidator
           @results[opt.to_sym] = opt.normalize(opt.validate(arg))
         rescue => e
           # Adds the long option name to the message
+          # And raises it as an OptParseValidator::Error if not already one
           # e.g --proxy Invalid Scheme format.
-          raise e.class, "#{opt.to_long} #{e}"
+          raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
         end
       end
     end
