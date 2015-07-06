@@ -17,7 +17,7 @@ module OptParseValidator
       msg = 'Available choices:'
 
       choices.each do |choice|
-        msg += choice.to_s == default ? " #{choice} (default)," : " #{choice},"
+        msg += choice.to_s == default.to_s ? " #{choice} (default)," : " #{choice},"
       end
 
       option << msg[0..-2]
@@ -34,8 +34,8 @@ module OptParseValidator
         choices.map!(&:downcase)
       end
 
-      fail Error,  "'#{value}' is not a valid choice, expected one " \
-           "of the followings: #{choices.join(',')}" unless choices.include?(value)
+      fail Error, "'#{value}' is not a valid choice, expected one " \
+        "of the followings: #{choices.join(',')}" unless choices.include?(value)
 
       value
     end
