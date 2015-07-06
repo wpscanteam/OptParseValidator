@@ -4,7 +4,7 @@ describe OptParseValidator::OptFilePath do
   subject(:opt)  { described_class.new(['-f', '--file FILE_PATH'], attrs) }
   let(:attrs)    { {} }
   let(:rwx_file) { File.join(FIXTURES, 'rwx.txt') }
-  let(:r_file)  { File.join(FIXTURES, 'r.txt') }
+  let(:r_file)   { File.join(FIXTURES, 'r.txt') }
 
   its(:attrs)    { should eq file: true }
 
@@ -23,7 +23,7 @@ describe OptParseValidator::OptFilePath do
       context 'when it does no match' do
         it 'raises an error' do
           expect { opt.validate('yolo.aa') }
-            .to raise_error "The extension of 'yolo.aa' is not allowed"
+            .to raise_error(OptParseValidator::Error, "The extension of 'yolo.aa' is not allowed")
         end
       end
     end
@@ -36,7 +36,7 @@ describe OptParseValidator::OptFilePath do
       end
 
       it 'raises an error if not ' do
-        expect { opt.validate(r_file) }.to raise_error "'#{r_file}' is not executable"
+        expect { opt.validate(r_file) }.to raise_error(OptParseValidator::Error, "'#{r_file}' is not executable")
       end
     end
 
@@ -50,7 +50,7 @@ describe OptParseValidator::OptFilePath do
       it 'raises an error otherwise' do
         file = File.join(FIXTURES, 'yolo.txt')
 
-        expect { opt.validate(file) }.to raise_error "'#{file}' is not readable"
+        expect { opt.validate(file) }.to raise_error(OptParseValidator::Error, "'#{file}' is not readable")
       end
     end
 
@@ -65,7 +65,7 @@ describe OptParseValidator::OptFilePath do
         it 'raises an error otherwise' do
           expect_any_instance_of(Pathname).to receive(:writable?).and_return(false)
 
-          expect { opt.validate(r_file) }.to raise_error "'#{r_file}' is not writable"
+          expect { opt.validate(r_file) }.to raise_error(OptParseValidator::Error, "'#{r_file}' is not writable")
         end
       end
 
@@ -84,7 +84,7 @@ describe OptParseValidator::OptFilePath do
           let(:file) { File.join(FIXTURES, 'hfjhg', 'yolo.rb') }
 
           it 'raises an error' do
-            expect { opt.validate(file) }.to raise_error "'#{file}' is not writable"
+            expect { opt.validate(file) }.to raise_error(OptParseValidator::Error, "'#{file}' is not writable")
           end
         end
       end

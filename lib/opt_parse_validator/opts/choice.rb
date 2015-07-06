@@ -6,8 +6,8 @@ module OptParseValidator
     #   :choices [ Array ] The available choices (mandatory)
     #   :case_sensitive [ Boolean ] Default: false
     def initialize(option, attrs = {})
-      fail 'The :choices attribute is mandatory' unless attrs.key?(:choices)
-      fail 'The :choices attribute must be an array' unless attrs[:choices].is_a?(Array)
+      fail Error, 'The :choices attribute is mandatory' unless attrs.key?(:choices)
+      fail Error, 'The :choices attribute must be an array' unless attrs[:choices].is_a?(Array)
 
       super(option, attrs)
     end
@@ -34,7 +34,7 @@ module OptParseValidator
         choices.map!(&:downcase)
       end
 
-      fail "'#{value}' is not a valid choice, expected one " \
+      fail Error,  "'#{value}' is not a valid choice, expected one " \
            "of the followings: #{choices.join(',')}" unless choices.include?(value)
 
       value

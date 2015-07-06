@@ -7,7 +7,7 @@ describe OptParseValidator::OptCredentials do
     context 'when incorrect format' do
       it 'raises an error' do
         expect { opt.validate('wrong') }
-          .to raise_error 'Incorrect credentials format, username:password expected'
+          .to raise_error(OptParseValidator::Error, 'Incorrect credentials format, username:password expected')
       end
     end
 

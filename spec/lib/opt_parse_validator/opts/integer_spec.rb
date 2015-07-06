@@ -6,7 +6,7 @@ describe OptParseValidator::OptInteger do
   describe '#validate' do
     context 'when not an integer' do
       it 'raises an error' do
-        expect { opt.validate('a') }.to raise_error('a is not an integer')
+        expect { opt.validate('a') }.to raise_error(OptParseValidator::Error, 'a is not an integer')
       end
     end
 

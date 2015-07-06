@@ -24,13 +24,15 @@ describe OptParseValidator::OptIntegerRange do
   describe '#validate' do
     context 'when incorrect number of ranges given' do
       it 'raises an error' do
-        expect { opt.validate('1-2-3') }.to raise_error('Incorrect number of ranges found: 3, should be 2')
+        expect { opt.validate('1-2-3') }
+          .to raise_error(OptParseValidator::Error, 'Incorrect number of ranges found: 3, should be 2')
       end
     end
 
     context 'when not an integer range' do
       it 'raises an error' do
-        expect { opt.validate('a-e') }.to raise_error('Argument is not a valid integer range')
+        expect { opt.validate('a-e') }
+          .to raise_error(OptParseValidator::Error, 'Argument is not a valid integer range')
       end
     end
 

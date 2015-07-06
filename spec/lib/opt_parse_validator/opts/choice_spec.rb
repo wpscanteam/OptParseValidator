@@ -7,13 +7,13 @@ describe OptParseValidator::OptChoice do
 
   describe '#new' do
     context 'when errors' do
-      after { expect { opt }.to raise_error(@exception) }
+      after { expect { opt }.to raise_error(*@exception) }
 
       context 'when :choices not provided' do
         let(:attrs) { {} }
 
         it 'raises an error' do
-          @exception = 'The :choices attribute is mandatory'
+          @exception = OptParseValidator::Error, 'The :choices attribute is mandatory'
         end
       end
 
@@ -21,7 +21,7 @@ describe OptParseValidator::OptChoice do
         let(:attrs) { { choices: 'wrong type' } }
 
         it 'raises an error' do
-          @exception = 'The :choices attribute must be an array'
+          @exception = OptParseValidator::Error, 'The :choices attribute must be an array'
         end
       end
     end
@@ -49,7 +49,7 @@ describe OptParseValidator::OptChoice do
   describe '#validate' do
     after :each do
       if @exception
-        expect { opt.validate(@value) }.to raise_error(@exception)
+        expect { opt.validate(@value) }.to raise_error(*@exception)
       else
         expect(opt.validate(@value)).to eq(@expected)
       end
@@ -58,7 +58,7 @@ describe OptParseValidator::OptChoice do
     context 'when the value is not in the choices' do
       it 'raises an error' do
         @value     = 'invalid-format'
-        @exception = "'invalid-format' is not a valid choice, expected one of the followings: json,cli"
+        @exception = OptParseValidator::Error, "'invalid-format' is not a valid choice, expected one of the followings: json,cli"
       end
 
       context 'when :case_sensitive' do
@@ -66,7 +66,7 @@ describe OptParseValidator::OptChoice do
 
         it 'raises an error' do
           @value     = 'JSON'
-          @exception = "'JSON' is not a valid choice, expected one of the followings: json,cli"
+          @exception = OptParseValidator::Error, "'JSON' is not a valid choice, expected one of the followings: json,cli"
         end
       end
     end

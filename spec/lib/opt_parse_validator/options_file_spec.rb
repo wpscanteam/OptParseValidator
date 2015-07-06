@@ -12,7 +12,7 @@ describe OptParseValidator::OptParser do
 
       context 'when the format is not supported' do
         let(:config_file) { File.join(fixtures, 'unsupported.ext') }
-        
+
         it 'raises an error' do
           expect { parser.load_options_files }
             .to raise_error(
@@ -24,7 +24,7 @@ describe OptParseValidator::OptParser do
 
       context 'when file content is malformed' do
         let(:config_file) { File.join(fixtures, 'malformed.json') }
-        
+
         it 'raises an error' do
           expect { parser.load_options_files }
             .to raise_error(OptParseValidator::Error, "Parse Error, #{config_file} seems to be malformed")
