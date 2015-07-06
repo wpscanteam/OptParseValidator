@@ -37,7 +37,7 @@ module OptParseValidator
     # @return [ void ]
     def add_option(opt)
       check_option(opt)
-      
+
       @opts << opt
       @symbols_used << opt.to_sym
       # Set the default option value if it exists

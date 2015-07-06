@@ -48,7 +48,7 @@ describe OptParseValidator::OptMultiChoices do
   describe '#append_help_messages' do
     let(:attrs) { super().merge(value_if_empty: 'vp,vt,tt,u,m') }
 
-    its(:help_messages) { should eql File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map { |s| s.chomp } }
+    its(:help_messages) { should eql File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map(&:chomp) }
   end
 
   describe '#validate' do
