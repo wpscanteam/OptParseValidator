@@ -1,0 +1,18 @@
+Available Choices:
+ vp  Vulnerable plugins
+ ap  All plugins
+ p   Plugins
+ vt  Vulnerable themes
+ at  All themes
+ t   Themes Spec
+ tt  Timthumbs
+ u   User ids Range, e.g: u1-20, u
+     Range separator to use: '-'
+     If no range is supplied, 1-10 will be used
+ m   Range separator to use: '-'
+     If no range is supplied, 1-100 will be used
+Multiple choices can be supplied, use the ',' char as a separator
+If no choice is supplied, 'vp,vt,tt,u,m' will be used
+Incompatible choices (only one of each group/s can be used):
+ - ap, vp, p
+ - vt, at, t

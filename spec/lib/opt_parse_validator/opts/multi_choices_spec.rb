@@ -48,28 +48,7 @@ describe OptParseValidator::OptMultiChoices do
   describe '#append_help_messages' do
     let(:attrs) { super().merge(value_if_empty: 'vp,vt,tt,u,m') }
 
-    its(:help_messages) do
-      should eql [
-        'Available Choices:',
-        ' vp  Vulnerable plugins',
-        ' ap  All plugins',
-        ' p   Plugins',
-        ' vt  Vulnerable themes',
-        ' at  All themes',
-        ' t   Themes Spec',
-        ' tt  Timthumbs',
-        ' u   User ids Range, e.g: u1-20, u',
-        "     Range separator to use: '-'",
-        '     If no range is supplied, 1-10 will be used',
-        " m   Range separator to use: '-'",
-        '     If no range is supplied, 1-100 will be used',
-        "Multiple choices can be supplied, use the ',' char as a separator",
-        "If no choice is supplied, 'vp,vt,tt,u,m' will be used",
-        'Incompatible choices (only one of each group/s can be used):',
-        ' - ap, vp, p',
-        ' - vt, at, t'
-      ]
-    end
+    its(:help_messages) { should eql File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map { |s| s.chomp } }
   end
 
   describe '#validate' do
