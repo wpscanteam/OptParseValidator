@@ -36,9 +36,8 @@ module OptParseValidator
     #
     # @return [ void ]
     def add_option(opt)
-      fail Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
-      fail Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
-
+      check_option(opt)
+      
       @opts << opt
       @symbols_used << opt.to_sym
       # Set the default option value if it exists
@@ -54,6 +53,16 @@ module OptParseValidator
           raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
         end
       end
+    end
+
+    # Ensures the opt given is valid
+    #
+    # @param [ OptBase ] opt
+    #
+    # @return [ void ]
+    def check_option(opt)
+      fail Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
+      fail Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
     end
 
     # @return [ Hash ]

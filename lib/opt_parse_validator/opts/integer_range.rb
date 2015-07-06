@@ -14,9 +14,13 @@ module OptParseValidator
       a = super(value).split(separator)
 
       fail Error, "Incorrect number of ranges found: #{a.size}, should be 2" unless a.size == 2
-      fail Error, 'Argument is not a valid integer range' unless a.first.to_i.to_s == a.first && a.last.to_i.to_s == a.last
 
-      (a.first.to_i..a.last.to_i)
+      first_integer = a.first.to_i
+      last_integer  = a.last.to_i
+
+      fail Error, 'Argument is not a valid integer range' unless first_integer.to_s == a.first && last_integer.to_s == a.last
+
+      (first_integer..last_integer)
     end
 
     # @return [ String ]

@@ -30,12 +30,11 @@ module OptParseValidator
       choices.each do |key, opt|
         opt_help_messages = opt.help_messages.empty? ? [opt.to_s.humanize] : opt.help_messages
 
-        first_line_prefix  = " #{key} #{' ' * (max_spaces - key.to_s.length)}"
+        first_line_prefix  = " #{key} #{' ' * (max_spaces - key.length)}"
         other_lines_prefix = ' ' * first_line_prefix.size
 
         opt_help_messages.each_with_index do |message, index|
-          prefix = index == 0 ? first_line_prefix : other_lines_prefix
-          option << "#{prefix} #{message}"
+          option << "#{index == 0 ? first_line_prefix : other_lines_prefix} #{message}"
         end
       end
     end
