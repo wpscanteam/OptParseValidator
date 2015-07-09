@@ -9,10 +9,11 @@ Gem::Specification.new do |s|
   s.version               = OptParseValidator::VERSION
   s.platform              = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.0.0'
-  s.authors               = ['WPScanTeam - Erwan le Rousseau']
-  s.email                 = ['erwan.lr@gmail.com']
-  s.summary               = 'Testing Gem'
-  s.description           = 'Testing Gem ...'
+  s.authors               = ['WPScanTeam']
+  s.email                 = ['team@wpscan.org']
+  s.summary               = 'Ruby OptionParser Validators'
+  s.description           = 'Implementation of validators for the ruby OptionParser lib. ' \
+                            'Mainly used in the CMSScanner gem to define the cli options available'
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
   s.license               = 'MIT'
 
