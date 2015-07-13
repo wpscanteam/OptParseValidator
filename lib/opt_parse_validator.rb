@@ -72,6 +72,9 @@ module OptParseValidator
       post_processing
 
       @results
+    rescue => e
+      # Raise it as an OptParseValidator::Error if not already one
+      raise e.is_a?(Error) ? e.class : Error, e.message
     end
 
     # @return [ Void ]

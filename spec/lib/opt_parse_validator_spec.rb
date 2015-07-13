@@ -184,16 +184,25 @@ describe OptParseValidator::OptParser do
   end
 
   describe '#load_options_files' do
-    let(:fixtures)      { File.join(FIXTURES, 'options_file') }
-    let(:default_file)  { File.join(fixtures, 'default.json') }
-    let(:override_file) { File.join(fixtures, 'override.yml') }
-    let(:override_opt)  { OptParseValidator::OptString.new(['--override-me VALUE'], normalize: :to_sym) }
-    let(:opts)          { [verbose_opt, override_opt] }
-    let(:expected)      { { verbose: true, override_me: :Yeaa } }
+    let(:fixtures)       { File.join(FIXTURES, 'options_file') }
+    let(:default_file)   { File.join(fixtures, 'default.json') }
+    let(:override_file)  { File.join(fixtures, 'override.yml') }
+    let(:malformed_file) { File.join(fixtures, 'malformed.yml') }
+    let(:override_opt)   { OptParseValidator::OptString.new(['--override-me VALUE'], normalize: :to_sym) }
+    let(:opts)           { [verbose_opt, override_opt] }
+    let(:expected)       { { verbose: true, override_me: :Yeaa } }
 
     before do
       parser.options_files << default_file << override_file
       parser.add(*opts)
+    end
+
+    context 'when the ile is malformed' do
+      before { parser.options_files << malformed_file }
+
+      it 'raises an OptParseValidator::Error' do
+        expect { parser.results([]) }.to raise_error OptParseValidator::Error
+      end
     end
 
     context 'when no cli options supplied' do
