@@ -8,6 +8,11 @@ module OptParseValidator
       @options_files ||= []
     end
 
+    # @return [ Array<String> ]
+    def supported_option_file_formats
+      %w(json yml)
+    end
+
     def load_options_files
       files_data = {}
 
@@ -36,7 +41,7 @@ module OptParseValidator
       file_ext       = File.extname(file_path).delete('.')
       method_to_call = "parse_#{file_ext}"
 
-      fail Error, "The format #{file_ext} is not supported" unless respond_to?(method_to_call, true) # The true allows to check protected & private methods
+      fail Error, "The format #{file_ext} is not supported" unless supported_option_file_formats.include?(file_ext)
 
       begin
         method(method_to_call).call(file_path)
