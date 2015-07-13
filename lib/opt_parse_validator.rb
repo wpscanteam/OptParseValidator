@@ -9,7 +9,7 @@ require 'opt_parse_validator/errors'
 require 'opt_parse_validator/hacks'
 require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'
-require 'opt_parse_validator/options_file'
+require 'opt_parse_validator/options_files'
 
 # Gem namespace
 module OptParseValidator
@@ -72,6 +72,22 @@ module OptParseValidator
       post_processing
 
       @results
+    end
+
+    # @return [ Void ]
+    def load_options_files
+      files_data = options_files.parse
+
+      @opts.each do |opt|
+        next unless files_data.key?(opt.to_sym)
+
+        @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym]))
+      end
+    end
+
+    # @return [ OptParseValidator::OptionsFiles ]
+    def options_files
+      @options_files ||= OptionsFiles.new
     end
 
     # Ensure that all required options are supplied

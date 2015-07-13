@@ -182,4 +182,30 @@ describe OptParseValidator::OptParser do
       @expected = { url: 'http://hello.com', verbose: true }
     end
   end
+
+  describe '#load_options_files' do
+    let(:fixtures)      { File.join(FIXTURES, 'options_file') }
+    let(:default_file)  { File.join(fixtures, 'default.json') }
+    let(:override_file) { File.join(fixtures, 'override.yml') }
+    let(:override_opt)  { OptParseValidator::OptString.new(['--override-me VALUE'], normalize: :to_sym) }
+    let(:opts)          { [verbose_opt, override_opt] }
+    let(:expected)      { { verbose: true, override_me: :Yeaa } }
+
+    before do
+      parser.options_files << default_file << override_file
+      parser.add(*opts)
+    end
+
+    context 'when no cli options supplied' do
+      it 'sets everything correctly and get the right results' do
+        expect(parser.results([])).to eql expected
+      end
+    end
+
+    context 'when cli options provided' do
+      it 'prioritize the cli one' do
+        expect(parser.results(%w(--override-me cli))).to eql expected.merge(override_me: :cli)
+      end
+    end
+  end
 end

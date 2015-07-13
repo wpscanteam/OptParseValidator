@@ -1,0 +1,15 @@
+require 'spec_helper'
+
+describe OptParseValidator::OptionsFile::Base do
+  subject(:file) { described_class.new('test') }
+
+  describe '#parse' do
+    it 'raises an error' do
+      expect { file.parse }.to raise_error NotImplementedError
+    end
+  end
+
+  describe '#==' do
+    # Handled in options_files_spec.rb#<<
+  end
+end
