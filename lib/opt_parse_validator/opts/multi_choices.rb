@@ -21,7 +21,7 @@ module OptParseValidator
       option << "Multiple choices can be supplied, use the '#{separator}' char as a separator"
       option << "If no choice is supplied, '#{value_if_empty}' will be used" if value_if_empty
 
-      append_incomptable_help_messages
+      append_incompatible_help_messages
     end
 
     def append_choices_help_messages
@@ -44,7 +44,7 @@ module OptParseValidator
       opt.help_messages.empty? ? [opt.to_s.humanize] : opt.help_messages
     end
 
-    def append_incomptable_help_messages
+    def append_incompatible_help_messages
       return if incompatible.empty?
 
       option << 'Incompatible choices (only one of each group/s can be used):'
