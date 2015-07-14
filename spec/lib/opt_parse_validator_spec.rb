@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptParser do
   subject(:parser)  { described_class.new }
-  let(:verbose_opt) { OptParseValidator::OptBase.new(%w(-v --verbose)) }
+  let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w(-v --verbose)) }
   let(:url_opt)     { OptParseValidator::OptURL.new(['-u', '--url URL'], required: true) }
 
   describe '#add_option' do
@@ -197,7 +197,7 @@ describe OptParseValidator::OptParser do
       parser.add(*opts)
     end
 
-    context 'when the ile is malformed' do
+    context 'when the file is malformed' do
       before { parser.options_files << malformed_file }
 
       it 'raises an OptParseValidator::Error' do
@@ -214,6 +214,29 @@ describe OptParseValidator::OptParser do
     context 'when cli options provided' do
       it 'prioritize the cli one' do
         expect(parser.results(%w(--override-me cli))).to eql expected.merge(override_me: :cli)
+      end
+    end
+
+    context 'when multi choices given as boolean in options file' do
+      let(:enum_file) { File.join(fixtures, 'enum.yml') }
+      let(:enum_opt) do
+        OptParseValidator::OptMultiChoices.new(
+          ['--enum [Options]'],
+          choices: {
+            a: OptParseValidator::OptBoolean.new(['--aa']),
+            b: OptParseValidator::OptBoolean.new(['--bb'])
+          },
+          value_if_empty: 'a,b'
+        )
+      end
+
+      before do
+        parser.options_files << enum_file
+        parser.add(enum_opt)
+      end
+
+      it 'raises an error' do
+        expect { parser.results([]) }.to raise_error(OptParseValidator::Error, 'Unknown choice: true')
       end
     end
   end
