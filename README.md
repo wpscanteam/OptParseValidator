@@ -31,6 +31,7 @@ OptParseValidator
 - MultiChoices
   - choices (mandatory)
   - separator (default: ',')
+  - value_if_empty
   - incompatible
 - Positive Integer
 - Path
