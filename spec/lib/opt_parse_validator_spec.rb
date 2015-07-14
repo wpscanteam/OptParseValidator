@@ -197,7 +197,7 @@ describe OptParseValidator::OptParser do
       parser.add(*opts)
     end
 
-    context 'when the ile is malformed' do
+    context 'when the file is malformed' do
       before { parser.options_files << malformed_file }
 
       it 'raises an OptParseValidator::Error' do
