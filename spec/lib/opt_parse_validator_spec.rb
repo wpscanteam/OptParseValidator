@@ -229,7 +229,7 @@ describe OptParseValidator::OptParser do
           value_if_empty: 'a,b'
         )
       end
-      
+
       before do
         parser.options_files << enum_file
         parser.add(enum_opt)
