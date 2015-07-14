@@ -84,7 +84,7 @@ module OptParseValidator
       @opts.each do |opt|
         next unless files_data.key?(opt.to_sym)
 
-        @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym]))
+        @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym].to_s))
       end
     end
 
