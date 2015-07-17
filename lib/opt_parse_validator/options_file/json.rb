@@ -4,9 +4,9 @@ module OptParseValidator
   module OptionsFile
     # Json Implementation
     class JSON < Base
-      # @return [ Hash ] a { key: value } hash
+      # @return [ Hash ] a { 'key' => value }
       def parse
-        ::JSON.parse(File.read(path), symbolize_names: true)
+        ::JSON.parse(File.read(path))
       end
     end
   end

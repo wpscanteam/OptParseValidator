@@ -34,7 +34,9 @@ module OptParseValidator
 
       each { |option_file| files_data.merge!(option_file.parse) }
 
-      files_data
+      # Convert string-full keys to symbol ones
+      # No need to go deeper than the first level as it's the max depth
+      Hash[files_data.map { |k, v| [k.to_sym, v] }]
     end
   end
 end
