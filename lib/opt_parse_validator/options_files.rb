@@ -32,10 +32,7 @@ module OptParseValidator
     def parse
       files_data = {}
 
-      each do |option_file|
-        data = option_file.parse
-        files_data.merge!(data) if data
-      end
+      each { |option_file| files_data.merge!(option_file.parse) }
 
       files_data
     end
