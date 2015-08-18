@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptChoice do
   subject(:opt) { described_class.new(option, attrs) }
-  let(:option)  { ['-f',  '--format FORMAT'] }
+  let(:option)  { ['-f', '--format FORMAT'] }
   let(:attrs)   { { choices: %w(json cli) } }
 
   describe '#new' do
@@ -42,12 +42,12 @@ describe OptParseValidator::OptChoice do
     context 'when a default attribute' do
       let(:attrs) { super().merge(default: 'cli') }
 
-      its(:help_messages) { should eql ['Available choices: json, cli (default)']  }
+      its(:help_messages) { should eql ['Available choices: json, cli (default)'] }
 
       context 'when ythe default is not given as a string' do
         let(:attrs) { super().merge(normalize: :to_sym, default: :json) }
 
-        its(:help_messages) { should eql ['Available choices: json (default), cli']  }
+        its(:help_messages) { should eql ['Available choices: json (default), cli'] }
       end
     end
   end

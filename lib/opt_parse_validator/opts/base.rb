@@ -85,7 +85,7 @@ module OptParseValidator
 
         fail Error, "Could not find option symbol for #{option}" unless long_option
 
-        @symbol = long_option.gsub(/^--/, '').gsub(/-/, '_').to_sym
+        @symbol = long_option.gsub(/^--/, '').tr('-', '_').to_sym
       end
       @symbol
     end
