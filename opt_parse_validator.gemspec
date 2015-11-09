@@ -32,13 +32,13 @@ Gem::Specification.new do |s|
   s.executables           = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths         = ['lib']
 
-  s.add_dependency 'addressable', '~> 2.3'
-  s.add_dependency 'activesupport', '~> 4.2'
+  s.add_dependency 'addressable', '~> 2.3.0'
+  s.add_dependency 'activesupport', '~> 4.2.0'
 
-  s.add_development_dependency 'rake', '~> 10.4'
-  s.add_development_dependency 'rspec',     '~> 3.3'
-  s.add_development_dependency 'rspec-its', '~> 1.2'
-  s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.34'
-  s.add_development_dependency 'simplecov', '~> 0.10'
+  s.add_development_dependency 'rake', '~> 10.4.0'
+  s.add_development_dependency 'rspec',     '~> 3.3.0'
+  s.add_development_dependency 'rspec-its', '~> 1.2.0'
+  s.add_development_dependency 'bundler',   '~> 1.10.0'
+  s.add_development_dependency 'rubocop',   '~> 0.34.0'
+  s.add_development_dependency 'simplecov', '~> 0.10.0'
 end
