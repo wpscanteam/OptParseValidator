@@ -40,5 +40,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
   s.add_development_dependency 'bundler',   '~> 1.6'
   s.add_development_dependency 'rubocop',   '~> 0.35.1'
-  s.add_development_dependency 'simplecov', '~> 0.10.0'
+  s.add_development_dependency 'simplecov', '~> 0.11.0'
 end
