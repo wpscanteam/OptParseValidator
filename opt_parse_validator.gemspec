@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.executables           = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths         = ['lib']
 
-  s.add_dependency 'addressable', '~> 2.3.0'
+  s.add_dependency 'addressable', '~> 2.4.0'
   s.add_dependency 'activesupport', '~> 4.2.0'
 
   s.add_development_dependency 'rake', '~> 10.4.0'
