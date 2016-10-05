@@ -4,3 +4,5 @@ MethodLength:
   Max: 20
 Metrics/AbcSize:
   Enabled: false
+Style/SignalException:
+  EnforcedStyle: semantic
