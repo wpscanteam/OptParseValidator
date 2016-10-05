@@ -4,7 +4,7 @@ class OptionParser
   # See https://github.com/wpscanteam/CMSScanner/issues/2
   module Completion
     class << self
-      alias_method :original_candidate, :candidate
+      alias original_candidate candidate
 
       def candidate(key, icase = false, pat = nil, &block)
         # Maybe also do this for -v/--version ?

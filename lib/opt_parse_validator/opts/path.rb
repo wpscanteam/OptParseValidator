@@ -20,7 +20,7 @@ module OptParseValidator
       path = Pathname.new(value)
       allowed_attrs.each do |key|
         method = "check_#{key}"
-        send(method, path) if self.respond_to?(method) && attrs[key]
+        send(method, path) if respond_to?(method) && attrs[key]
       end
 
       path.to_s

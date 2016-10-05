@@ -95,7 +95,7 @@ module OptParseValidator
       option.each do |option_attr|
         if option_attr =~ /^--/
           return option_attr.gsub(/ .*$/, '')
-            .gsub(/\[[^\]]+\]/, '')
+                            .gsub(/\[[^\]]+\]/, '')
         end
       end
       nil

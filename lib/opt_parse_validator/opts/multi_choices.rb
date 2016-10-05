@@ -32,7 +32,7 @@ module OptParseValidator
         other_lines_prefix = ' ' * first_line_prefix.size
 
         opt_help_messages(opt).each_with_index do |message, index|
-          option << "#{index == 0 ? first_line_prefix : other_lines_prefix} #{message}"
+          option << "#{index.zero? ? first_line_prefix : other_lines_prefix} #{message}"
         end
       end
     end
@@ -78,7 +78,7 @@ module OptParseValidator
     # @return [ Array ]
     def value_from_pattern(item)
       choices.each do |key, opt|
-        next unless item.match(/\A#{key.to_s}(.*)\z/)
+        next unless item =~ /\A#{key.to_s}(.*)\z/
 
         return [opt, Regexp.last_match[1]]
       end
