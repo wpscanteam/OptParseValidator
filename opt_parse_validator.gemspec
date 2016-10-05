@@ -35,10 +35,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'addressable', '~> 2.4.0'
   s.add_dependency 'activesupport', '~> 5.0.0.0'
 
-  s.add_development_dependency 'rake', '~> 10.4.0'
-  s.add_development_dependency 'rspec',     '~> 3.4.0'
+  s.add_development_dependency 'rake', '~> 11.3.0'
+  s.add_development_dependency 'rspec',     '~> 3.5.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
   s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.35.1'
-  s.add_development_dependency 'simplecov', '~> 0.11.0'
+  s.add_development_dependency 'rubocop',   '~> 0.43.0'
+  s.add_development_dependency 'simplecov', '~> 0.12.0'
 end
