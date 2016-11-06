@@ -34,8 +34,10 @@ module OptParseValidator
         choices.map!(&:downcase)
       end
 
-      fail Error, "'#{value}' is not a valid choice, expected one " \
-        "of the followings: #{choices.join(',')}" unless choices.include?(value)
+      unless choices.include?(value)
+        fail Error, "'#{value}' is not a valid choice, expected one " \
+          "of the followings: #{choices.join(',')}"
+      end
 
       value
     end
