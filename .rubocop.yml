@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - '*.gemspec'
+    - 'vendor/**/*'
 LineLength:
   Enabled: false
 MethodLength:
