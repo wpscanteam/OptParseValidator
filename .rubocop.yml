@@ -8,5 +8,7 @@ MethodLength:
   Max: 20
 Metrics/AbcSize:
   Enabled: false
+Metrics/BlockLength:
+  Enabled: false
 Style/SignalException:
   EnforcedStyle: semantic
