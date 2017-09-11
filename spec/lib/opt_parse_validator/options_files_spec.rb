@@ -7,7 +7,7 @@ describe OptParseValidator::OptionsFiles do
   let(:override_file) { File.join(fixtures, 'override.yml') }
 
   describe '#supported_extensions' do
-    its(:supported_extensions) { %w(json yml) }
+    its(:supported_extensions) { %w[json yml] }
   end
 
   describe '#<<' do

@@ -31,7 +31,7 @@ describe OptParseValidator::OptArray do
 
         it 'returns the expected array' do
           [nil, ''].each do |value|
-            expect(opt.validate(value)).to eql %w(a b)
+            expect(opt.validate(value)).to eql %w[a b]
           end
         end
       end
@@ -40,13 +40,13 @@ describe OptParseValidator::OptArray do
     context 'when the separator is not supplied' do
       context 'when not present in the argument' do
         it 'returns an array with the correct value' do
-          expect(opt.validate('rspec')).to eql %w(rspec)
+          expect(opt.validate('rspec')).to eql %w[rspec]
         end
       end
 
       context 'when present' do
         it 'returns the expected array' do
-          expect(opt.validate('r1,r2,r3')).to eql %w(r1 r2 r3)
+          expect(opt.validate('r1,r2,r3')).to eql %w[r1 r2 r3]
         end
       end
     end
@@ -55,11 +55,11 @@ describe OptParseValidator::OptArray do
       subject(:opt) { described_class.new(['-a', '--array VALUES'], separator: '-') }
 
       it 'returns an array with the correct value' do
-        expect(opt.validate('r1,r2,r3')).to eql %w(r1,r2,r3)
+        expect(opt.validate('r1,r2,r3')).to eql %w[r1,r2,r3]
       end
 
       it 'returns the expected array' do
-        expect(opt.validate('r1-r2-r3')).to eql %w(r1 r2 r3)
+        expect(opt.validate('r1-r2-r3')).to eql %w[r1 r2 r3]
       end
     end
   end
@@ -69,7 +69,7 @@ describe OptParseValidator::OptArray do
 
     context 'when no :normalize attribute' do
       it 'returns the value' do
-        @value    = %w(t1 t2)
+        @value    = %w[t1 t2]
         @expected = @value
       end
     end

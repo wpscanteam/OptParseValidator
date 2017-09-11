@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptParser do
   subject(:parser)  { described_class.new }
-  let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w(-v --verbose)) }
+  let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w[-v --verbose]) }
   let(:url_opt)     { OptParseValidator::OptURL.new(['-u', '--url URL'], required: true) }
 
   describe '#add_option' do
@@ -60,7 +60,7 @@ describe OptParseValidator::OptParser do
 
       it 'adds the options' do
         @options          = [verbose_opt, url_opt]
-        @expected_symbols = [:verbose, :url]
+        @expected_symbols = %i[verbose url]
       end
 
       it 'adds the option' do
@@ -86,14 +86,14 @@ describe OptParseValidator::OptParser do
     context 'when an option is required but not supplied' do
       it 'raises an error' do
         @exception = OptParseValidator::NoRequiredOption, 'The option url is required'
-        @argv      = %w(-v)
+        @argv      = %w[-v]
       end
     end
 
     context 'when the #validate raises an error' do
       it 'adds the option.to_long as a prefix' do
         @exception = OptParseValidator::Error, '--url Addressable::URI::InvalidURIError'
-        @argv      = %w(--url www.google.com)
+        @argv      = %w[--url www.google.com]
       end
     end
 
@@ -105,28 +105,28 @@ describe OptParseValidator::OptParser do
       context 'when none supplied' do
         it 'raises an error' do
           @exception = OptParseValidator::NoRequiredOption, 'One of the following options is required: url, update'
-          @argv      = %w(-v)
+          @argv      = %w[-v]
         end
       end
 
       context 'when --url' do
         it 'returns the expected value' do
           @expected = { url: 'http://www.g.com' }
-          @argv     = %w(--url http://www.g.com)
+          @argv     = %w[--url http://www.g.com]
         end
       end
 
       context 'when --update' do
         it 'returns the expected value' do
           @expected = { update: true }
-          @argv     = %w(--update)
+          @argv     = %w[--update]
         end
       end
 
       context 'when --url and --update' do
         it 'returns the expected values' do
           @expected = { url: 'http://www.g.com', update: true, verbose: true }
-          @argv     = %w(--url http://www.g.com --update -v)
+          @argv     = %w[--url http://www.g.com --update -v]
         end
       end
     end
@@ -137,14 +137,14 @@ describe OptParseValidator::OptParser do
 
       context 'when the option is supplied' do
         it 'overrides the default value' do
-          @argv     = %w(--default overriden)
+          @argv     = %w[--default overriden]
           @expected = { default: 'overriden' }
         end
       end
 
       context 'when the option is not supplied' do
         it 'sets the default value' do
-          @argv     = %w(-v)
+          @argv     = %w[-v]
           @expected = { verbose: true, default: false }
         end
       end
@@ -158,12 +158,12 @@ describe OptParseValidator::OptParser do
       it 'calls the help' do
         expect(parser).to receive(:help)
 
-        @argv      = %w(-h)
+        @argv      = %w[-h]
         @exception = SystemExit
       end
 
       it 'returns the results' do
-        @argv     = %w(--http-auth user:passwd)
+        @argv     = %w[--http-auth user:passwd]
         @expected = { http_auth: 'user:passwd' }
       end
     end
@@ -172,13 +172,13 @@ describe OptParseValidator::OptParser do
       let(:options) { [OptParseValidator::OptString.new(['--test V'], normalize: :to_sym)] }
 
       it 'returns the symbol' do
-        @argv     = %w(--test test)
+        @argv     = %w[--test test]
         @expected = { test: :test }
       end
     end
 
     it 'returns the results' do
-      @argv     = %w(--url http://hello.com -v)
+      @argv     = %w[--url http://hello.com -v]
       @expected = { url: 'http://hello.com', verbose: true }
     end
   end
@@ -213,7 +213,7 @@ describe OptParseValidator::OptParser do
 
     context 'when cli options provided' do
       it 'prioritize the cli one' do
-        expect(parser.results(%w(--override-me cli))).to eql expected.merge(override_me: :cli)
+        expect(parser.results(%w[--override-me cli])).to eql expected.merge(override_me: :cli)
       end
     end
 

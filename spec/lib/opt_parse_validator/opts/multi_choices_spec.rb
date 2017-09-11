@@ -15,7 +15,7 @@ describe OptParseValidator::OptMultiChoices do
         u:  OptParseValidator::OptIntegerRange.new(['--users', 'User ids Range, e.g: u1-20, u'], value_if_empty: '1-10'),
         m:  OptParseValidator::OptIntegerRange.new(['--media'], value_if_empty: '1-100')
       },
-      incompatible: [[:ap, :vp, :p], [:vt, :at, :t]]
+      incompatible: [%i[ap vp p], %i[vt at t]]
     }
   end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OptParseValidator::OptChoice do
   subject(:opt) { described_class.new(option, attrs) }
   let(:option)  { ['-f', '--format FORMAT'] }
-  let(:attrs)   { { choices: %w(json cli) } }
+  let(:attrs)   { { choices: %w[json cli] } }
 
   describe '#new' do
     context 'when errors' do
@@ -68,7 +68,7 @@ describe OptParseValidator::OptChoice do
       end
 
       context 'when :case_sensitive' do
-        let(:attrs) { { choices: %w(json cli), case_sensitive: true } }
+        let(:attrs) { { choices: %w[json cli], case_sensitive: true } }
 
         it 'raises an error' do
           @value     = 'JSON'
@@ -84,7 +84,7 @@ describe OptParseValidator::OptChoice do
       end
 
       context 'when :case_sensitive' do
-        let(:attrs) { { choices: %w(JSON cli), case_sensitive: true } }
+        let(:attrs) { { choices: %w[JSON cli], case_sensitive: true } }
 
         it 'raises an error' do
           @value    = 'JSON'

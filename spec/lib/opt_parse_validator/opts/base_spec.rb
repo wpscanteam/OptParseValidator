@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptBase do
   subject(:opt) { described_class.new(option, attrs) }
-  let(:option)  { %w(-v --verbose) }
+  let(:option)  { %w[-v --verbose] }
   let(:attrs)   { {} }
 
   describe '#help_messages, #append_help_messages' do
@@ -38,7 +38,7 @@ describe OptParseValidator::OptBase do
 
     context 'when not found' do
       it 'returns nil' do
-        @option = %w(-v)
+        @option = %w[-v]
         @expected = nil
       end
     end
@@ -63,7 +63,7 @@ describe OptParseValidator::OptBase do
     context 'without REQUIRED or OPTIONAL arguments' do
       context 'with short option' do
         it 'returns :test' do
-          @option   = %w(-t --test Testing)
+          @option   = %w[-t --test Testing]
           @expected = :test
         end
 
@@ -99,7 +99,7 @@ describe OptParseValidator::OptBase do
 
       context 'with multiple long option names (like alias)' do
         it 'returns the first long option found' do
-          @option   = %w(--check-long --cl)
+          @option   = %w[--check-long --cl]
           @expected = :check_long
         end
       end

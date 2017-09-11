@@ -14,7 +14,7 @@ describe OptParseValidator::OptBoolean do
     context 'when matches TRUE_PATTERN' do
       after { expect(opt.validate(@argument)).to be true }
 
-      %w(true t yes y 1).each do |arg|
+      %w[true t yes y 1].each do |arg|
         it 'returns true' do
           @argument = arg
         end
@@ -24,7 +24,7 @@ describe OptParseValidator::OptBoolean do
     context 'when matches FALSE_PATTERN' do
       after { expect(opt.validate(@argument)).to be false }
 
-      %w(false f no n 0).each do |arg|
+      %w[false f no n 0].each do |arg|
         it 'returns false' do
           @argument = arg
         end

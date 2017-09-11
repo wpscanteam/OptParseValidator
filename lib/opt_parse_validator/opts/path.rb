@@ -27,7 +27,7 @@ module OptParseValidator
     end
 
     def allowed_attrs
-      [:file, :directory, :executable, :readable, :writable]
+      %i[file directory executable readable writable]
     end
 
     # @param [ Pathname ] path

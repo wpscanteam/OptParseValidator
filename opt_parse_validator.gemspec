@@ -1,4 +1,5 @@
 # coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -33,12 +34,13 @@ Gem::Specification.new do |s|
   s.require_paths         = ['lib']
 
   s.add_dependency 'addressable', '~> 2.5.0'
-  s.add_dependency 'activesupport', '~> 5.0.1'
+  s.add_dependency 'activesupport', '~> 5.1.0'
 
   s.add_development_dependency 'rake', '~> 12.0'
-  s.add_development_dependency 'rspec',     '~> 3.5.0'
+  s.add_development_dependency 'rspec',     '~> 3.6.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
   s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.47.0'
-  s.add_development_dependency 'simplecov', '~> 0.12.0' # Can't update to 0.13 as it breaks coveralls dep
+  s.add_development_dependency 'rubocop',   '~> 0.49.0'
+  s.add_development_dependency 'simplecov', '~> 0.14.0' # Can't update to 0.15 as it breaks coveralls dep
+  s.add_development_dependency 'coveralls', '~> 0.8.0'
 end
