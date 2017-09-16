@@ -26,6 +26,7 @@ OptParseValidator
   - :executable
   - :readable
   - :writable
+- Headers
 - Integer
 - IntegerRange
   - separator (default: '-')
