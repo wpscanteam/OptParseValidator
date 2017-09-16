@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec',     '~> 3.6.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
   s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.49.0'
+  s.add_development_dependency 'rubocop',   '~> 0.50.0'
   s.add_development_dependency 'simplecov', '~> 0.14.0' # Can't update to 0.15 as it breaks coveralls dep
   s.add_development_dependency 'coveralls', '~> 0.8.0'
 end
