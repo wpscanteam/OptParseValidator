@@ -5,7 +5,12 @@ describe OptParseValidator::OptHeaders do
   let(:attrs)   { {} }
 
   describe '#append_help_messages' do
-    its(:help_messages) { should eql ["Separator to use between the headers: '; '"] }
+    its(:help_messages) do
+      should eql [
+        "Separator to use between the headers: '; '",
+        "Examples: 'X-Forwarded-For: 127.0.0.1', 'X-Forwarded-For: 127.0.0.1; Another: aaa'"
+      ]
+    end
   end
 
   describe '#validates' do
