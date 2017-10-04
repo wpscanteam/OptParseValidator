@@ -15,6 +15,8 @@ OptParseValidator
 ### Usage Example
 
 ```ruby
+# test.rb
+
 require 'opt_parse_validator'
 
 # For contructor options, such as setting a banner, the summary width and indent,
@@ -22,12 +24,22 @@ require 'opt_parse_validator'
 parser = OptParseValidator::OptParser.new
 
 parser.add(
+  OptParseValidator::OptString.new(['-m', '--mandatory PARAM', 'A Mandatory CLI option'], required: true),
   OptParseValidator::OptBoolean.new(['--test', '-t', 'Option Helper Message']),
   OptParseValidator::OptFilePath.new(['-o', '--output FILE', 'Output to FILE'], writable: true, exists: false)
 )
 
-p parser.results
+begin
+  p parser.results
+rescue OptParseValidator::Error => e
+  puts 'Parsing Error: ' + e.message
+end
 ```
+
+Then have a play with
+```ruby test.rb -h```
+```ruby test.rb -m hh -t```
+```ruby test.rb -t```
 
 For more option examples, see
  - https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb
