@@ -12,5 +12,3 @@ Metrics/BlockLength:
   Enabled: false
 Style/SignalException:
   EnforcedStyle: semantic
-Lint/RescueWithoutErrorClass:
-  Enabled: false

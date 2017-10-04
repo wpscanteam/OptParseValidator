@@ -46,7 +46,7 @@ module OptParseValidator
       on(*opt.option) do |arg|
         begin
           @results[opt.to_sym] = opt.normalize(opt.validate(arg))
-        rescue => e
+        rescue StandardError => e
           # Adds the long option name to the message
           # And raises it as an OptParseValidator::Error if not already one
           # e.g --proxy Invalid Scheme format.
@@ -72,7 +72,7 @@ module OptParseValidator
       post_processing
 
       @results
-    rescue => e
+    rescue StandardError => e
       # Raise it as an OptParseValidator::Error if not already one
       raise e.is_a?(Error) ? e.class : Error, e.message
     end
