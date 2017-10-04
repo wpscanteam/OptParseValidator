@@ -8,7 +8,34 @@ OptParseValidator
 [![Dependency Status](https://img.shields.io/gemnasium/wpscanteam/OptParseValidator.svg)](https://gemnasium.com/wpscanteam/OptParseValidator)
 
 
-### Available Validators & associated attributes:
+### Installation
+
+```gem install opt_parse_validator```
+
+### Usage Example
+
+```ruby
+require 'opt_parse_validator'
+
+# For contructor options, such as setting a banner, the summary width and indent,
+# see http://ruby-doc.org/stdlib-2.4.2/libdoc/optparse/rdoc/OptionParser.html#method-c-new
+parser = OptParseValidator::OptParser.new
+
+parser.add(
+  OptParseValidator::OptBoolean.new(['--test', '-t', 'Option Helper Message']),
+  OptParseValidator::OptFilePath.new(['-o', '--output FILE', 'Output to FILE'], writable: true, exists: false)
+)
+
+p parser.results
+```
+
+For more option examples, see
+ - https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb
+ - https://github.com/wpscanteam/wpscan-v3/blob/master/app/controllers/enumeration/cli_options.rb
+
+Please Feel free to send Pull Requests to improve this Readme
+
+### Available Validators & Associated Attributes:
 - Array
   - :separator (default: ',')
 - Boolean
