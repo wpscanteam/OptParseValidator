@@ -11,10 +11,45 @@ describe OptParseValidator::OptBase do
         its(:help_messages) { should eql([]) }
       end
 
-      context 'when default attribute' do
+      context 'when :default attribute' do
         let(:attrs) { { default: 'test' } }
 
         its(:help_messages) { should eql ['Default: test'] }
+      end
+
+      context 'when :value_if_empty attribute' do
+        let(:attrs) { { value_if_empty: 'aa' } }
+
+        its(:help_messages) { should eql ['Value if no argument supplied: aa'] }
+      end
+
+      context 'when :required attribute' do
+        let(:attrs) { { required: true } }
+
+        its(:help_messages) { should eql ['This option is mandatory'] }
+      end
+
+      context 'when :required_unless attribute' do
+        context 'when a signle required_unless value' do
+          let(:attrs) { { required_unless: :hh } }
+
+          its(:help_messages) { should eql ['This option is mandatory unless hh is/are supplied'] }
+        end
+
+        context 'when multiple required_unless values' do
+          let(:attrs) { { required_unless: %i[hh bb] } }
+
+          its(:help_messages) { should eql ['This option is mandatory unless hh or bb is/are supplied'] }
+        end
+      end
+
+      context 'when multiple attributes' do
+        let(:attrs) { { value_if_empty: 'aa', required_unless: :hh } }
+
+        its(:help_messages) do
+          should eql ['Value if no argument supplied: aa',
+                      'This option is mandatory unless hh is/are supplied']
+        end
       end
     end
 

@@ -18,12 +18,17 @@ module OptParseValidator
       @option = option
       @attrs  = attrs
 
-      append_help_messages if respond_to?(:append_help_messages)
+      # TODO: incompatible attributes, ie required and require_unless at the same time
+
+      append_help_messages
     end
 
     # @return [ Void ]
     def append_help_messages
       option << "Default: #{default}" if default
+      option << "Value if no argument supplied: #{value_if_empty}" if value_if_empty
+      option << 'This option is mandatory' if required?
+      option << "This option is mandatory unless #{required_unless.join(' or ')} is/are supplied" unless required_unless.empty?
     end
 
     # @return [ Boolean ]
