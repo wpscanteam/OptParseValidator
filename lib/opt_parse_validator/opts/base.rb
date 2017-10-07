@@ -10,7 +10,7 @@ module OptParseValidator
     # @option attrs [ Boolean ] :required
     # @options attrs [ Array<Symbol>, Symbol ] :required_unless
     # @option attrs [ Mixed ] :default The default value to use if the option is not supplied
-    # @option attrs [ Mixed ] :value_if_empty The value to use if no arguments have been supplied
+    # @option attrs [ Mixed ] :value_if_empty The value to use if no argument has been supplied
     # @option attrs [ Array<Symbol> ] :normalize See #normalize
     #
     # @note The :default and :normalize 'logics' are done in OptParseValidator::OptParser#add_option
