@@ -80,7 +80,6 @@ Some attributes are available for all Validators:
 - MultiChoices
   - choices (mandatory)
   - separator (default: ',')
-  - value_if_empty
   - incompatible
 - Positive Integer
 - Path
@@ -95,6 +94,8 @@ Some attributes are available for all Validators:
   - :default_protocol
 - Regexp:
   - :options (See http://ruby-doc.org/core-2.2.1/Regexp.html#method-c-new)
+- SmartList
+  - separator (default: ',')
 - String
 - URI
   - :protocols
