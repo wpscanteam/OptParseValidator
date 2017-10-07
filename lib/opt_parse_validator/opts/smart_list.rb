@@ -7,10 +7,10 @@ module OptParseValidator
   class OptSmartList < OptArray
     # @return [ Void ]
     def append_help_messages
-      # calls the parent methods to have potential related messages
-      # but removes the last help message from OptArray about the separator
-      # as useless here
-      super.pop
+      super
+      # removes the help message from OptArray about the separator as useless here
+      # can't use option as it's an attr_reader only
+      @option -= ["Separator to use between the values: '#{separator}'"]
 
       option << "Examples: 'a1', '#{%w[a1 a2 a3].join(separator)}', '/tmp/a.txt'"
     end

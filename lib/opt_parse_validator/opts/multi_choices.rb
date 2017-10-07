@@ -18,8 +18,7 @@ module OptParseValidator
 
       append_choices_help_messages
 
-      option << "Multiple choices can be supplied, use the '#{separator}' char as a separator"
-      option << "If no choice is supplied, '#{value_if_empty}' will be used" if value_if_empty
+      super
 
       append_incompatible_help_messages
     end

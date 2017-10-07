@@ -15,7 +15,7 @@ describe OptParseValidator::OptIntegerRange do
       its(:help_messages) do
         should eql [
           "Range separator to use: '-'",
-          'If no range is supplied, 1-10 will be used'
+          'Value if no argument supplied: 1-10'
         ]
       end
     end

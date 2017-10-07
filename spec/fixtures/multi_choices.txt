@@ -8,11 +8,11 @@ Available Choices:
  tt  Timthumbs
  u   User ids Range, e.g: u1-20, u
      Range separator to use: '-'
-     If no range is supplied, 1-10 will be used
+     Value if no argument supplied: 1-10
  m   Range separator to use: '-'
-     If no range is supplied, 1-100 will be used
-Multiple choices can be supplied, use the ',' char as a separator
-If no choice is supplied, 'vp,vt,tt,u,m' will be used
+     Value if no argument supplied: 1-100
+Separator to use between the values: ','
+Value if no argument supplied: vp,vt,tt,u,m
 Incompatible choices (only one of each group/s can be used):
  - ap, vp, p
  - vt, at, t

@@ -5,7 +5,17 @@ describe OptParseValidator::OptSmartList do
   let(:attrs)   { {} }
 
   describe '#append_help_messages' do
-    its(:help_messages) { should eql ["Examples: 'a1', '#{%w[a1 a2 a3].join(opt.separator)}', '/tmp/a.txt'"] }
+    let(:expected) { ["Examples: 'a1', '#{%w[a1 a2 a3].join(opt.separator)}', '/tmp/a.txt'"] }
+
+    context 'when no attributes' do
+      its(:help_messages) { should eql expected }
+    end
+
+    context 'when :default attribute' do
+      let(:attrs) { super().merge(default: 'bb') }
+
+      its(:help_messages) { should eql ['Default: bb'] + expected }
+    end
   end
 
   describe '#validate' do

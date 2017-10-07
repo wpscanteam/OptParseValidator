@@ -4,7 +4,8 @@ module OptParseValidator
     # @return [ Void ]
     def append_help_messages
       option << "Range separator to use: '#{separator}'"
-      option << "If no range is supplied, #{value_if_empty} will be used" if value_if_empty
+
+      super
     end
 
     # @param [ String ] value

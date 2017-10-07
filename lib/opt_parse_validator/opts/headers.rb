@@ -3,6 +3,8 @@ module OptParseValidator
   class OptHeaders < OptBase
     # @return [ Void ]
     def append_help_messages
+      super
+
       option << "Separator to use between the headers: '; '"
       option << "Examples: 'X-Forwarded-For: 127.0.0.1', 'X-Forwarded-For: 127.0.0.1; Another: aaa'"
     end

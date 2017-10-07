@@ -5,6 +5,8 @@ module OptParseValidator
     def append_help_messages
       option << "Allowed Protocols: #{allowed_protocols.join(', ')}" unless allowed_protocols.empty?
       option << "Default Protocol if none provided: #{default_protocol}" if default_protocol
+
+      super
     end
 
     # @return [ Array<String> ]

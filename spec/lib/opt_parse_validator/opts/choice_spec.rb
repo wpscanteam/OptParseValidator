@@ -42,12 +42,12 @@ describe OptParseValidator::OptChoice do
     context 'when a default attribute' do
       let(:attrs) { super().merge(default: 'cli') }
 
-      its(:help_messages) { should eql ['Available choices: json, cli (default)'] }
+      its(:help_messages) { should eql ['Default: cli', 'Available choices: json, cli'] }
 
-      context 'when ythe default is not given as a string' do
+      context 'when the default is not given as a string' do
         let(:attrs) { super().merge(normalize: :to_sym, default: :json) }
 
-        its(:help_messages) { should eql ['Available choices: json (default), cli'] }
+        its(:help_messages) { should eql ['Default: json', 'Available choices: json, cli'] }
       end
     end
   end

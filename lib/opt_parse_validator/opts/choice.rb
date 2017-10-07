@@ -14,13 +14,9 @@ module OptParseValidator
 
     # @return [ Void ]
     def append_help_messages
-      msg = 'Available choices:'
+      super
 
-      choices.each do |choice|
-        msg += choice.to_s == default.to_s ? " #{choice} (default)," : " #{choice},"
-      end
-
-      option << msg[0..-2]
+      option << "Available choices: #{choices.join(', ')}"
     end
 
     # @return [ String ]
