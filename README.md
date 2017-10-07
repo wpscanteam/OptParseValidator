@@ -50,9 +50,10 @@ Please Feel free to send Pull Requests to improve this Readme
 ### Global Attributes
 
 Some attributes are available for all Validators:
-- required (whether or not the associated cli option is required/mandatory - [example](https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb#L9)).
-- required_unless (like the above, except if the option/s given in this parameter are called in the CLI - [example](https://github.com/wpscanteam/wpscan-v3/blob/master/app/controllers/core.rb#L7), can be a single symbol or array of symbols)
-- default (default value to be used if not supplied/empty)
+- :required (whether or not the associated cli option is required/mandatory - [example](https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb#L9)).
+- :required_unless (like the above, except if the option/s given in this parameter are called in the CLI - [example](https://github.com/wpscanteam/wpscan-v3/blob/master/app/controllers/core.rb#L7), can be a single symbol or array of symbols)
+- :default (Default value to use if the option is not supplied)
+- :value_if_empty (Value to use if no argument/s have been supplied for the related option)
 
 ### Available Validators & Associated Attributes:
 - Array
