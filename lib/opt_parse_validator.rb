@@ -41,7 +41,7 @@ module OptParseValidator
       @opts << opt
       @symbols_used << opt.to_sym
       # Set the default option value if it exists
-      @results[opt.to_sym] = opt.default unless opt.default.nil?
+      @results[opt.to_sym] = opt.normalize(opt.validate(opt.default)) unless opt.default.nil?
 
       on(*opt.option) do |arg|
         begin

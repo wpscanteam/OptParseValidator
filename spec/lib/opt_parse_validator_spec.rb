@@ -148,6 +148,26 @@ describe OptParseValidator::OptParser do
           @expected = { verbose: true, default: false }
         end
       end
+
+      context 'when the default needs to be validated' do
+        let(:options)         { [verbose_opt, smart_list_opt] }
+        let(:smart_list_path) { File.join(FIXTURES, 'smart_list.txt') }
+        let(:smart_list_opt)  { OptParseValidator::OptSmartList.new(['--list LIST'], default: smart_list_path) }
+
+        it 'validates the default' do
+          @argv     = %w[-v]
+          @expected = { verbose: true, list: File.readlines(smart_list_path).map(&:chomp) }
+        end
+      end
+
+      context 'when the defaut needs to be normalized' do
+        let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: 'aaa', normalize: :to_sym) }
+
+        it 'normalises the default' do
+          @argv     = %w[-v]
+          @expected = { verbose: true, default: :aaa }
+        end
+      end
     end
 
     # See https://github.com/wpscanteam/CMSScanner/issues/2
