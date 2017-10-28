@@ -64,11 +64,13 @@ Some attributes are available for all Validators:
   - :case_sensitive
 - Credentials
 - Directory Path
+  - :create
   - :exists
   - :executable
   - :readable
   - :writable
 - File Path
+  - :create
   - :exists
   - :executable
   - :readable
@@ -83,6 +85,7 @@ Some attributes are available for all Validators:
   - incompatible
 - Positive Integer
 - Path
+  - :create
   - :file
   - :directory
   - :exists
