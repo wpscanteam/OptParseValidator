@@ -12,7 +12,10 @@ module OptParseValidator
 
     # @param [ Pathname ] path
     def check_create(path)
-      FileUtils.touch(path.to_s) unless File.exist?(path)
+      return if File.exist?(path)
+
+      FileUtils.mkdir_p(path.parent.to_s) unless Dir.exist?(path.parent.to_s)
+      FileUtils.touch(path.to_s)
     end
 
     def allowed_attrs

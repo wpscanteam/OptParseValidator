@@ -44,6 +44,8 @@ describe OptParseValidator::OptFilePath do
         it 'creates it' do
           expect(opt.validate(file_path)).to eql file_path
           expect(File.exist?(file_path)).to eql true
+
+          FileUtils.remove_file(file_path)
         end
       end
     end
