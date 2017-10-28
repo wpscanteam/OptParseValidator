@@ -54,7 +54,7 @@ describe OptParseValidator::OptFilePath do
       it 'returns the path if executable' do
         expect_any_instance_of(Pathname).to receive(:executable?).and_return(true)
 
-        expect(opt.validate(file_path)).to eq file_path
+        expect(opt.validate(file_path)).to eql file_path
       end
 
       it 'raises an error if not ' do
@@ -66,7 +66,7 @@ describe OptParseValidator::OptFilePath do
       let(:attrs) { { readable: true, exists: false } }
 
       it 'returns the path if readable' do
-        expect(opt.validate(file_path)).to eq file_path
+        expect(opt.validate(file_path)).to eql file_path
       end
 
       it 'raises an error otherwise' do
@@ -81,7 +81,7 @@ describe OptParseValidator::OptFilePath do
         let(:attrs) { { writable: true } }
 
         it 'returns the path if writable' do
-          expect(opt.validate(file_path)).to eq file_path
+          expect(opt.validate(file_path)).to eql file_path
         end
 
         it 'raises an error otherwise' do
@@ -98,7 +98,7 @@ describe OptParseValidator::OptFilePath do
           let(:file) { File.join(FIXTURES, 'options_file', 'not_there.txt') }
 
           it 'returns the path' do
-            expect(opt.validate(file)).to eq file
+            expect(opt.validate(file)).to eql file
           end
         end
 

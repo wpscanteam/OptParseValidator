@@ -10,7 +10,7 @@ describe OptParseValidator::OptDirectoryPath do
   describe '#validate' do
     context 'when it is a directory' do
       it 'returns the path' do
-        expect(opt.validate(dir_path)).to eq dir_path
+        expect(opt.validate(dir_path)).to eql dir_path
       end
     end
 
