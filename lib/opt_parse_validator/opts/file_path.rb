@@ -10,6 +10,11 @@ module OptParseValidator
       @attrs.merge!(file: true)
     end
 
+    # @param [ Pathname ] path
+    def check_create(path)
+      FileUtils.touch(path.to_s) unless File.exist?(path)
+    end
+
     def allowed_attrs
       # :extensions is put at the first place
       [:extensions] + super

@@ -3,6 +3,8 @@ module OptParseValidator
   class OptPath < OptBase
     # Initialize attrs:
     #
+    # :create     if set to true, will create the path
+    #
     # :exists     if set to false, will ignore the file? and directory? checks
     #
     # :file       Check if the path is a file
@@ -18,6 +20,7 @@ module OptParseValidator
     # @return [ String ]
     def validate(value)
       path = Pathname.new(value)
+
       allowed_attrs.each do |key|
         method = "check_#{key}"
         send(method, path) if respond_to?(method) && attrs[key]
@@ -27,8 +30,10 @@ module OptParseValidator
     end
 
     def allowed_attrs
-      %i[file directory executable readable writable]
+      %i[create file directory executable readable writable]
     end
+
+    # check_create is implemented in the file_path and directory_path opts
 
     # @param [ Pathname ] path
     def check_file(path)

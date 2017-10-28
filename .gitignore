@@ -2,3 +2,5 @@ coverage
 pkg
 Gemfile.lock
 *.gem
+spec/fixtures/file_path2.txt
+spec/fixtures/dir_path

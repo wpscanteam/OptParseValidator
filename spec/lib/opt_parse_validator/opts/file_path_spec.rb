@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe OptParseValidator::OptFilePath do
-  subject(:opt)  { described_class.new(['-f', '--file FILE_PATH'], attrs) }
-  let(:attrs)    { {} }
-  let(:rwx_file) { File.join(FIXTURES, 'rwx.txt') }
-  let(:r_file)   { File.join(FIXTURES, 'r.txt') }
+  subject(:opt)   { described_class.new(['-f', '--file FILE_PATH'], attrs) }
+  let(:attrs)     { {} }
+  let(:file_path) { File.join(FIXTURES, 'file_path.txt') }
 
-  its(:attrs)    { should eq file: true }
+  its(:attrs)     { should eq file: true }
 
   describe '#validate' do
     context 'when :extensions' do
@@ -16,7 +15,7 @@ describe OptParseValidator::OptFilePath do
 
       context 'when it matches' do
         it 'returns the path' do
-          expect(opt.validate(rwx_file)).to eq rwx_file
+          expect(opt.validate(file_path)).to eql file_path
         end
       end
 
@@ -28,29 +27,52 @@ describe OptParseValidator::OptFilePath do
       end
     end
 
+    context 'when :create' do
+      let(:attrs) { { create: true } }
+
+      context 'when the file exists' do
+        it 'does not create it' do
+          expect(FileUtils).to_not receive(:touch)
+
+          expect(opt.validate(file_path)).to eql file_path
+        end
+      end
+
+      context 'when the file does not exist' do
+        let(:file_path) { File.join(FIXTURES, 'file_path2.txt') }
+
+        it 'creates it' do
+          expect(opt.validate(file_path)).to eql file_path
+          expect(File.exist?(file_path)).to eql true
+        end
+      end
+    end
+
     context 'when :executable' do
       let(:attrs) { { executable: true } }
 
-      it 'returns the path if the file is +x' do
-        expect(opt.validate(rwx_file)).to eq rwx_file
+      it 'returns the path if executable' do
+        expect_any_instance_of(Pathname).to receive(:executable?).and_return(true)
+
+        expect(opt.validate(file_path)).to eq file_path
       end
 
       it 'raises an error if not ' do
-        expect { opt.validate(r_file) }.to raise_error(OptParseValidator::Error, "'#{r_file}' is not executable")
+        expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "'#{file_path}' is not executable")
       end
     end
 
     context 'when :readable' do
       let(:attrs) { { readable: true, exists: false } }
 
-      it 'returns the path if the file is +r' do
-        expect(opt.validate(rwx_file)).to eq rwx_file
+      it 'returns the path if readable' do
+        expect(opt.validate(file_path)).to eq file_path
       end
 
       it 'raises an error otherwise' do
-        file = File.join(FIXTURES, 'yolo.txt')
+        expect_any_instance_of(Pathname).to receive(:readable?).and_return(false)
 
-        expect { opt.validate(file) }.to raise_error(OptParseValidator::Error, "'#{file}' is not readable")
+        expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "'#{file_path}' is not readable")
       end
     end
 
@@ -58,21 +80,21 @@ describe OptParseValidator::OptFilePath do
       context 'when the path exists' do
         let(:attrs) { { writable: true } }
 
-        it 'returns the path if the path is +x' do
-          expect(opt.validate(rwx_file)).to eq rwx_file
+        it 'returns the path if writable' do
+          expect(opt.validate(file_path)).to eq file_path
         end
 
         it 'raises an error otherwise' do
           expect_any_instance_of(Pathname).to receive(:writable?).and_return(false)
 
-          expect { opt.validate(r_file) }.to raise_error(OptParseValidator::Error, "'#{r_file}' is not writable")
+          expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "'#{file_path}' is not writable")
         end
       end
 
       context 'when it does not exist' do
         let(:attrs) { { writable: true, exists: false } }
 
-        context 'when the parent directory is +w' do
+        context 'when the parent directory is writable' do
           let(:file) { File.join(FIXTURES, 'options_file', 'not_there.txt') }
 
           it 'returns the path' do
@@ -80,7 +102,7 @@ describe OptParseValidator::OptFilePath do
           end
         end
 
-        context 'when the parent directory is not +w' do
+        context 'when the parent directory is not writable' do
           let(:file) { File.join(FIXTURES, 'hfjhg', 'yolo.rb') }
 
           it 'raises an error' do
