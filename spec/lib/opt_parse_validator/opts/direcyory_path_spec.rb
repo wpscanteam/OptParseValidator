@@ -37,6 +37,8 @@ describe OptParseValidator::OptDirectoryPath do
         it 'creates it' do
           expect(opt.validate(dir_path)).to eql dir_path
           expect(Dir.exist?(dir_path)).to eql true
+
+          FileUtils.remove_dir(dir_path)
         end
       end
     end
