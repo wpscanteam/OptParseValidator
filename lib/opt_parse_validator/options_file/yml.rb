@@ -6,7 +6,7 @@ module OptParseValidator
     class YML < Base
       # @return [ Hash ] a { 'key' => value } hash
       def parse
-        YAML.load_file(path) || {}
+        YAML.safe_load(File.read(path)) || {}
       end
     end
   end
