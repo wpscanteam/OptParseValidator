@@ -4,12 +4,13 @@ AllCops:
     - '*.gemspec'
     - 'vendor/**/*'
 LineLength:
-  Enabled: false
+  Max: 130
 MethodLength:
   Max: 20
 Metrics/AbcSize:
-  Enabled: false
+  Max: 20
 Metrics/BlockLength:
-  Enabled: false
+  Exclude:
+    - 'spec/**/*'
 Style/FrozenStringLiteralComment:
   Enabled: false
