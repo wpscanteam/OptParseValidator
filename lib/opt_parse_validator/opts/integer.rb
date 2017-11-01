@@ -5,7 +5,7 @@ module OptParseValidator
     #
     # @return [ Integer ]
     def validate(value)
-      fail Error, "#{value} is not an integer" if value.to_i.to_s != value
+      raise Error, "#{value} is not an integer" if value.to_i.to_s != value
       value.to_i
     end
   end

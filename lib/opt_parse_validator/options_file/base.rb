@@ -11,7 +11,7 @@ module OptParseValidator
 
       # @return [ Hash ] a { key: value } hash
       def parse
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def ==(other)

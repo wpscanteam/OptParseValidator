@@ -32,7 +32,7 @@ module OptParseValidator
       unless allowed_protocols.empty? || allowed_protocols.include?(uri.scheme)
         # For future refs: will have to check if the uri.scheme exists,
         # otherwise it means that the value was empty
-        fail Addressable::URI::InvalidURIError
+        raise Addressable::URI::InvalidURIError
       end
 
       uri.to_s

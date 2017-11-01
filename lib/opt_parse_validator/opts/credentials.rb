@@ -4,7 +4,7 @@ module OptParseValidator
     # @return [ Hash ] A hash containing the :username and :password
     def validate(value)
       unless value.index(':')
-        fail Error, 'Incorrect credentials format, username:password expected'
+        raise Error, 'Incorrect credentials format, username:password expected'
       end
       creds = value.split(':', 2)
 

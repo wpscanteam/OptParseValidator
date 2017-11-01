@@ -23,7 +23,7 @@ module OptParseValidator
 
       ext = File.extname(file_path).delete('.')
 
-      fail Error, "The option file's extension '#{ext}' is not supported" unless supported_extensions.include?(ext)
+      raise Error, "The option file's extension '#{ext}' is not supported" unless supported_extensions.include?(ext)
 
       super(OptionsFile.const_get(ext.upcase).new(file_path))
     end

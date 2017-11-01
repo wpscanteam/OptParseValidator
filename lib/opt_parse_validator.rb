@@ -61,8 +61,8 @@ module OptParseValidator
     #
     # @return [ void ]
     def check_option(opt)
-      fail Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
-      fail Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
+      raise Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
+      raise Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
     end
 
     # @return [ Hash ]
@@ -100,7 +100,7 @@ module OptParseValidator
     def post_processing
       @opts.each do |opt|
         if opt.required?
-          fail NoRequiredOption, "The option #{opt} is required" unless @results.key?(opt.to_sym)
+          raise NoRequiredOption, "The option #{opt} is required" unless @results.key?(opt.to_sym)
         end
 
         next if opt.required_unless.empty?
@@ -108,7 +108,7 @@ module OptParseValidator
 
         fail_msg = "One of the following options is required: #{opt}, #{opt.required_unless.join(', ')}"
 
-        fail NoRequiredOption, fail_msg unless opt.required_unless.any? do |sym|
+        raise NoRequiredOption, fail_msg unless opt.required_unless.any? do |sym|
           @results.key?(sym)
         end
       end

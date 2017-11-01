@@ -37,22 +37,22 @@ module OptParseValidator
 
     # @param [ Pathname ] path
     def check_file(path)
-      fail Error, "'#{path}' is not a file" unless path.file? || attrs[:exists] == false
+      raise Error, "'#{path}' is not a file" unless path.file? || attrs[:exists] == false
     end
 
     # @param [ Pathname ] path
     def check_directory(path)
-      fail Error, "'#{path}' is not a directory" unless path.directory? || attrs[:exists] == false
+      raise Error, "'#{path}' is not a directory" unless path.directory? || attrs[:exists] == false
     end
 
     # @param [ Pathname ] path
     def check_executable(path)
-      fail Error, "'#{path}' is not executable" unless path.executable?
+      raise Error, "'#{path}' is not executable" unless path.executable?
     end
 
     # @param [ Pathname ] path
     def check_readable(path)
-      fail Error, "'#{path}' is not readable" unless path.readable?
+      raise Error, "'#{path}' is not readable" unless path.readable?
     end
 
     # If the path does not exist, it will check for the parent
@@ -60,7 +60,7 @@ module OptParseValidator
     #
     # @param [ Pathname ] path
     def check_writable(path)
-      fail Error, "'#{path}' is not writable" if path.exist? && !path.writable? || !path.parent.writable?
+      raise Error, "'#{path}' is not writable" if path.exist? && !path.writable? || !path.parent.writable?
     end
   end
 end

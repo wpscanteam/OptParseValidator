@@ -6,7 +6,7 @@ module OptParseValidator
     # @return [ Integer ]
     def validate(value)
       i = super(value)
-      fail Error, "#{i} is not > 0" unless i > 0
+      raise Error, "#{i} is not > 0" unless i.positive?
       i
     end
   end

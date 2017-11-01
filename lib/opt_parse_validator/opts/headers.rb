@@ -18,7 +18,7 @@ module OptParseValidator
       headers = {}
 
       values.each do |header|
-        fail Error, "Malformed header: '#{header}'" unless header.index(':')
+        raise Error, "Malformed header: '#{header}'" unless header.index(':')
 
         val = header.split(':', 2)
 

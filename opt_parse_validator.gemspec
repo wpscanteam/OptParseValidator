@@ -33,14 +33,14 @@ Gem::Specification.new do |s|
   s.executables           = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths         = ['lib']
 
-  s.add_dependency 'addressable', '~> 2.5.0'
   s.add_dependency 'activesupport', '~> 5.1.0'
+  s.add_dependency 'addressable', '~> 2.5.0'
 
+  s.add_development_dependency 'bundler',   '~> 1.6'
+  s.add_development_dependency 'coveralls', '~> 0.8.0'
   s.add_development_dependency 'rake', '~> 12.0'
   s.add_development_dependency 'rspec',     '~> 3.7.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
-  s.add_development_dependency 'bundler',   '~> 1.6'
-  s.add_development_dependency 'rubocop',   '~> 0.50.0'
+  s.add_development_dependency 'rubocop',   '~> 0.51.0'
   s.add_development_dependency 'simplecov', '~> 0.14.0' # Can't update to 0.15 as it breaks coveralls dep
-  s.add_development_dependency 'coveralls', '~> 0.8.0'
 end

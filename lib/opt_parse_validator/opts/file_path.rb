@@ -26,7 +26,7 @@ module OptParseValidator
     def check_extensions(path)
       return if [*attrs[:extensions]].include?(path.extname.delete('.'))
 
-      fail Error, "The extension of '#{path}' is not allowed"
+      raise Error, "The extension of '#{path}' is not allowed"
     end
   end
 end
