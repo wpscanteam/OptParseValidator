@@ -7,11 +7,11 @@ module OptParseValidator
 
     # @param [ Array ] option See OptionParser#on
     # @param [ Hash ] attrs
-    # @option attrs [ Boolean ] :required
+    # @option attrs  [ Boolean ] :required
     # @options attrs [ Array<Symbol>, Symbol ] :required_unless
-    # @option attrs [ Mixed ] :default The default value to use if the option is not supplied
-    # @option attrs [ Mixed ] :value_if_empty The value to use if no argument has been supplied
-    # @option attrs [ Array<Symbol> ] :normalize See #normalize
+    # @option attrs  [ Mixed ] :default The default value to use if the option is not supplied
+    # @option attrs  [ Mixed ] :value_if_empty The value to use if no argument has been supplied
+    # @option attrs  [ Array<Symbol> ] :normalize See #normalize
     #
     # @note The :default and :normalize 'logics' are done in OptParseValidator::OptParser#add_option
     def initialize(option, attrs = {})
