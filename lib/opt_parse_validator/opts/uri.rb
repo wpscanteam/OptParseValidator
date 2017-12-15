@@ -25,9 +25,7 @@ module OptParseValidator
     def validate(value)
       uri = Addressable::URI.parse(value)
 
-      if !uri.scheme && default_protocol
-        uri = Addressable::URI.parse("#{default_protocol}://#{value}")
-      end
+      uri = Addressable::URI.parse("#{default_protocol}://#{value}") if !uri.scheme && default_protocol
 
       unless allowed_protocols.empty? || allowed_protocols.include?(uri.scheme)
         # For future refs: will have to check if the uri.scheme exists,

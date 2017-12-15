@@ -3,9 +3,8 @@ module OptParseValidator
   class OptCredentials < OptBase
     # @return [ Hash ] A hash containing the :username and :password
     def validate(value)
-      unless value.index(':')
-        raise Error, 'Incorrect credentials format, username:password expected'
-      end
+      raise Error, 'Incorrect credentials format, username:password expected' unless value.index(':')
+
       creds = value.split(':', 2)
 
       { username: creds[0], password: creds[1] }
