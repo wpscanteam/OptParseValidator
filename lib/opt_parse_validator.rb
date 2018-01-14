@@ -110,12 +110,9 @@ module OptParseValidator
     # @return [ Void ]
     def post_processing
       @opts.each do |opt|
-        if opt.required?
-          raise NoRequiredOption, "The option #{opt} is required" unless @results.key?(opt.to_sym)
-        end
+        raise NoRequiredOption, "The option #{opt} is required" if opt.required? && !@results.key?(opt.to_sym)
 
-        next if opt.required_unless.empty?
-        next if @results.key?(opt.to_sym)
+        next if opt.required_unless.empty? || @results.key?(opt.to_sym)
 
         fail_msg = "One of the following options is required: #{opt}, #{opt.required_unless.join(', ')}"
 
