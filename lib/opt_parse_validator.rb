@@ -25,46 +25,28 @@ module OptParseValidator
       super(banner, width, indent)
     end
 
-    # @param [ OptBase ] options
+    # @return [ OptParseValidator::OptionsFiles ]
+    def options_files
+      @options_files ||= OptionsFiles.new
+    end
+
+    # @param [ Array<OptBase> ] options
     #
     # @return [ void ]
     def add(*options)
-      options.each { |option| add_option(option) }
-    end
+      options.each do |option|
+        check_option(option)
 
-    # @param [ OptBase ] opt
-    #
-    # @return [ void ]
-    def add_option(opt)
-      check_option(opt)
+        @opts << option
+        @symbols_used << option.to_sym
 
-      @opts << opt
-      @symbols_used << opt.to_sym
-      # Set the default option value if it exists
-      # The default value is not validated as provided by devs
-      # and should be set to the correct format/value directly
-      @results[opt.to_sym] = opt.default unless opt.default.nil?
+        # Set the default option value if it exists
+        # The default value is not validated as it is provided by devs
+        # and should be set to the correct format/value directly
+        @results[option.to_sym] = option.default unless option.default.nil?
 
-      on(*opt.option) do |arg|
-        begin
-          @results[opt.to_sym] = opt.normalize(opt.validate(arg))
-        rescue StandardError => e
-          # Adds the long option name to the message
-          # And raises it as an OptParseValidator::Error if not already one
-          # e.g --proxy Invalid Scheme format.
-          raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
-        end
+        register_callback(option)
       end
-    end
-
-    # Ensures the opt given is valid
-    #
-    # @param [ OptBase ] opt
-    #
-    # @return [ void ]
-    def check_option(opt)
-      raise Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
-      raise Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
     end
 
     # @return [ Hash ]
@@ -79,6 +61,38 @@ module OptParseValidator
       raise e.is_a?(Error) ? e.class : Error, e.message
     end
 
+    protected
+
+    # Ensures the opt given is valid
+    #
+    # @param [ OptBase ] opt
+    #
+    # @return [ void ]
+    def check_option(opt)
+      raise Error, "The option is not an OptBase, #{opt.class} supplied" unless opt.is_a?(OptBase)
+      raise Error, "The option #{opt.to_sym} is already used !" if @symbols_used.include?(opt.to_sym)
+    end
+
+    # @param [ OptBase ] opt
+    #
+    # @return [ void ]
+    def register_callback(opt)
+      on(*opt.option) do |arg|
+        begin
+          if opt.alias?
+            parse!(opt.alias_for.split(' '))
+          else
+            @results[opt.to_sym] = opt.normalize(opt.validate(arg))
+          end
+        rescue StandardError => e
+          # Adds the long option name to the message
+          # And raises it as an OptParseValidator::Error if not already one
+          # e.g --proxy Invalid Scheme format.
+          raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
+        end
+      end
+    end
+
     # @return [ Void ]
     def load_options_files
       files_data = options_files.parse
@@ -88,11 +102,6 @@ module OptParseValidator
 
         @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym].to_s))
       end
-    end
-
-    # @return [ OptParseValidator::OptionsFiles ]
-    def options_files
-      @options_files ||= OptionsFiles.new
     end
 
     # Ensure that all required options are supplied

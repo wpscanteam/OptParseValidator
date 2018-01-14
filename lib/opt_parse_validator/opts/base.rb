@@ -55,6 +55,11 @@ module OptParseValidator
       attrs[:value_if_empty]
     end
 
+    # @return [ Boolean ]
+    def alias?
+      false
+    end
+
     # @param [ String ] value
     def validate(value)
       if value.nil? || value.to_s.empty?

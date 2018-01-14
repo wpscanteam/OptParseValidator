@@ -26,7 +26,8 @@ parser = OptParseValidator::OptParser.new
 parser.add(
   OptParseValidator::OptString.new(['-m', '--mandatory PARAM', 'A Mandatory CLI option'], required: true),
   OptParseValidator::OptBoolean.new(['--test', '-t', 'Option Helper Message']),
-  OptParseValidator::OptFilePath.new(['-o', '--output FILE', 'Output to FILE'], writable: true, exists: false)
+  OptParseValidator::OptFilePath.new(['-o', '--output FILE', 'Output to FILE'], writable: true, exists: false),
+  OptParseValidator::OptAlias.new(['--alias', '-a'], alias_for: '--test -o file.txt')
 )
 
 begin
@@ -56,6 +57,8 @@ Some attributes are available for all Validators:
 - :value_if_empty (Value to use if no argument has been supplied for the related option)
 
 ### Available Validators & Associated Attributes:
+- Alias:
+  - :alias_for (mandatory)
 - Array
   - :separator (default: ',')
 - Boolean

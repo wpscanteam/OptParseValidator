@@ -174,6 +174,10 @@ describe OptParseValidator::OptBase do
     end
   end
 
+  describe '#alias?' do
+    its(:alias?) { should be false }
+  end
+
   describe '#normalize' do
     after { expect(opt.normalize(@value)).to eql @expected }
 

@@ -4,42 +4,7 @@ describe OptParseValidator::OptParser do
   subject(:parser)  { described_class.new }
   let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w[-v --verbose]) }
   let(:url_opt)     { OptParseValidator::OptURL.new(['-u', '--url URL'], required: true) }
-
-  describe '#add_option' do
-    after do
-      if @exception
-        expect { parser.add_option(@option) }.to raise_error(*@exception)
-      else
-        parser.add_option(@option)
-
-        expect(parser.symbols_used).to eq @expected_symbols
-      end
-    end
-
-    context 'when not an OptBase' do
-      it 'raises an error' do
-        @option    = 'just a string'
-        @exception = OptParseValidator::Error, 'The option is not an OptBase, String supplied'
-      end
-    end
-
-    context 'when the option symbol is already used' do
-      it 'raises an error' do
-        @option    = verbose_opt
-        @exception = OptParseValidator::Error, 'The option verbose is already used !'
-        parser.add_option(@option)
-      end
-    end
-
-    context 'when a valid option' do
-      let(:option) { OptParseValidator::OptBase.new(['-u', '--url URL']) }
-
-      it 'sets the option' do
-        @option           = option
-        @expected_symbols = [:url]
-      end
-    end
-  end
+  let(:alias_opt)   { OptParseValidator::OptAlias.new(%w[-a --alias], alias_for: '-v') }
 
   describe '#add' do
     context 'when not an Array<OptBase> or an OptBase' do
@@ -48,6 +13,17 @@ describe OptParseValidator::OptParser do
       it 'raises an error when an Array<String>' do
         @options   = ['string', 'another one']
         @exception = OptParseValidator::Error, 'The option is not an OptBase, String supplied'
+      end
+    end
+
+    context 'when the option symbol is already used' do
+      after { expect { parser.add(*@options) }.to raise_error(*@exception) }
+
+      it 'raises an error' do
+        @options   = [verbose_opt]
+        @exception = OptParseValidator::Error, 'The option verbose is already used !'
+
+        parser.add(*@options)
       end
     end
 
@@ -97,7 +73,7 @@ describe OptParseValidator::OptParser do
       end
     end
 
-    context 'when :requied_unless' do
+    context 'when :required_unless' do
       let(:url_opt)    { OptParseValidator::OptURL.new(['--url URL'], required_unless: :update) }
       let(:update_opt) { OptParseValidator::OptBoolean.new(['--update'], required_unless: [:url]) }
       let(:options)    { [url_opt, update_opt, verbose_opt] }
@@ -168,12 +144,30 @@ describe OptParseValidator::OptParser do
       end
     end
 
-    context 'when the normalize attrbite is used' do
+    context 'when the normalize attribute is used' do
       let(:options) { [OptParseValidator::OptString.new(['--test V'], normalize: :to_sym)] }
 
       it 'returns the symbol' do
         @argv     = %w[--test test]
         @expected = { test: :test }
+      end
+    end
+
+    context 'when an alias is used' do
+      let(:options) { super() << alias_opt }
+
+      context 'when called in the cli' do
+        it 'returns the expected hash' do
+          @argv = %w[--url http://a.org --alias]
+          @expected = { url: 'http://a.org', verbose: true }
+        end
+      end
+
+      context 'when not called in the cli' do
+        it 'returns the expected hash' do
+          @argv = %w[--url http://a.org]
+          @expected = { url: 'http://a.org' }
+        end
       end
     end
 
