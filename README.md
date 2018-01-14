@@ -19,7 +19,7 @@ OptParseValidator
 
 require 'opt_parse_validator'
 
-# For contructor options, such as setting a banner, the summary width and indent,
+# For constructor options, such as setting a banner, the summary width and indent,
 # see http://ruby-doc.org/stdlib-2.4.2/libdoc/optparse/rdoc/OptionParser.html#method-c-new
 parser = OptParseValidator::OptParser.new
 
