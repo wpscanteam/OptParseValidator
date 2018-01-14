@@ -42,11 +42,13 @@ Then have a play with
 ```ruby test.rb -m hh -t```
 ```ruby test.rb -t```
 
+It is worth to note that when aliases are used, it is recommended to provide them first in the CLI. Otherwise, they might override user-suplied cli options. For example, using the options above, ```ruby test.rb -m aa -o override.txt --alias``` won't have the desired effect (to have --output as override.txt), but ```ruby test.rb --alias -m aa -o override.txt``` will. 
+
 For more option examples, see
  - https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb
  - https://github.com/wpscanteam/wpscan-v3/blob/master/app/controllers/enumeration/cli_options.rb
 
-Please Feel free to send Pull Requests to improve this Readme
+Please feel free to send Pull Requests to improve this Readme
 
 ### Global Attributes
 
