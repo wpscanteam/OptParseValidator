@@ -32,7 +32,7 @@ module OptParseValidator
 
     # @param [ Array<OptBase> ] options
     #
-    # @return [ void ]
+    # @return [ Self ] For chaining #new.add.results
     def add(*options)
       options.each do |option|
         check_option(option)
@@ -47,6 +47,8 @@ module OptParseValidator
 
         register_callback(option)
       end
+
+      self
     end
 
     # @return [ Hash ]

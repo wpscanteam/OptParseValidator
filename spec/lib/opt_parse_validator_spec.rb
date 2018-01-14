@@ -29,7 +29,8 @@ describe OptParseValidator::OptParser do
 
     context 'when valid' do
       after do
-        parser.add(*@options)
+        # the #add should return the parser itself, to be able to chain methods
+        expect(parser.add(*@options)).to eql parser
 
         expect(parser.symbols_used).to eq @expected_symbols
       end
