@@ -1,4 +1,4 @@
 # Gem Version
 module OptParseValidator
-  VERSION = '0.0.14.1'.freeze
+  VERSION = '0.0.15.0'.freeze
 end

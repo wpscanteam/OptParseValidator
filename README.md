@@ -19,19 +19,17 @@ OptParseValidator
 
 require 'opt_parse_validator'
 
-# For constructor options, such as setting a banner, the summary width and indent,
-# see http://ruby-doc.org/stdlib-2.4.2/libdoc/optparse/rdoc/OptionParser.html#method-c-new
-parser = OptParseValidator::OptParser.new
-
-parser.add(
-  OptParseValidator::OptString.new(['-m', '--mandatory PARAM', 'A Mandatory CLI option'], required: true),
-  OptParseValidator::OptBoolean.new(['--test', '-t', 'Option Helper Message']),
-  OptParseValidator::OptFilePath.new(['-o', '--output FILE', 'Output to FILE'], writable: true, exists: false),
-  OptParseValidator::OptAlias.new(['--alias', '-a'], alias_for: '--test -o file.txt')
-)
-
 begin
-  p parser.results
+  # For constructor options, such as setting a banner, the summary width and indent,
+  # see http://ruby-doc.org/stdlib-2.4.2/libdoc/optparse/rdoc/OptionParser.html#method-c-new
+  parsed_cli_options = OptParseValidator::OptParser.new.add(
+    OptParseValidator::OptString.new(['-m', '--mandatory PARAM', 'A Mandatory CLI option'], required: true),
+    OptParseValidator::OptBoolean.new(['--test', '-t', 'Option Helper Message']),
+    OptParseValidator::OptFilePath.new(['-o', '--output FILE', 'Output to FILE'], writable: true, exists: false),
+    OptParseValidator::OptAlias.new(['--alias', '-a'], alias_for: '--test -o file.txt')
+  ).results
+
+  p parsed_cli_options
 rescue OptParseValidator::Error => e
   puts 'Parsing Error: ' + e.message
 end
@@ -42,7 +40,7 @@ Then have a play with
 ```ruby test.rb -m hh -t```
 ```ruby test.rb -t```
 
-It is worth to note that when aliases are used, it is recommended to provide them first in the CLI. Otherwise, they might override user-suplied cli options. For example, using the options above, ```ruby test.rb -m aa -o override.txt --alias``` won't have the desired effect (to have --output as override.txt), but ```ruby test.rb --alias -m aa -o override.txt``` will. 
+It is worth to note that when aliases are used, it is recommended to provide them first in the CLI. Otherwise, they might override user-suplied cli options. For example, using the options above, ```ruby test.rb -m aa -o override.txt --alias``` won't have the desired effect (to have --output as override.txt), but ```ruby test.rb --alias -m aa -o override.txt``` will.
 
 For more option examples, see
  - https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb
