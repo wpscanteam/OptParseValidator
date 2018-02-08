@@ -109,7 +109,7 @@ describe OptParseValidator::OptParser do
     end
 
     context 'when the default attribute is used' do
-      let(:options)     { [verbose_opt, default_opt] }
+      let(:options) { [verbose_opt, default_opt] }
 
       context 'when regular default option' do
         let(:default_opt) { OptParseValidator::OptBase.new(['--default VALUE'], default: false) }
