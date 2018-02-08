@@ -49,6 +49,12 @@ describe OptParseValidator::OptMultiChoices do
     let(:attrs) { super().merge(value_if_empty: 'vp,vt,tt,u,m') }
 
     its(:help_messages) { should eql File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map(&:chomp) }
+
+    context 'when default' do
+      let(:attrs) { super().merge(default: { all_plugins: true, users: (1..5) }) }
+
+      its(:help_messages) { should match_array File.readlines(File.join(FIXTURES, 'multi_choices_w_default.txt')).map(&:chomp) }
+    end
   end
 
   describe '#validate' do
