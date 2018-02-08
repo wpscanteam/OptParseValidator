@@ -13,23 +13,6 @@ module OptParseValidator
       super(option, attrs)
     end
 
-    def default
-      return nil unless attrs[:default]
-
-      default = ''
-
-      attrs[:default].each do |key, value|
-        default << if value == true
-                     key.to_s.titleize
-                   else
-                     "#{key.to_s.titleize}: #{value}"
-                   end
-        default << ', '
-      end
-
-      default.chomp(', ')
-    end
-
     def append_help_messages
       option << 'Available Choices:'
 
@@ -51,6 +34,21 @@ module OptParseValidator
           option << "#{index.zero? ? first_line_prefix : other_lines_prefix} #{message}"
         end
       end
+    end
+
+    def help_message_for_default
+      msg = ''
+
+      default.each do |key, value|
+        msg << if value == true
+                 key.to_s.titleize
+               else
+                 "#{key.to_s.titleize}: #{value}"
+               end
+        msg << ', '
+      end
+
+      msg.chomp(', ')
     end
 
     # @param [ OptBase ] opt
