@@ -41,7 +41,19 @@ describe OptParseValidator::OptionsFiles do
 
   describe '#parse' do
     before { files << default_file << override_file }
+    let(:expected_hash) do
+      {
+        'verbose' => true, 'override_me' => 'Yeaa',
+        'deep_merge' => { 'p1' => 'v2', 'p2' => 'v3' }
+      }
+    end
 
-    its(:parse) { should eql(verbose: true, override_me: 'Yeaa') }
+    its(:parse) { should eql(expected_hash) }
+
+    context 'when symbolize_keys argument' do
+      it 'returns the hash with the keys as symbol' do
+        expect(files.parse(true)).to eql(expected_hash.deep_symbolize_keys)
+      end
+    end
   end
 end

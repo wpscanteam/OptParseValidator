@@ -1,6 +1,7 @@
 # Gems
 require 'addressable/uri'
 require 'active_support/inflector'
+require 'active_support/core_ext/hash'
 # Standard Libs
 require 'optparse'
 require 'pathname'
@@ -97,7 +98,7 @@ module OptParseValidator
 
     # @return [ Void ]
     def load_options_files
-      files_data = options_files.parse
+      files_data = options_files.parse(true)
 
       @opts.each do |opt|
         next unless files_data.key?(opt.to_sym)

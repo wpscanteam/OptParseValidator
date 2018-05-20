@@ -28,15 +28,15 @@ module OptParseValidator
       super(OptionsFile.const_get(ext.upcase).new(file_path))
     end
 
-    # @return [ Hash ] a { key: value } hash
-    def parse
-      files_data = {}
+    # @params [ Boolean ] symbolize_keys Whether or not to symbolize keys in the returned hash
+    #
+    # @return [ Hash ]
+    def parse(symbolize_keys = false)
+      result = {}
 
-      each { |option_file| files_data.merge!(option_file.parse) }
+      each { |option_file| result.deep_merge!(option_file.parse) }
 
-      # Convert string-full keys to symbol ones
-      # No need to go deeper than the first level as it's the max depth
-      Hash[files_data.map { |k, v| [k.to_sym, v] }]
+      symbolize_keys ? result.deep_symbolize_keys : result
     end
   end
 end
