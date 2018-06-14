@@ -34,11 +34,11 @@ Gem::Specification.new do |s|
   s.require_paths         = ['lib']
 
   s.add_dependency 'activesupport', '~> 5.1.0'
-  s.add_dependency 'addressable', '~> 2.5.0'
+  s.add_dependency 'addressable',   '~> 2.5.0'
 
   s.add_development_dependency 'bundler',   '~> 1.6'
   s.add_development_dependency 'coveralls', '~> 0.8.0'
-  s.add_development_dependency 'rake', '~> 12.0'
+  s.add_development_dependency 'rake',      '~> 12.0'
   s.add_development_dependency 'rspec',     '~> 3.7.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
   s.add_development_dependency 'rubocop',   '~> 0.57.2'
