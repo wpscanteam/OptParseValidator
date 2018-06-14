@@ -12,6 +12,7 @@ describe OptParseValidator::OptMultiChoices do
         at: OptParseValidator::OptBoolean.new(['--all-themes']),
         t:  OptParseValidator::OptBoolean.new(['--themes', 'Themes Spec']),
         tt: OptParseValidator::OptBoolean.new(['--timthumbs']),
+        dbe: OptParseValidator::OptBoolean.new(['--db-exports']),
         u:  OptParseValidator::OptIntegerRange.new(['--users', 'User ids Range, e.g: u1-20, u'], value_if_empty: '1-10'),
         m:  OptParseValidator::OptIntegerRange.new(['--media'], value_if_empty: '1-100')
       },
@@ -48,7 +49,7 @@ describe OptParseValidator::OptMultiChoices do
   describe '#append_help_messages' do
     let(:attrs) { super().merge(value_if_empty: 'vp,vt,tt,u,m') }
 
-    its(:help_messages) { should eql File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map(&:chomp) }
+    its(:help_messages) { should match_array File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map(&:chomp) }
 
     context 'when default' do
       let(:attrs) { super().merge(default: { all_plugins: true, users: (1..5) }) }

@@ -24,7 +24,7 @@ module OptParseValidator
     end
 
     def append_choices_help_messages
-      max_spaces = choices.keys.max.size
+      max_spaces = choices.keys.max_by(&:size).size
 
       choices.each do |key, opt|
         first_line_prefix  = " #{key} #{' ' * (max_spaces - key.length)}"
