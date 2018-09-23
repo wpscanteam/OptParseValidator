@@ -68,6 +68,7 @@ module OptParseValidator
     def validate(value)
       if value.nil? || value.to_s.empty?
         raise Error, 'Empty option value supplied' if value_if_empty.nil?
+
         return value_if_empty
       end
       value
