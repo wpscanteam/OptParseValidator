@@ -18,19 +18,9 @@ Gem::Specification.new do |s|
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
   s.license               = 'MIT'
 
-  s.files                 = `git ls-files -z`.split("\x0").reject do |file|
-    file =~ %r{^(?:
-      spec\/.*
-      |Gemfile
-      |Rakefile
-      |\.rspec
-      |\.gitignore
-      |\.rubocop.yml
-      |\.travis.yml
-    )$}x
-  end
+  s.files                 = Dir.glob('lib/**/*')
   s.test_files            = []
-  s.executables           = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  # s.executables           = Dir.glob('bin/*').map { |f| File.basename(f) }
   s.require_paths         = ['lib']
 
   s.add_dependency 'activesupport', '~> 5.2.1'
