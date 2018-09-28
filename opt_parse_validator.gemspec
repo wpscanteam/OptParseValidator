@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.name                  = 'opt_parse_validator'
   s.version               = OptParseValidator::VERSION
   s.platform              = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.2.2'
+  s.required_ruby_version = '>= 2.3.0'
   s.authors               = ['WPScanTeam']
   s.email                 = ['team@wpscan.org']
   s.summary               = 'Ruby OptionParser Validators'
@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
 
   s.files                 = Dir.glob('lib/**/*')
   s.test_files            = []
-  # s.executables           = Dir.glob('bin/*').map { |f| File.basename(f) }
   s.require_paths         = ['lib']
 
   s.add_dependency 'activesupport', '~> 5.2.1'
@@ -31,6 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake',      '~> 12.3'
   s.add_development_dependency 'rspec',     '~> 3.8.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
-  s.add_development_dependency 'rubocop',   '~> 0.59.1'
+  s.add_development_dependency 'rubocop',   '~> 0.59.2'
   s.add_development_dependency 'simplecov', '~> 0.16.1'
 end
