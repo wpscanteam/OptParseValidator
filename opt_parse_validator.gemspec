@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.homepage              = 'https://github.com/wpscanteam/OptParseValidator'
   s.license               = 'MIT'
 
-  s.files                 = Dir.glob('lib/**/*')
+  s.files                 = Dir.glob('lib/**/*') + %w[LICENSE README.md]
   s.test_files            = []
   s.require_paths         = ['lib']
 
