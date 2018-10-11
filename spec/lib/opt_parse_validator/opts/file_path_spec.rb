@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OptParseValidator::OptFilePath do
   subject(:opt)   { described_class.new(['-f', '--file FILE_PATH'], attrs) }
   let(:attrs)     { {} }
-  let(:file_path) { File.join(FIXTURES, 'file_path.txt') }
+  let(:file_path) { FIXTURES.join('file_path.txt').to_s }
 
   its(:attrs)     { should eq file: true }
 
@@ -39,7 +39,7 @@ describe OptParseValidator::OptFilePath do
       end
 
       context 'when the file does not exist' do
-        let(:file_path) { File.join(FIXTURES, 'file_path2.txt') }
+        let(:file_path) { FIXTURES.join('file_path2.txt').to_s }
 
         it 'creates it' do
           expect(opt.validate(file_path)).to eql file_path
@@ -97,7 +97,7 @@ describe OptParseValidator::OptFilePath do
         let(:attrs) { { writable: true, exists: false } }
 
         context 'when the parent directory is writable' do
-          let(:file) { File.join(FIXTURES, 'options_file', 'not_there.txt') }
+          let(:file) { FIXTURES.join('options_file', 'not_there.txt').to_s }
 
           it 'returns the path' do
             expect(opt.validate(file)).to eql file
@@ -105,7 +105,7 @@ describe OptParseValidator::OptFilePath do
         end
 
         context 'when the parent directory is not writable' do
-          let(:file) { File.join(FIXTURES, 'hfjhg', 'yolo.rb') }
+          let(:file) { FIXTURES.join('hfjhg', 'yolo.rb').to_s }
 
           it 'raises an error' do
             expect { opt.validate(file) }.to raise_error(OptParseValidator::Error, "'#{file}' is not writable")

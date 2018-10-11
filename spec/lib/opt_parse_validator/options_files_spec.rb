@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe OptParseValidator::OptionsFiles do
   subject(:files)     { described_class.new }
-  let(:fixtures)      { File.join(FIXTURES, 'options_file') }
-  let(:default_file)  { File.join(fixtures, 'default.json') }
-  let(:override_file) { File.join(fixtures, 'override.yml') }
+  let(:fixtures)      { FIXTURES.join('options_file') }
+  let(:default_file)  { fixtures.join('default.json') }
+  let(:override_file) { fixtures.join('override.yml') }
 
   describe '#supported_extensions' do
     its(:supported_extensions) { %w[json yml] }
@@ -19,7 +19,7 @@ describe OptParseValidator::OptionsFiles do
 
     context 'when the format is not supported' do
       it 'raises an error' do
-        expect { files << File.join(fixtures, 'unsupported.ext') }
+        expect { files << fixtures.join('unsupported.ext') }
           .to raise_error(
             OptParseValidator::Error,
             "The option file's extension 'ext' is not supported"

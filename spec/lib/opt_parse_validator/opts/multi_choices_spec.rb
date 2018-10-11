@@ -49,12 +49,12 @@ describe OptParseValidator::OptMultiChoices do
   describe '#append_help_messages' do
     let(:attrs) { super().merge(value_if_empty: 'vp,vt,tt,u,m') }
 
-    its(:help_messages) { should match_array File.readlines(File.join(FIXTURES, 'multi_choices.txt')).map(&:chomp) }
+    its(:help_messages) { should match_array File.readlines(FIXTURES.join('multi_choices.txt')).map(&:chomp) }
 
     context 'when default' do
       let(:attrs) { super().merge(default: { all_plugins: true, users: (1..5) }) }
 
-      its(:help_messages) { should match_array File.readlines(File.join(FIXTURES, 'multi_choices_w_default.txt')).map(&:chomp) }
+      its(:help_messages) { should match_array File.readlines(FIXTURES.join('multi_choices_w_default.txt')).map(&:chomp) }
     end
   end
 

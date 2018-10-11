@@ -64,6 +64,31 @@ module OptParseValidator
       raise e.is_a?(Error) ? e.class : Error, e.message
     end
 
+    # @return [ String ] The simplified help (without any of the advanced option/s listed)
+    def simple_help
+      help = to_s
+
+      # Removes all advanced help messages
+      @opts.select(&:advanced?).each do |opt|
+        messages_pattern = //
+
+        opt.help_messages.each do |msg|
+          messages_pattern = /#{messages_pattern}\s*#{Regexp.escape(msg)}/
+        end
+
+        pattern = /\s*#{Regexp.escape(opt.option[0..1].select { |o| o[0] == '-' }.join(', '))}#{messages_pattern}/
+
+        help.gsub!(pattern, '')
+      end
+
+      help
+    end
+
+    # @return [ String ] The full help, with the advanced option/s listed
+    def full_help
+      to_s
+    end
+
     protected
 
     # Ensures the opt given is valid

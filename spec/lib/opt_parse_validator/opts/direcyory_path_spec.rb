@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OptParseValidator::OptDirectoryPath do
   subject(:opt)  { described_class.new(['-d', '--dir DIR'], attrs) }
   let(:attrs)    { {} }
-  let(:dir_path) { File.join(FIXTURES, 'options_file') }
+  let(:dir_path) { FIXTURES.join('options_file').to_s }
 
   its(:attrs) { should eq directory: true }
 
@@ -32,7 +32,7 @@ describe OptParseValidator::OptDirectoryPath do
       end
 
       context 'when the file does not exist' do
-        let(:dir_path) { File.join(FIXTURES, 'dir_path') }
+        let(:dir_path) { FIXTURES.join('dir_path').to_s }
 
         it 'creates it' do
           expect(opt.validate(dir_path)).to eql dir_path
