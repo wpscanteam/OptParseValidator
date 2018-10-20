@@ -54,7 +54,7 @@ Some attributes are available for all Validators:
 - :required_unless (like the above, except if the option/s given in this parameter are called in the CLI - [example](https://github.com/wpscanteam/wpscan/blob/master/app/controllers/core.rb#L7), can be a single symbol or array of symbols)
 - :default (Default value to use if the option is not supplied, the correct format has to be used as it won't go through the validation and normalization processes)
 - :value_if_empty (Value to use if no argument has been supplied for the related option)
-- :advanced (Wheter or or not the option is an advanced one. If set to true, the option won't be displayed in the #simple_help, but will in the #full_help)
+- :advanced (Whether or or not the option is an advanced one. If set to true, the option won't be displayed in the #simple_help, but will in the #full_help)
 
 ### Available Validators & Associated Attributes:
 - Alias:
