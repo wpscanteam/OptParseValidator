@@ -40,7 +40,7 @@ describe OptParseValidator::OptSmartList do
     end
 
     context 'when a file path' do
-      let(:path) { File.join(FIXTURES, 'smart_list.txt') }
+      let(:path) { FIXTURES.join('smart_list.txt') }
 
       context 'when the file exists and is readable' do
         it 'returns the correct array' do

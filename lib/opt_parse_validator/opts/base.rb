@@ -64,6 +64,11 @@ module OptParseValidator
       false
     end
 
+    # @return [ Boolean ]
+    def advanced?
+      attrs[:advanced] ? true : false
+    end
+
     # @param [ String ] value
     def validate(value)
       if value.nil? || value.to_s.empty?

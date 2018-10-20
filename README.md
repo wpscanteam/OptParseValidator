@@ -5,7 +5,6 @@ OptParseValidator
 [![Build Status](https://img.shields.io/travis/wpscanteam/OptParseValidator.svg)](https://travis-ci.org/wpscanteam/OptParseValidator)
 [![Coverage Status](https://img.shields.io/coveralls/wpscanteam/OptParseValidator.svg)](https://coveralls.io/r/wpscanteam/OptParseValidator?branch=master)
 [![Code Climate](https://api.codeclimate.com/v1/badges/56f0307bbbda6d41b99a/maintainability)](https://codeclimate.com/github/wpscanteam/OptParseValidator/maintainability)
-[![Dependency Status](https://img.shields.io/gemnasium/wpscanteam/OptParseValidator.svg)](https://gemnasium.com/wpscanteam/OptParseValidator)
 
 
 ### Installation
@@ -44,7 +43,7 @@ It is worth to note that when aliases are used, it is recommended to provide the
 
 For more option examples, see
  - https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb
- - https://github.com/wpscanteam/wpscan-v3/blob/master/app/controllers/enumeration/cli_options.rb
+ - https://github.com/wpscanteam/wpscan/blob/master/app/controllers/enumeration/cli_options.rb
 
 Please feel free to send Pull Requests to improve this Readme
 
@@ -52,9 +51,10 @@ Please feel free to send Pull Requests to improve this Readme
 
 Some attributes are available for all Validators:
 - :required (whether or not the associated cli option is required/mandatory - [example](https://github.com/wpscanteam/CMSScanner/blob/master/app/controllers/core/cli_options.rb#L9)).
-- :required_unless (like the above, except if the option/s given in this parameter are called in the CLI - [example](https://github.com/wpscanteam/wpscan-v3/blob/master/app/controllers/core.rb#L7), can be a single symbol or array of symbols)
+- :required_unless (like the above, except if the option/s given in this parameter are called in the CLI - [example](https://github.com/wpscanteam/wpscan/blob/master/app/controllers/core.rb#L7), can be a single symbol or array of symbols)
 - :default (Default value to use if the option is not supplied, the correct format has to be used as it won't go through the validation and normalization processes)
 - :value_if_empty (Value to use if no argument has been supplied for the related option)
+- :advanced (Wheter or or not the option is an advanced one. If set to true, the option won't be displayed in the #simple_help, but will in the #full_help)
 
 ### Available Validators & Associated Attributes:
 - Alias:

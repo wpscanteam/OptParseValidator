@@ -178,6 +178,16 @@ describe OptParseValidator::OptBase do
     its(:alias?) { should be false }
   end
 
+  describe '#advanced?' do
+    its(:advanced?) { should be false }
+
+    context 'when :advanced' do
+      let(:attrs) { { advanced: true } }
+
+      its(:advanced?) { should be true }
+    end
+  end
+
   describe '#normalize' do
     after { expect(opt.normalize(@value)).to eql @expected }
 

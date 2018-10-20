@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OptParseValidator::OptParser do
   subject(:parser)  { described_class.new }
-  let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w[-v --verbose]) }
+  let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w[-v --verbose Verbose]) }
   let(:url_opt)     { OptParseValidator::OptURL.new(['-u', '--url URL'], required: true) }
   let(:alias_opt)   { OptParseValidator::OptAlias.new(%w[-a --alias], alias_for: '-v') }
 
@@ -209,11 +209,36 @@ describe OptParseValidator::OptParser do
     end
   end
 
+  describe '#simple_help, #full_help' do
+    before { parser.add(*options) }
+
+    let(:fixtures)    { FIXTURES.join('advanced_help') }
+    let(:options)     { [verbose_opt, url_opt] }
+    let(:simple_help) { File.read(fixtures.join('no_advanced.txt')) }
+
+    describe ' when no advanced options' do
+      its(:simple_help) { should eql simple_help }
+      its(:full_help)   { should eql parser.simple_help }
+    end
+
+    describe 'when advanced options' do
+      let(:options) do
+        super() <<
+          OptParseValidator::OptBoolean.new(['--[no-]banner', 'aaa aaa'], advanced: true) <<
+          OptParseValidator::OptString.new(['-s', '--short ARG', 'Option', 'Multi Line'], advanced: true) <<
+          OptParseValidator::OptBoolean.new(['-a', '--all', 'Short and long option'], advanced: true)
+      end
+
+      its(:simple_help) { should eql simple_help }
+      its(:full_help)   { should eql File.read(fixtures.join('with_advanced.txt')) }
+    end
+  end
+
   describe '#load_options_files' do
-    let(:fixtures)       { File.join(FIXTURES, 'options_file') }
-    let(:default_file)   { File.join(fixtures, 'default.json') }
-    let(:override_file)  { File.join(fixtures, 'override.yml') }
-    let(:malformed_file) { File.join(fixtures, 'malformed.yml') }
+    let(:fixtures)       { FIXTURES.join('options_file') }
+    let(:default_file)   { fixtures.join('default.json') }
+    let(:override_file)  { fixtures.join('override.yml') }
+    let(:malformed_file) { fixtures.join('malformed.yml') }
     let(:override_opt)   { OptParseValidator::OptString.new(['--override-me VALUE'], normalize: :to_sym) }
     let(:opts)           { [verbose_opt, override_opt] }
     let(:expected)       { { verbose: true, override_me: :Yeaa } }
@@ -244,7 +269,7 @@ describe OptParseValidator::OptParser do
     end
 
     context 'when multi choices given as boolean in options file' do
-      let(:enum_file) { File.join(fixtures, 'enum.yml') }
+      let(:enum_file) { fixtures.join('enum.yml') }
       let(:enum_opt) do
         OptParseValidator::OptMultiChoices.new(
           ['--enum [Options]'],

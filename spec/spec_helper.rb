@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-FIXTURES = File.expand_path(File.join(File.dirname(__FILE__), 'fixtures'))
+FIXTURES = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), 'fixtures')))
 
 require 'rspec/its'
 require 'simplecov'
