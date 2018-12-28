@@ -7,14 +7,14 @@ describe OptParseValidator::OptMultiChoices do
       choices: {
         vp: OptParseValidator::OptBoolean.new(['--vulnerable-plugins']),
         ap: OptParseValidator::OptBoolean.new(['--all-plugins']),
-        p:  OptParseValidator::OptBoolean.new(['--plugins']),
+        p: OptParseValidator::OptBoolean.new(['--plugins']),
         vt: OptParseValidator::OptBoolean.new(['--vulnerable-themes']),
         at: OptParseValidator::OptBoolean.new(['--all-themes']),
-        t:  OptParseValidator::OptBoolean.new(['--themes', 'Themes Spec']),
+        t: OptParseValidator::OptBoolean.new(['--themes', 'Themes Spec']),
         tt: OptParseValidator::OptBoolean.new(['--timthumbs']),
         dbe: OptParseValidator::OptBoolean.new(['--db-exports']),
-        u:  OptParseValidator::OptIntegerRange.new(['--users', 'User ids Range, e.g: u1-20, u'], value_if_empty: '1-10'),
-        m:  OptParseValidator::OptIntegerRange.new(['--media'], value_if_empty: '1-100')
+        u: OptParseValidator::OptIntegerRange.new(['--users', 'User ids Range, e.g: u1-20, u'], value_if_empty: '1-10'),
+        m: OptParseValidator::OptIntegerRange.new(['--media'], value_if_empty: '1-100')
       },
       incompatible: [%i[ap vp p], %i[vt at t]]
     }

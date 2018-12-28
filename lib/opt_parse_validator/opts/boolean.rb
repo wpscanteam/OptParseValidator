@@ -1,8 +1,8 @@
 module OptParseValidator
   # Implementation of the Boolean Option
   class OptBoolean < OptBase
-    TRUE_PATTERN  = /\A(true|t|yes|y|1)\z/i
-    FALSE_PATTERN = /\A(false|f|no|n|0)\z/i
+    TRUE_PATTERN  = /\A(true|t|yes|y|1)\z/i.freeze
+    FALSE_PATTERN = /\A(false|f|no|n|0)\z/i.freeze
 
     # @return [ Boolean ]
     def validate(value)
