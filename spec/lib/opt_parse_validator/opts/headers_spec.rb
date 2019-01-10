@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptHeaders do
   subject(:opt) { described_class.new(['--headers H'], attrs) }
   let(:attrs)   { {} }

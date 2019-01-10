@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptRegexp do
   subject(:opt) { described_class.new(['-r', '--regexp STRING'], attrs) }
   let(:attrs)   { {} }

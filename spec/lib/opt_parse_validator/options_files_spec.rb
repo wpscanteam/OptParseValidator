@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptionsFiles do
   subject(:files)     { described_class.new }
   let(:fixtures)      { FIXTURES.join('options_file') }

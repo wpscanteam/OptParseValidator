@@ -1,10 +1,11 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-FIXTURES = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), 'fixtures')))
-
 require 'rspec/its'
 require 'simplecov'
+require 'opt_parse_validator'
+
+FIXTURES = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), 'fixtures')))
 
 if ENV['TRAVIS']
   require 'coveralls'
@@ -21,5 +22,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-
-require 'opt_parse_validator'

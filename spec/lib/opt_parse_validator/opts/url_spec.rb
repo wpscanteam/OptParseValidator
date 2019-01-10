@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptURL do
   subject(:opt) { described_class.new(['-u', '--url URL']) }
 

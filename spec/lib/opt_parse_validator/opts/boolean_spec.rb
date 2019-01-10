@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptBoolean do
   subject(:opt) { described_class.new(['-b', '--bool BOOL']) }
 

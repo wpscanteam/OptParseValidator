@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptArray do
   subject(:opt) { described_class.new(['-a', '--array VALUES'], attrs) }
   let(:attrs)   { {} }

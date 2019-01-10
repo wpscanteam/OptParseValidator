@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptInteger do
   subject(:opt) { described_class.new(['-i', '--int INT']) }
 

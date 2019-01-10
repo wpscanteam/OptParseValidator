@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptSmartList do
   subject(:opt) { described_class.new(['-l', '--list ARG'], attrs) }
   let(:attrs)   { {} }

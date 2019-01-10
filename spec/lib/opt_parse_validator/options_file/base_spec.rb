@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptionsFile::Base do
   subject(:file) { described_class.new('test') }
 

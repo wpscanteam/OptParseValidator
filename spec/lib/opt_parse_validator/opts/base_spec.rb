@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptBase do
   subject(:opt) { described_class.new(option, attrs) }
   let(:option)  { %w[-v --verbose] }

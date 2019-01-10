@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptMultiChoices do
   subject(:opt) { described_class.new(['--enumerate [CHOICES]'], attrs) }
   let(:attrs) do

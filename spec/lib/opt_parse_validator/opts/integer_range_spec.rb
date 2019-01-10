@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptIntegerRange do
   subject(:opt) { described_class.new(['--range RANGE'], attrs) }
   let(:attrs)   { {} }

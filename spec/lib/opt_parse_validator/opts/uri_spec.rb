@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OptParseValidator::OptURI do
   subject(:opt) { described_class.new(['-u', '--uri URI'], attrs) }
   let(:attrs)   { {} }
