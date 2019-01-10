@@ -1,5 +1,3 @@
-# coding: utf-8
-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -22,7 +20,7 @@ Gem::Specification.new do |s|
   s.test_files            = []
   s.require_paths         = ['lib']
 
-  s.add_dependency 'activesupport', '~> 5.1.6'
+  s.add_dependency 'activesupport', '~> 5.2.0'
   s.add_dependency 'addressable',   '~> 2.5.0'
 
   s.add_development_dependency 'bundler',   '>= 1.6'
@@ -30,6 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake',      '~> 12.3'
   s.add_development_dependency 'rspec',     '~> 3.8.0'
   s.add_development_dependency 'rspec-its', '~> 1.2.0'
-  s.add_development_dependency 'rubocop',   '~> 0.61.1'
+  s.add_development_dependency 'rubocop',   '~> 0.62.0'
   s.add_development_dependency 'simplecov', '~> 0.16.1'
 end
