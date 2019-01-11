@@ -2,7 +2,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'rspec/its'
-require 'simplecov'
+require 'simplecov' # Used filters are defined in /.simplecov
 require 'opt_parse_validator'
 
 FIXTURES = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), 'fixtures')))
@@ -10,10 +10,6 @@ FIXTURES = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), 'fixt
 if ENV['TRAVIS']
   require 'coveralls'
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-end
-
-SimpleCov.start do
-  add_filter '/spec/'
 end
 
 # See http://betterspecs.org/
