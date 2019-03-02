@@ -233,7 +233,7 @@ describe OptParseValidator::OptParser do
   end
 
   describe '#load_options_files' do
-    let(:fixtures)       { FIXTURES.join('options_file') }
+    let(:fixtures)       { FIXTURES.join('config_files_loader_merger') }
     let(:default_file)   { fixtures.join('default.json') }
     let(:override_file)  { fixtures.join('override.yml') }
     let(:malformed_file) { fixtures.join('malformed.yml') }

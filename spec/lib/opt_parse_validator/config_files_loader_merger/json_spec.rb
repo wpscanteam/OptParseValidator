@@ -1,6 +1,6 @@
-describe OptParseValidator::OptionsFile::JSON do
+describe OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::JSON do
   subject(:file) { described_class.new(fixtures.join(fixture)) }
-  let(:fixtures) { FIXTURES.join('options_file') }
+  let(:fixtures) { FIXTURES.join('config_files_loader_merger') }
 
   describe '#parse' do
     # Handled in options_files_spec.rb#parse

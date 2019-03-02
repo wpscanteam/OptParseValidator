@@ -95,7 +95,7 @@ describe OptParseValidator::OptFilePath do
         let(:attrs) { { writable: true, exists: false } }
 
         context 'when the parent directory is writable' do
-          let(:file) { FIXTURES.join('options_file', 'not_there.txt').to_s }
+          let(:file) { FIXTURES.join('advanced_help', 'not_there.txt').to_s }
 
           it 'returns the path' do
             expect(opt.validate(file)).to eql file

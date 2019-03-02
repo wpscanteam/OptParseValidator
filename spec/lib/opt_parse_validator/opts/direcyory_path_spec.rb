@@ -1,7 +1,7 @@
 describe OptParseValidator::OptDirectoryPath do
   subject(:opt)  { described_class.new(['-d', '--dir DIR'], attrs) }
   let(:attrs)    { {} }
-  let(:dir_path) { FIXTURES.join('options_file').to_s }
+  let(:dir_path) { FIXTURES.join('advanced_help').to_s }
 
   its(:attrs) { should eq directory: true }
 

@@ -10,7 +10,7 @@ require 'opt_parse_validator/errors'
 require 'opt_parse_validator/hacks'
 require 'opt_parse_validator/opts'
 require 'opt_parse_validator/version'
-require 'opt_parse_validator/options_files'
+require 'opt_parse_validator/config_files_loader_merger' # Could even create a gem out of it, as completely independent
 
 # Gem namespace
 module OptParseValidator
@@ -26,9 +26,9 @@ module OptParseValidator
       super(banner, width, indent)
     end
 
-    # @return [ OptParseValidator::OptionsFiles ]
+    # @return [ OptParseValidator::ConfigFilesLoaderMerger ]
     def options_files
-      @options_files ||= OptionsFiles.new
+      @options_files ||= ConfigFilesLoaderMerger.new
     end
 
     # @param [ Array<OptBase> ] options
@@ -123,7 +123,7 @@ module OptParseValidator
 
     # @return [ Void ]
     def load_options_files
-      files_data = options_files.parse(true)
+      files_data = options_files.parse(symbolize_keys: true)
 
       @opts.each do |opt|
         next unless files_data.key?(opt.to_sym)

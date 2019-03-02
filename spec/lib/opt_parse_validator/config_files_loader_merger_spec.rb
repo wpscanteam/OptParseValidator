@@ -1,6 +1,6 @@
-describe OptParseValidator::OptionsFiles do
+describe OptParseValidator::ConfigFilesLoaderMerger do
   subject(:files)     { described_class.new }
-  let(:fixtures)      { FIXTURES.join('options_file') }
+  let(:fixtures)      { FIXTURES.join('config_files_loader_merger') }
   let(:default_file)  { fixtures.join('default.json') }
   let(:override_file) { fixtures.join('override.yml') }
 
@@ -30,8 +30,8 @@ describe OptParseValidator::OptionsFiles do
         files << default_file << override_file
 
         expect(files).to eq [
-          OptParseValidator::OptionsFile::JSON.new(default_file),
-          OptParseValidator::OptionsFile::YML.new(override_file)
+          OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::JSON.new(default_file),
+          OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::YML.new(override_file)
         ]
       end
     end
@@ -39,6 +39,7 @@ describe OptParseValidator::OptionsFiles do
 
   describe '#parse' do
     before { files << default_file << override_file }
+
     let(:expected_hash) do
       {
         'verbose' => true, 'override_me' => 'Yeaa',
@@ -50,7 +51,23 @@ describe OptParseValidator::OptionsFiles do
 
     context 'when symbolize_keys argument' do
       it 'returns the hash with the keys as symbol' do
-        expect(files.parse(true)).to eql(expected_hash.deep_symbolize_keys)
+        expect(files.parse(symbolize_keys: true)).to eql(expected_hash.deep_symbolize_keys)
+      end
+    end
+
+    context 'when YAML class not whitelisted' do
+      before { files << fixtures.join('regexp_class.yml') }
+
+      it 'raises an error' do
+        expect { files.parse }.to raise_error(Psych::DisallowedClass)
+      end
+
+      context 'when the class is whitelisted' do
+        it 'returns the regexp' do
+          results = files.parse(yaml_arguments: [[Regexp]], symbolize_keys: true)
+
+          expect(results[:pattern]).to eql(/some (regexp)/i)
+        end
       end
     end
   end

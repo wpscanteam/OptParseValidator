@@ -1,4 +1,4 @@
-describe OptParseValidator::OptionsFile::Base do
+describe OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::Base do
   subject(:file) { described_class.new('test') }
 
   describe '#parse' do
