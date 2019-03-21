@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implementation of the URL Option
   class OptURL < OptURI

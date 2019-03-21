@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptArray do
   subject(:opt) { described_class.new(['-a', '--array VALUES'], attrs) }
   let(:attrs)   { {} }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptFilePath do
   subject(:opt)   { described_class.new(['-f', '--file FILE_PATH'], attrs) }
   let(:attrs)     { {} }

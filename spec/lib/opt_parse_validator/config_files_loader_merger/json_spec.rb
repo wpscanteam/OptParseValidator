@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::JSON do
   subject(:file) { described_class.new(fixtures.join(fixture)) }
   let(:fixtures) { FIXTURES.join('config_files_loader_merger') }

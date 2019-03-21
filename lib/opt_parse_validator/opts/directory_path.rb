@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implemetantion of the DirectoryPath Option
   class OptDirectoryPath < OptPath

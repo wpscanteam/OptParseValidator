@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'config_files_loader_merger/base'
 require_relative 'config_files_loader_merger/json'
 require_relative 'config_files_loader_merger/yml'

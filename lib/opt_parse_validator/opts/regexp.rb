@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implementation of the Regexp Option
   # See http://ruby-doc.org/core-2.2.1/Regexp.html#method-c-new for expected values in :options

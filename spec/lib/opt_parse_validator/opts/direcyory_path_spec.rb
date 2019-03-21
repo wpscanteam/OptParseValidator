@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptDirectoryPath do
   subject(:opt)  { described_class.new(['-d', '--dir DIR'], attrs) }
   let(:attrs)    { {} }

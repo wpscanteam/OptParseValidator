@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Gems
 require 'addressable/uri'
 require 'active_support/inflector'

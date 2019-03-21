@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptBoolean do
   subject(:opt) { described_class.new(['-b', '--bool BOOL']) }
 

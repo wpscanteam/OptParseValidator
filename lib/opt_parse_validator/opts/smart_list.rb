@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implementation of the SmartList Option
   # Such option allow users to supply a list like

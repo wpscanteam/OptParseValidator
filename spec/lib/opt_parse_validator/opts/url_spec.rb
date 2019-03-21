@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptURL do
   subject(:opt) { described_class.new(['-u', '--url URL']) }
 

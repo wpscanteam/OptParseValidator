@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptCredentials do
   subject(:opt) { described_class.new(['-l', '--login USERNAME:PASSWORD']) }
 

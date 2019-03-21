@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implementation of the MultiChoices Option
   class OptMultiChoices < OptArray
@@ -37,7 +39,7 @@ module OptParseValidator
     end
 
     def help_message_for_default
-      msg = ''
+      msg = +''
 
       default.each do |key, value|
         msg << if value == true

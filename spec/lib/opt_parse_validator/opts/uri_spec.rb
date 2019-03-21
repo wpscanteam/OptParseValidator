@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptURI do
   subject(:opt) { described_class.new(['-u', '--uri URI'], attrs) }
   let(:attrs)   { {} }

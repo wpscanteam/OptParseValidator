@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implementation of the Integer Range Option
   class OptIntegerRange < OptBase

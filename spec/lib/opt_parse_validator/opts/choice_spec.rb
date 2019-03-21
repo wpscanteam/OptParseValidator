@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptChoice do
   subject(:opt) { described_class.new(option, attrs) }
   let(:option)  { ['-f', '--format FORMAT'] }

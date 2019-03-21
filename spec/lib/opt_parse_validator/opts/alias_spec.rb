@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptAlias do
   subject(:opt) { described_class.new(option, attrs) }
   let(:option)  { %w[-a --alias] }

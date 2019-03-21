@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptHeaders do
   subject(:opt) { described_class.new(['--headers H'], attrs) }
   let(:attrs)   { {} }

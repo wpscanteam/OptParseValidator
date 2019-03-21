@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::Base do
   subject(:file) { described_class.new('test') }
 

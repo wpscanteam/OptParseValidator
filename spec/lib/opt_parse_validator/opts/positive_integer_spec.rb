@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptPositiveInteger do
   subject(:opt) { described_class.new(['-i', '--int INT']) }
 

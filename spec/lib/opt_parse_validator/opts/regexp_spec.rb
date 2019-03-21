@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptRegexp do
   subject(:opt) { described_class.new(['-r', '--regexp STRING'], attrs) }
   let(:attrs)   { {} }

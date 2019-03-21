@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OptionParser
   # Hack to suppress the completion (expect for the -h/--help) which was leading to
   # unwanted behaviours

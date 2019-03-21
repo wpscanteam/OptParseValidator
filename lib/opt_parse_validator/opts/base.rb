@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Base Option
   # This Option should not be called, children should be used.

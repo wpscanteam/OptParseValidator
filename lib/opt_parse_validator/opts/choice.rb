@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptParseValidator
   # Implementation of the Choice Option
   class OptChoice < OptBase
@@ -23,7 +25,7 @@ module OptParseValidator
     # If :case_sensitive if false (or nil), the downcased value of the choice
     # will be returned
     def validate(value)
-      value = value.to_s
+      value = +value.to_s
 
       unless attrs[:case_sensitive]
         value.downcase!

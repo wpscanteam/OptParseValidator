@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptParser do
   subject(:parser)  { described_class.new }
   let(:verbose_opt) { OptParseValidator::OptBoolean.new(%w[-v --verbose Verbose]) }

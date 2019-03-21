@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptSmartList do
   subject(:opt) { described_class.new(['-l', '--list ARG'], attrs) }
   let(:attrs)   { {} }

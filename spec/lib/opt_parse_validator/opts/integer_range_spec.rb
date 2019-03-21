@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe OptParseValidator::OptIntegerRange do
   subject(:opt) { described_class.new(['--range RANGE'], attrs) }
   let(:attrs)   { {} }
