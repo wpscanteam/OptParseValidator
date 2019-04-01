@@ -26,6 +26,12 @@ describe OptParseValidator::OptURI do
         expect(opt.allowed_protocols).to eq attrs[:protocols]
       end
     end
+
+    context 'when uppercase protocols' do
+      let(:attrs) { { protocols: %w[ftp HTTPS] } }
+
+      its(:allowed_protocols) { should eq %w[ftp https] }
+    end
   end
 
   describe '#append_help_messages' do
@@ -37,6 +43,12 @@ describe OptParseValidator::OptURI do
       let(:attrs) { super().merge(default_protocol: 'http') }
 
       its(:help_messages) { should eql ['Default Protocol if none provided: http'] }
+
+      context 'when :default_protocol attribute is uppercase' do
+        let(:attrs) { super().merge(default_protocol: 'HTTPS') }
+
+        its(:help_messages) { should eql ['Default Protocol if none provided: https'] }
+      end
     end
 
     context 'when :allowed_protocols attribute' do
@@ -73,6 +85,12 @@ describe OptParseValidator::OptURI do
 
       it 'returns the uri string if valid' do
         expected = 'https://example.com/'
+
+        expect(opt.validate(expected)).to eq expected
+      end
+
+      it 'does not raise an error when scheme is upperacse' do
+        expected = 'HTTPS://example.com/'
 
         expect(opt.validate(expected)).to eq expected
       end

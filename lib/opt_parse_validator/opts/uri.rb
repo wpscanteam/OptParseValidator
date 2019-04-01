@@ -13,12 +13,12 @@ module OptParseValidator
 
     # @return [ Array<String> ]
     def allowed_protocols
-      @allowed_protocols ||= [*attrs[:protocols]]
+      @allowed_protocols ||= [*attrs[:protocols]].map(&:downcase)
     end
 
     # The default protocol (or scheme) to use if none was given
     def default_protocol
-      @default_protocol ||= attrs[:default_protocol]
+      @default_protocol ||= attrs[:default_protocol]&.downcase
     end
 
     # @param [ String ] value
@@ -29,7 +29,7 @@ module OptParseValidator
 
       uri = Addressable::URI.parse("#{default_protocol}://#{value}") if !uri.scheme && default_protocol
 
-      unless allowed_protocols.empty? || allowed_protocols.include?(uri.scheme)
+      unless allowed_protocols.empty? || allowed_protocols.include?(uri.scheme&.downcase)
         # For future refs: will have to check if the uri.scheme exists,
         # otherwise it means that the value was empty
         raise Addressable::URI::InvalidURIError
