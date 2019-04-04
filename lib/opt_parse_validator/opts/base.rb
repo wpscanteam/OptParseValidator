@@ -115,7 +115,7 @@ module OptParseValidator
     # @return [ String ] The raw long option (e.g: --proxy)
     def to_long
       option.each do |option_attr|
-        if option_attr =~ /^--/
+        if /^--/.match?(option_attr)
           return option_attr.gsub(/ .*$/, '')
                             .gsub(/\[[^\]]+\]/, '')
         end
