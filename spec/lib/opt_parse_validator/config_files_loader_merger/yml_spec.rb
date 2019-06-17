@@ -24,7 +24,7 @@ describe OptParseValidator::ConfigFilesLoaderMerger::ConfigFile::YML do
 
       context 'when the class is whitelisted' do
         it 'returns the regexp' do
-          result = file.parse(yaml_arguments: [[Regexp]])
+          result = file.parse(yaml_options: { permitted_classes: [Regexp] })
 
           expect(result['pattern']).to be_a Regexp
           expect(result['pattern']).to eql(/some (regexp)/i)
