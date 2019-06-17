@@ -4,6 +4,18 @@ require_relative 'config_files_loader_merger/base'
 require_relative 'config_files_loader_merger/json'
 require_relative 'config_files_loader_merger/yml'
 
+# :nocov:
+# @param [ String ] path The path of the file to load
+# @param [ Hash ] opts See https://ruby-doc.org/stdlib-2.6.3/libdoc/psych/rdoc/Psych.html#method-c-safe_load
+def yaml_safe_load(path, opts = {})
+  if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.1.0.pre1') # Ruby 2.6
+    YAML.safe_load(File.read(path), opts) || {}
+  else
+    YAML.safe_load(File.read(path), opts[:permitted_classes] || [], opts[:permitted_symbols] || [], opts[:aliases]) || {}
+  end
+end
+# :nocov:
+
 module OptParseValidator
   # Options Files container
   class ConfigFilesLoaderMerger < Array
