@@ -130,7 +130,14 @@ module OptParseValidator
       @opts.each do |opt|
         next unless files_data.key?(opt.to_sym)
 
-        @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym].to_s))
+        begin
+          @results[opt.to_sym] = opt.normalize(opt.validate(files_data[opt.to_sym].to_s))
+        rescue StandardError => e
+          # Adds the long option name to the message
+          # And raises it as an OptParseValidator::Error if not already one
+          # e.g --proxy Invalid Scheme format.
+          raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
+        end
       end
     end
 

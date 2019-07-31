@@ -286,8 +286,8 @@ describe OptParseValidator::OptParser do
         parser.add(enum_opt)
       end
 
-      it 'raises an error' do
-        expect { parser.results([]) }.to raise_error(OptParseValidator::Error, 'Unknown choice: true')
+      it 'raises an error with the option.to_long as a prefix' do
+        expect { parser.results([]) }.to raise_error(OptParseValidator::Error, '--enum Unknown choice: true')
       end
     end
   end
