@@ -94,7 +94,7 @@ module OptParseValidator
     # @return [ Array ]
     def value_from_pattern(item)
       choices.each do |key, opt|
-        next unless item =~ /\A#{key.to_s}(.*)\z/
+        next unless item =~ /\A#{key}(.*)\z/
 
         return [opt, Regexp.last_match[1]]
       end
