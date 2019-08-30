@@ -29,8 +29,8 @@ module OptParseValidator
     end
 
     # @return [ OptParseValidator::ConfigFilesLoaderMerger ]
-    def options_files
-      @options_files ||= ConfigFilesLoaderMerger.new
+    def config_files
+      @config_files ||= ConfigFilesLoaderMerger.new
     end
 
     # @param [ Array<OptBase> ] options
@@ -56,7 +56,7 @@ module OptParseValidator
 
     # @return [ Hash ]
     def results(argv = default_argv)
-      load_options_files
+      load_config_files
       parse!(argv)
       post_processing
 
@@ -124,8 +124,8 @@ module OptParseValidator
     end
 
     # @return [ Void ]
-    def load_options_files
-      files_data = options_files.parse(symbolize_keys: true)
+    def load_config_files
+      files_data = config_files.parse(symbolize_keys: true)
 
       @opts.each do |opt|
         next unless files_data.key?(opt.to_sym)

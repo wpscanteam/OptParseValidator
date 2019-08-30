@@ -234,7 +234,7 @@ describe OptParseValidator::OptParser do
     end
   end
 
-  describe '#load_options_files' do
+  describe '#load_config_files' do
     let(:fixtures)       { FIXTURES.join('config_files_loader_merger') }
     let(:default_file)   { fixtures.join('default.json') }
     let(:override_file)  { fixtures.join('override.yml') }
@@ -244,12 +244,12 @@ describe OptParseValidator::OptParser do
     let(:expected)       { { verbose: true, override_me: :Yeaa } }
 
     before do
-      parser.options_files << default_file << override_file
+      parser.config_files << default_file << override_file
       parser.add(*opts)
     end
 
     context 'when the file is malformed' do
-      before { parser.options_files << malformed_file }
+      before { parser.config_files << malformed_file }
 
       it 'raises an OptParseValidator::Error' do
         expect { parser.results([]) }.to raise_error OptParseValidator::Error
@@ -282,7 +282,7 @@ describe OptParseValidator::OptParser do
       end
 
       before do
-        parser.options_files << enum_file
+        parser.config_files << enum_file
         parser.add(enum_opt)
       end
 
