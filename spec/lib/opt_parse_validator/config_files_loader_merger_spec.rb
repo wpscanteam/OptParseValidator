@@ -10,6 +10,10 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
     its(:supported_extensions) { %w[json yml] }
   end
 
+  describe '#result_key' do
+    its(:result_key) { should be_nil }
+  end
+
   describe '#<<' do
     context 'when the file does not exist' do
       it 'returns self' do
@@ -70,6 +74,20 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
 
           expect(results[:pattern]).to eql(/some (regexp)/i)
         end
+      end
+    end
+
+    context 'when result_key set' do
+      before { files.result_key = 'cli_options' }
+
+      context 'when result_key not in the results' do
+        its(:parse) { should eql({}) }
+      end
+
+      context 'when result_key in the results' do
+        before { files << fixtures.join('result_key.yml') }
+
+        its(:parse) { should eql('verbose' => false, 'hello' => 'something') }
       end
     end
   end

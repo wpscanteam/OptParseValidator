@@ -29,6 +29,8 @@ module OptParseValidator
       extensions.map { |sym| sym.to_s.downcase }
     end
 
+    attr_accessor :result_key
+
     # @param [ String ] file_path
     #
     # @return [ Self ]
@@ -50,7 +52,9 @@ module OptParseValidator
     def parse(opts = {})
       result = {}
 
-      each { |option_file| result.deep_merge!(option_file.parse(opts)) }
+      each { |config_file| result.deep_merge!(config_file.parse(opts)) }
+
+      result = result.dig(result_key) || {} if result_key
 
       opts[:symbolize_keys] ? result.deep_symbolize_keys : result
     end
