@@ -6,12 +6,11 @@ require_relative 'config_files_loader_merger/yml'
 
 # :nocov:
 # @param [ String ] path The path of the file to load
-# @param [ Hash ] opts See https://ruby-doc.org/stdlib-2.6.3/libdoc/psych/rdoc/Psych.html#method-c-safe_load
-def yaml_safe_load(path, opts = {})
+def yaml_safe_load(path)
   if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.1.0.pre1') # Ruby 2.6
-    YAML.safe_load(File.read(path), opts) || {}
+    YAML.safe_load(File.read(path), permitted_classes: [Regexp]) || {}
   else
-    YAML.safe_load(File.read(path), opts[:permitted_classes] || [], opts[:permitted_symbols] || [], opts[:aliases]) || {}
+    YAML.safe_load(File.read(path), [Regexp]) || {}
   end
 end
 # :nocov:
@@ -45,13 +44,12 @@ module OptParseValidator
     end
 
     # @params [ Hash ] opts
-    # @option opts [ Array ] :yaml_arguments See https://ruby-doc.org/stdlib-2.3.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load
     #
     # @return [ Hash ]
-    def parse(opts = {})
+    def parse
       result = {}
 
-      each { |config_file| result.deep_merge!(config_file.parse(opts)) }
+      each { |config_file| result.deep_merge!(config_file.parse) }
 
       result = result.dig(result_key) || {} if result_key
 

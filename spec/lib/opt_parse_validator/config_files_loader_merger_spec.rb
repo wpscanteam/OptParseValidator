@@ -55,26 +55,10 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
 
     its(:parse) { should eql(expected_hash) }
 
-    context 'when symbolize_keys argument' do
-      it 'returns the hash with the keys as symbol' do
-        expect(files.parse).to eql expected_hash
-      end
-    end
-
-    context 'when YAML class not whitelisted' do
+    context 'when YAML class contains a regexp' do
       before { files << fixtures.join('regexp_class.yml') }
 
-      it 'raises an error' do
-        expect { files.parse }.to raise_error(Psych::DisallowedClass)
-      end
-
-      context 'when the class is whitelisted' do
-        it 'returns the regexp' do
-          results = files.parse(yaml_options: { permitted_classes: [Regexp] })
-
-          expect(results[:pattern]).to eql(/some (regexp)/i)
-        end
-      end
+      its(:parse) { should include(pattern: /some (regexp)/i) }
     end
 
     context 'when result_key set' do

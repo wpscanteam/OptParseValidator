@@ -12,9 +12,8 @@ module OptParseValidator
           @path = path
         end
 
-        # @params [ Hash ] opts
         # @return [ Hash ] a { 'key' => value } hash
-        def parse(_opts = {})
+        def parse
           raise NotImplementedError
         end
 
