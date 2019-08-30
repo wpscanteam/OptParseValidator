@@ -45,7 +45,6 @@ module OptParseValidator
     end
 
     # @params [ Hash ] opts
-    # @option opts [ Boolean ] :symbolize_keys Whether or not to symbolize keys in the returned hash
     # @option opts [ Array ] :yaml_arguments See https://ruby-doc.org/stdlib-2.3.1/libdoc/psych/rdoc/Psych.html#method-c-safe_load
     #
     # @return [ Hash ]
@@ -56,7 +55,7 @@ module OptParseValidator
 
       result = result.dig(result_key) || {} if result_key
 
-      opts[:symbolize_keys] ? result.deep_symbolize_keys : result
+      result.deep_symbolize_keys
     end
   end
 end

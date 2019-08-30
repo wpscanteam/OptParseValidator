@@ -48,8 +48,8 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
 
     let(:expected_hash) do
       {
-        'verbose' => true, 'override_me' => 'Yeaa',
-        'deep_merge' => { 'p1' => 'v2', 'p2' => 'v3' }
+        verbose: true, override_me: 'Yeaa',
+        deep_merge: { p1: 'v2', p2: 'v3' }
       }
     end
 
@@ -57,7 +57,7 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
 
     context 'when symbolize_keys argument' do
       it 'returns the hash with the keys as symbol' do
-        expect(files.parse(symbolize_keys: true)).to eql(expected_hash.deep_symbolize_keys)
+        expect(files.parse).to eql expected_hash
       end
     end
 
@@ -70,7 +70,7 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
 
       context 'when the class is whitelisted' do
         it 'returns the regexp' do
-          results = files.parse(yaml_options: { permitted_classes: [Regexp] }, symbolize_keys: true)
+          results = files.parse(yaml_options: { permitted_classes: [Regexp] })
 
           expect(results[:pattern]).to eql(/some (regexp)/i)
         end
@@ -87,7 +87,7 @@ describe OptParseValidator::ConfigFilesLoaderMerger do
       context 'when result_key in the results' do
         before { files << fixtures.join('result_key.yml') }
 
-        its(:parse) { should eql('verbose' => false, 'hello' => 'something') }
+        its(:parse) { should eql(verbose: false, hello: 'something') }
       end
     end
   end

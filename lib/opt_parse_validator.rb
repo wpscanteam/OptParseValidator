@@ -125,7 +125,7 @@ module OptParseValidator
 
     # @return [ Void ]
     def load_config_files
-      files_data = config_files.parse(symbolize_keys: true)
+      files_data = config_files.parse
 
       @opts.each do |opt|
         next unless files_data.key?(opt.to_sym)
