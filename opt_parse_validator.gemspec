@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_paths         = ['lib']
 
   s.add_dependency 'activesupport', '>= 4.2', '< 6.1.0'
-  s.add_dependency 'addressable',   '>= 2.5', '< 2.7'
+  s.add_dependency 'addressable',   '>= 2.5', '< 2.8'
 
   s.add_development_dependency 'bundler',             '>= 1.6'
   s.add_development_dependency 'coveralls',           '~> 0.8.0'
