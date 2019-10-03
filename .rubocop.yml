@@ -4,12 +4,12 @@ AllCops:
   Exclude:
     - '*.gemspec'
     - 'vendor/**/*'
-LineLength:
-  Max: 130
-MethodLength:
-  Max: 20
 Metrics/AbcSize:
   Max: 20
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+Metrics/LineLength:
+  Max: 130
+Metrics/MethodLength:
+  Max: 20
