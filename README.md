@@ -2,6 +2,7 @@ OptParseValidator
 =================
 
 [![Gem Version](https://badge.fury.io/rb/opt_parse_validator.svg)](https://badge.fury.io/rb/opt_parse_validator)
+![Build](https://github.com/wpscanteam/OptParseValidator/workflows/Build/badge.svg)
 [![Coverage Status](https://img.shields.io/coveralls/wpscanteam/OptParseValidator.svg)](https://coveralls.io/r/wpscanteam/OptParseValidator?branch=master)
 [![Code Climate](https://api.codeclimate.com/v1/badges/56f0307bbbda6d41b99a/maintainability)](https://codeclimate.com/github/wpscanteam/OptParseValidator/maintainability)
 
