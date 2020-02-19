@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OptionParser
-  # Hack to suppress the completion (expect for the -h/--help) which was leading to
+  # Hack to suppress the completion (except for the -h/--help) which was leading to
   # unwanted behaviours
   # See https://github.com/wpscanteam/CMSScanner/issues/2
   module Completion
