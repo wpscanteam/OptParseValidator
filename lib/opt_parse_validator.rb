@@ -108,18 +108,16 @@ module OptParseValidator
     # @return [ void ]
     def register_callback(opt)
       on(*opt.option) do |arg|
-        begin
-          if opt.alias?
-            parse!(opt.alias_for.split(' '))
-          else
-            @results[opt.to_sym] = opt.normalize(opt.validate(arg))
-          end
-        rescue StandardError => e
-          # Adds the long option name to the message
-          # And raises it as an OptParseValidator::Error if not already one
-          # e.g --proxy Invalid Scheme format.
-          raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
+        if opt.alias?
+          parse!(opt.alias_for.split(' '))
+        else
+          @results[opt.to_sym] = opt.normalize(opt.validate(arg))
         end
+      rescue StandardError => e
+        # Adds the long option name to the message
+        # And raises it as an OptParseValidator::Error if not already one
+        # e.g --proxy Invalid Scheme format.
+        raise e.is_a?(Error) ? e.class : Error, "#{opt.to_long} #{e}"
       end
     end
 
