@@ -107,7 +107,7 @@ module OptParseValidator
 
         raise Error, "Could not find option symbol for #{option}" unless long_option
 
-        @symbol = long_option.gsub(/^--/, '').tr('-', '_').to_sym
+        @symbol = long_option.delete_prefix('--').tr('-', '_').to_sym
       end
       @symbol
     end
@@ -115,7 +115,7 @@ module OptParseValidator
     # @return [ String ] The raw long option (e.g: --proxy)
     def to_long
       option.each do |option_attr|
-        if /^--/.match?(option_attr)
+        if option_attr.start_with?('--')
           return option_attr.gsub(/ .*$/, '')
                             .gsub(/\[[^\]]+\]/, '')
         end
