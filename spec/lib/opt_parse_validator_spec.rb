@@ -62,7 +62,7 @@ describe OptParseValidator::OptParser do
 
     context 'when an option is required but not supplied' do
       it 'raises an error' do
-        @exception = OptParseValidator::NoRequiredOption, 'The option url is required'
+        @exception = OptParseValidator::NoRequiredOption, 'The option --url is required'
         @argv      = %w[-v]
       end
     end
@@ -81,7 +81,7 @@ describe OptParseValidator::OptParser do
 
       context 'when none supplied' do
         it 'raises an error' do
-          @exception = OptParseValidator::NoRequiredOption, 'One of the following options is required: url, update'
+          @exception = OptParseValidator::NoRequiredOption, 'One of the following options is required: --url, --update'
           @argv      = %w[-v]
         end
       end
