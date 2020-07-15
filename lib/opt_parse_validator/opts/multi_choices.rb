@@ -104,7 +104,7 @@ module OptParseValidator
 
     # @return [ Array<Array<Symbol>> ]
     def incompatible
-      [*attrs[:incompatible]]
+      Array(attrs[:incompatible])
     end
 
     # @param [ Hash ] values

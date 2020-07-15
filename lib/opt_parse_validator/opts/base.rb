@@ -43,7 +43,7 @@ module OptParseValidator
     end
 
     def required_unless
-      @required_unless ||= [*attrs[:required_unless]]
+      @required_unless ||= Array(attrs[:required_unless])
     end
 
     # @return [ Mixed ]
@@ -91,7 +91,7 @@ module OptParseValidator
     #
     # @return [ Mixed ]
     def normalize(value)
-      [*attrs[:normalize]].each do |method|
+      Array(attrs[:normalize]).each do |method|
         next unless method.is_a?(Symbol)
 
         value = value.send(method) if value.respond_to?(method)

@@ -13,7 +13,7 @@ module OptParseValidator
 
     # @return [ Array<String> ]
     def allowed_protocols
-      @allowed_protocols ||= [*attrs[:protocols]].map(&:downcase)
+      @allowed_protocols ||= Array(attrs[:protocols]).map(&:downcase)
     end
 
     # The default protocol (or scheme) to use if none was given
