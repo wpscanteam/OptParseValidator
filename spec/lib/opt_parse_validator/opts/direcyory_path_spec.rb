@@ -16,7 +16,15 @@ describe OptParseValidator::OptDirectoryPath do
 
     context 'when it\'s not ' do
       it 'raises an error' do
-        expect { opt.validate('yolo.txt') }.to raise_error "'yolo.txt' is not a directory"
+        expect { opt.validate('yolo.txt') }.to raise_error "The path 'yolo.txt' does not exist or is not a directory"
+      end
+    end
+
+    context 'when the directory does not exist' do
+      let(:dir_path) { FIXTURES.join('aaa') }
+
+      it 'raises an error' do
+        expect { opt.validate(dir_path) }.to raise_error "The path '#{dir_path}' does not exist or is not a directory"
       end
     end
 

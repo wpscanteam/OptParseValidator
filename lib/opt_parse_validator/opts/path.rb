@@ -39,12 +39,12 @@ module OptParseValidator
 
     # @param [ Pathname ] path
     def check_file(path)
-      raise Error, "'#{path}' is not a file" unless path.file? || attrs[:exists] == false
+      raise Error, "The path '#{path}' does not exist or is not a file" unless path.file? || attrs[:exists] == false
     end
 
     # @param [ Pathname ] path
     def check_directory(path)
-      raise Error, "'#{path}' is not a directory" unless path.directory? || attrs[:exists] == false
+      raise Error, "The path '#{path}' does not exist or is not a directory" unless path.directory? || attrs[:exists] == false
     end
 
     # @param [ Pathname ] path

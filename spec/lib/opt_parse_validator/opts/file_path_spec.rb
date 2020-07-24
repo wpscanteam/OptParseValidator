@@ -8,6 +8,24 @@ describe OptParseValidator::OptFilePath do
   its(:attrs)     { should eq file: true }
 
   describe '#validate' do
+    context 'when the path does not exist' do
+      let(:file_path) { FIXTURES.join('aaa.txt') }
+
+      it 'raises an error' do
+        expect { opt.validate(file_path) }
+          .to raise_error(OptParseValidator::Error, "The path '#{file_path}' does not exist or is not a file")
+      end
+    end
+
+    context 'when the path is a directory' do
+      let(:file_path) { FIXTURES.to_s }
+
+      it 'raises an error' do
+        expect { opt.validate(file_path) }
+          .to raise_error(OptParseValidator::Error, "The path '#{file_path}' does not exist or is not a file")
+      end
+    end
+
     context 'when :extensions' do
       let(:attrs) { { extensions: 'txt' } }
 
