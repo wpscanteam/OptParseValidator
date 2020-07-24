@@ -78,7 +78,7 @@ describe OptParseValidator::OptFilePath do
       end
 
       it 'raises an error if not ' do
-        expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "'#{file_path}' is not executable")
+        expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "The path '#{file_path}' is not executable")
       end
     end
 
@@ -92,7 +92,7 @@ describe OptParseValidator::OptFilePath do
       it 'raises an error otherwise' do
         expect_any_instance_of(Pathname).to receive(:readable?).and_return(false)
 
-        expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "'#{file_path}' is not readable")
+        expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "The path '#{file_path}' is not readable")
       end
     end
 
@@ -107,7 +107,7 @@ describe OptParseValidator::OptFilePath do
         it 'raises an error otherwise' do
           expect_any_instance_of(Pathname).to receive(:writable?).and_return(false)
 
-          expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "'#{file_path}' is not writable")
+          expect { opt.validate(file_path) }.to raise_error(OptParseValidator::Error, "The path '#{file_path}' is not writable")
         end
       end
 
@@ -126,7 +126,7 @@ describe OptParseValidator::OptFilePath do
           let(:file) { FIXTURES.join('hfjhg', 'yolo.rb').to_s }
 
           it 'raises an error' do
-            expect { opt.validate(file) }.to raise_error(OptParseValidator::Error, "'#{file}' is not writable")
+            expect { opt.validate(file) }.to raise_error(OptParseValidator::Error, "The path '#{file}' is not writable")
           end
         end
       end

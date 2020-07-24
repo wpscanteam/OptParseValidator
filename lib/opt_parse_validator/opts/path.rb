@@ -49,12 +49,12 @@ module OptParseValidator
 
     # @param [ Pathname ] path
     def check_executable(path)
-      raise Error, "'#{path}' is not executable" unless path.executable?
+      raise Error, "The path '#{path}' is not executable" unless path.executable?
     end
 
     # @param [ Pathname ] path
     def check_readable(path)
-      raise Error, "'#{path}' is not readable" unless path.readable?
+      raise Error, "The path '#{path}' is not readable" unless path.readable?
     end
 
     # If the path does not exist, it will check for the parent
@@ -62,7 +62,7 @@ module OptParseValidator
     #
     # @param [ Pathname ] path
     def check_writable(path)
-      raise Error, "'#{path}' is not writable" if path.exist? && !path.writable? || !path.parent.writable?
+      raise Error, "The path '#{path}' is not writable" if path.exist? && !path.writable? || !path.parent.writable?
     end
   end
 end
