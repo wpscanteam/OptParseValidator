@@ -51,7 +51,7 @@ module OptParseValidator
 
       each { |config_file| result.deep_merge!(config_file.parse) }
 
-      result = result.dig(result_key) || {} if result_key
+      result = result[result_key] || {} if result_key
 
       result.deep_symbolize_keys
     end

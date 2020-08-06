@@ -5,5 +5,5 @@
   path file_path directory_path array integer_range multi_choices regexp headers
   smart_list alias
 ].each do |opt|
-  require 'opt_parse_validator/opts/' + opt
+  require "opt_parse_validator/opts/#{opt}"
 end
