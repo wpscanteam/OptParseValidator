@@ -109,7 +109,7 @@ module OptParseValidator
     def register_callback(opt)
       on(*opt.option) do |arg|
         if opt.alias?
-          parse!(opt.alias_for.split(' '))
+          parse!(opt.alias_for.split)
         else
           @results[opt.to_sym] = opt.normalize(opt.validate(arg))
         end
