@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.platform              = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.5'
   s.authors               = ['WPScanTeam']
-  s.email                 = ['team@wpscan.org']
+  s.email                 = ['contact@wpscan.com']
   s.summary               = 'Ruby OptionParser Validators'
   s.description           = 'Implementation of validators for the ruby OptionParser lib. ' \
                             'Mainly used in the CMSScanner gem to define the cli options available'
