@@ -9,7 +9,7 @@ AllCops:
 Layout/LineLength:
   Max: 130
 Metrics/AbcSize:
-  Max: 20
+  Max: 21
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'

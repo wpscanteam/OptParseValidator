@@ -65,6 +65,16 @@ describe OptParseValidator::OptParser do
         @exception = OptParseValidator::NoRequiredOption, 'The option --url is required'
         @argv      = %w[-v]
       end
+
+      context 'when long option' do
+        let(:url_opt) { OptParseValidator::OptURL.new(['--url-long URL'], required: true) }
+        let(:options) { [url_opt, verbose_opt] }
+
+        it 'raises an error' do
+          @exception = OptParseValidator::NoRequiredOption, 'The option --url-long is required'
+          @argv      = %w[-v]
+        end
+      end
     end
 
     context 'when the #validate raises an error' do
@@ -75,13 +85,13 @@ describe OptParseValidator::OptParser do
     end
 
     context 'when :required_unless' do
-      let(:url_opt)    { OptParseValidator::OptURL.new(['--url URL'], required_unless: :update) }
-      let(:update_opt) { OptParseValidator::OptBoolean.new(['--update'], required_unless: [:url]) }
+      let(:url_opt)    { OptParseValidator::OptURL.new(['--url URL'], required_unless: :update_long) }
+      let(:update_opt) { OptParseValidator::OptBoolean.new(['--update-long'], required_unless: [:url]) }
       let(:options)    { [url_opt, update_opt, verbose_opt] }
 
       context 'when none supplied' do
         it 'raises an error' do
-          @exception = OptParseValidator::NoRequiredOption, 'One of the following options is required: --url, --update'
+          @exception = OptParseValidator::NoRequiredOption, 'One of the following options is required: --url, --update-long'
           @argv      = %w[-v]
         end
       end
@@ -93,17 +103,17 @@ describe OptParseValidator::OptParser do
         end
       end
 
-      context 'when --update' do
+      context 'when --update-long' do
         it 'returns the expected value' do
-          @expected = { update: true }
-          @argv     = %w[--update]
+          @expected = { update_long: true }
+          @argv     = %w[--update-long]
         end
       end
 
-      context 'when --url and --update' do
+      context 'when --url and --update-long' do
         it 'returns the expected values' do
-          @expected = { url: 'http://www.g.com', update: true, verbose: true }
-          @argv     = %w[--url http://www.g.com --update -v]
+          @expected = { url: 'http://www.g.com', update_long: true, verbose: true }
+          @argv     = %w[--url http://www.g.com --update-long -v]
         end
       end
     end
