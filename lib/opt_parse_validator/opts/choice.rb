@@ -34,7 +34,7 @@ module OptParseValidator
 
       unless choices.include?(value)
         raise Error, "'#{value}' is not a valid choice, expected one " \
-          "of the followings: #{choices.join(',')}"
+                     "of the followings: #{choices.join(',')}"
       end
 
       value
