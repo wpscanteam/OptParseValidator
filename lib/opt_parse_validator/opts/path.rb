@@ -62,7 +62,7 @@ module OptParseValidator
     #
     # @param [ Pathname ] path
     def check_writable(path)
-      raise Error, "The path '#{path}' is not writable" if path.exist? && !path.writable? || !path.parent.writable?
+      raise Error, "The path '#{path}' is not writable" if (path.exist? && !path.writable?) || !path.parent.writable?
     end
   end
 end
