@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name                  = 'opt_parse_validator'
   s.version               = OptParseValidator::VERSION
   s.platform              = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.5'
+  s.required_ruby_version = '>= 2.7'
   s.authors               = ['WPScanTeam']
   s.email                 = ['contact@wpscan.com']
   s.summary               = 'Ruby OptionParser Validators'
