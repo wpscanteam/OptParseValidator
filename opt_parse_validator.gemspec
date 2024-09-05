@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.test_files            = []
   s.require_paths         = ['lib']
 
-  s.add_dependency 'activesupport', '>= 5.2', '< 6.2.0'
+  s.add_dependency 'activesupport', '>= 5.2', '< 7.3.0'
   s.add_dependency 'addressable',   '>= 2.5', '< 2.9'
 
   s.add_development_dependency 'bundler',             '>= 1.6'
