@@ -22,6 +22,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activesupport', '>= 5.2', '< 7.3.0'
   s.add_dependency 'addressable',   '>= 2.5', '< 2.9'
+  
+ # Fixes warning: ostruct was loaded from the standard library
+  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.3')
+    s.add_dependency('ostruct', '~> 0.6')
+  end
 
   s.add_development_dependency 'bundler',             '>= 1.6'
   s.add_development_dependency 'rake',                '~> 13.0'
