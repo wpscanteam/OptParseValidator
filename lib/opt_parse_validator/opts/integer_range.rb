@@ -14,7 +14,7 @@ module OptParseValidator
     #
     # @return [ Range ]
     def validate(value)
-      a = super(value).split(separator)
+      a = super.split(separator)
 
       raise Error, "Incorrect number of ranges found: #{a.size}, should be 2" unless a.size == 2
 

@@ -14,7 +14,7 @@ module OptParseValidator
     #
     # @return [ Array ]
     def validate(value)
-      super(value).split(separator)
+      super.split(separator)
     end
 
     # @return [ String ] The separator used to split the string into an array

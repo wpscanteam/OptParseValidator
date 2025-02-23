@@ -24,7 +24,7 @@ module OptParseValidator
       # Might be a better way to do this especially with a big file
       File.open(value).map(&:chomp)
     rescue Errno::ENOENT
-      super(value)
+      super
     end
   end
 end

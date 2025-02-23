@@ -15,7 +15,7 @@ module OptParseValidator
     #
     # @return [ Hash ] The parsed headers in a hash, with { 'key' => 'value' } format
     def validate(value)
-      values = super(value).chomp(';').split('; ')
+      values = super.chomp(';').split('; ')
 
       headers = {}
 

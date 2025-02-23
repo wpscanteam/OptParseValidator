@@ -7,7 +7,7 @@ module OptParseValidator
     # @param [ Hash ] attrs See OptPath#new
     # :extensions [ Array | String ] The allowed extension(s)
     def initialize(option, attrs = {})
-      super(option, attrs)
+      super
 
       @attrs.merge!(file: true)
     end
@@ -16,7 +16,7 @@ module OptParseValidator
     def check_create(path)
       return if File.exist?(path.to_s)
 
-      FileUtils.mkdir_p(path.parent.to_s) unless Dir.exist?(path.parent.to_s)
+      FileUtils.mkdir_p(path.parent.to_s)
       FileUtils.touch(path.to_s)
     end
 

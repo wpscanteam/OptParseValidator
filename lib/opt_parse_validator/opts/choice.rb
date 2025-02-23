@@ -11,7 +11,7 @@ module OptParseValidator
       raise Error, 'The :choices attribute is mandatory' unless attrs.key?(:choices)
       raise Error, 'The :choices attribute must be an array' unless attrs[:choices].is_a?(Array)
 
-      super(option, attrs)
+      super
     end
 
     # @return [ Void ]
