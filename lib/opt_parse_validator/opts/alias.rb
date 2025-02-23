@@ -6,7 +6,7 @@ module OptParseValidator
     def initialize(option, attrs = {})
       raise Error, 'The :alias_for attribute is required' unless attrs.key?(:alias_for)
 
-      super(option, attrs)
+      super
     end
 
     def append_help_messages
