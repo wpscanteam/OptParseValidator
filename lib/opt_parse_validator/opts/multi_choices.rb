@@ -76,7 +76,7 @@ module OptParseValidator
     def validate(value)
       results = {}
 
-      super(value).each do |item|
+      super.each do |item|
         opt = choices[item.to_sym]
 
         if opt
