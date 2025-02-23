@@ -8,7 +8,7 @@ module OptParseValidator
     #
     # @return [ Regexp ]
     def validate(value)
-      Regexp.new(super(value), attrs[:options])
+      Regexp.new(super, attrs[:options])
     end
   end
 end
