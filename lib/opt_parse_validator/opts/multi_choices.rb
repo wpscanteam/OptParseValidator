@@ -12,7 +12,7 @@ module OptParseValidator
       raise Error, 'The :choices attribute is mandatory' unless attrs.key?(:choices)
       raise Error, 'The :choices attribute must be a hash' unless attrs[:choices].is_a?(Hash)
 
-      super(option, attrs)
+      super
     end
 
     def append_help_messages
