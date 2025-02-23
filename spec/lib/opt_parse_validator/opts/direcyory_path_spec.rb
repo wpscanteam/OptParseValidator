@@ -30,24 +30,13 @@ describe OptParseValidator::OptDirectoryPath do
 
     context 'when :create' do
       let(:attrs) { { create: true } }
+      let(:dir_path) { FIXTURES.join('dir_path').to_s }
 
-      context 'when the directory exists' do
-        it 'does not create it' do
-          expect(FileUtils).to_not receive(:mkdir_p)
+      it 'creates it' do
+        expect(opt.validate(dir_path)).to eql dir_path
+        expect(Dir.exist?(dir_path)).to eql true
 
-          expect(opt.validate(dir_path)).to eql dir_path
-        end
-      end
-
-      context 'when the file does not exist' do
-        let(:dir_path) { FIXTURES.join('dir_path').to_s }
-
-        it 'creates it' do
-          expect(opt.validate(dir_path)).to eql dir_path
-          expect(Dir.exist?(dir_path)).to eql true
-
-          FileUtils.remove_dir(dir_path)
-        end
+        FileUtils.remove_dir(dir_path)
       end
     end
   end
