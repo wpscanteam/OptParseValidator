@@ -25,7 +25,7 @@ module OptParseValidator
       @symbols_used = []
       @opts         = []
 
-      super(banner, width, indent)
+      super
     end
 
     # @return [ OptParseValidator::ConfigFilesLoaderMerger ]
