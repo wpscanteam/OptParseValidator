@@ -7,11 +7,7 @@ require_relative 'config_files_loader_merger/yml'
 # :nocov:
 # @param [ String ] path The path of the file to load
 def yaml_safe_load(path)
-  if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.1.0.pre1') # Ruby 2.6
-    YAML.safe_load(File.read(path), permitted_classes: [Regexp]) || {}
-  else
-    YAML.safe_load(File.read(path), [Regexp]) || {}
-  end
+  YAML.safe_load_file(path, permitted_classes: [Regexp]) || {}
 end
 # :nocov:
 

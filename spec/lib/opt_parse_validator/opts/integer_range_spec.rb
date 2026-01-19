@@ -38,14 +38,14 @@ describe OptParseValidator::OptIntegerRange do
 
     context 'when a valid range' do
       it 'returns the range' do
-        expect(opt.validate('1-5')).to eql((1..5))
+        expect(opt.validate('1-5')).to eql(1..5)
       end
 
       context 'when another separator' do
         let(:attrs) { super().merge(separator: ':') }
 
         it 'returns the range' do
-          expect(opt.validate('0:10')).to eql((0..10))
+          expect(opt.validate('0:10')).to eql(0..10)
         end
       end
     end
@@ -64,7 +64,7 @@ describe OptParseValidator::OptIntegerRange do
 
         it 'returns the value_if_empty value' do
           [nil, ''].each do |value|
-            expect(opt.validate(value)).to eql((0..2))
+            expect(opt.validate(value)).to eql(0..2)
           end
         end
       end

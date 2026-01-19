@@ -134,7 +134,7 @@ module OptParseValidator
 
       return [] unless first_message_index
 
-      option[first_message_index..-1]
+      option[first_message_index..]
     end
   end
 end

@@ -80,7 +80,7 @@ module OptParseValidator
         opt = choices[item.to_sym]
 
         if opt
-          opt_value = opt.value_if_empty.nil? ? true : opt.value_if_empty
+          opt_value = opt.value_if_empty.nil? || opt.value_if_empty
         else
           opt, opt_value = value_from_pattern(item)
         end
