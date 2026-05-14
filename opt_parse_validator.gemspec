@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_paths         = ['lib']
 
   s.add_dependency 'activesupport', '>= 5.2', '< 8.1.0'
-  s.add_dependency 'addressable',   '>= 2.5', '< 2.9'
+  s.add_dependency 'addressable',   '>= 2.5', '< 2.10'
   
   # Fixes warning: ostruct was loaded from the standard library
   if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.3')
